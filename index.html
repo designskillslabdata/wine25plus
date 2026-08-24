@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f8fc" />
+    <title>WINE25 PLUS 모바일 앱 미리보기</title>
+  </head>
+  <body style="margin: 0; overflow: hidden">
+    <!--
+      IMWEB 적용 메모
+      1) data-app-src: 실제 앱 HTML 주소. 현재는 같은 폴더의 app.html을 사용합니다.
+      2) data-mobile-url: 비워두면 게시된 현재 페이지 URL이 QR에 자동 입력됩니다.
+         별도 모바일 주소를 쓰려면 https://... 형태로 입력하세요.
+    -->
+    <section
+      id="w25-imweb-demo"
+      data-app-src="./app.html"
+      data-mobile-url=""
+      aria-label="WINE25 PLUS 앱 데모"
+    >
+      <div class="w25-demo-stage">
+        <div class="w25-demo-intro" aria-hidden="true">
+          <span class="w25-demo-eyebrow">WINE25 PLUS</span>
+          <p>모바일 앱<br />인터랙션 데모</p>
+        </div>
+
+        <div class="w25-demo-device-wrap">
+          <span class="w25-demo-device-label">LIVE APP PREVIEW</span>
+          <div class="w25-demo-device">
+            <i class="w25-demo-button w25-demo-button--silent" aria-hidden="true"></i>
+            <i class="w25-demo-button w25-demo-button--volume-up" aria-hidden="true"></i>
+            <i class="w25-demo-button w25-demo-button--volume-down" aria-hidden="true"></i>
+            <i class="w25-demo-button w25-demo-button--power" aria-hidden="true"></i>
+            <div class="w25-demo-screen">
+              <iframe
+                class="w25-demo-app-frame"
+                title="WINE25 PLUS 모바일 앱"
+                loading="eager"
+                referrerpolicy="no-referrer"
+              ></iframe>
+            </div>
+          </div>
+          <p class="w25-demo-scroll-hint">
+            <span aria-hidden="true">↕</span>
+            화면 안에서 스크롤해 보세요
+          </p>
+        </div>
+
+        <aside class="w25-demo-qr-card" aria-label="모바일 접속 QR 코드">
+          <span class="w25-demo-qr-kicker">TRY ON YOUR PHONE</span>
+          <h2>휴대폰으로<br />직접 확인해 보세요</h2>
+          <p>카메라로 QR을 스캔하면<br />같은 화면이 모바일에 맞게 열립니다.</p>
+          <a class="w25-demo-qr-link" target="_blank" rel="noopener noreferrer" aria-label="모바일 데모 열기">
+            <span class="w25-demo-qr-fallback" aria-hidden="true">QR<br />CODE</span>
+            <img class="w25-demo-qr-image" alt="모바일 데모 접속 QR 코드" />
+          </a>
+          <small class="w25-demo-url-label">게시 후 주소가 자동 연결됩니다.</small>
+        </aside>
+      </div>
+    </section>
+
+    <style>
+      #w25-imweb-demo {
+        --w25-navy: #010a43;
+        --w25-blue: #0086fc;
+        --w25-paper: #f7f8fc;
+        --w25-line: #dfe3ee;
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        margin-left: calc(50% - 50vw);
+        overflow: hidden;
+        color: var(--w25-navy);
+        background:
+          radial-gradient(circle at 50% 46%, rgba(0, 134, 252, 0.07), transparent 31rem),
+          var(--w25-paper);
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+        font-synthesis: none;
+        isolation: isolate;
+      }
+
+      #w25-imweb-demo,
+      #w25-imweb-demo * {
+        box-sizing: border-box;
+      }
+
+      #w25-imweb-demo .w25-demo-stage {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        padding: 34px 42px;
+        grid-template-columns: minmax(0, 1fr) 418px minmax(0, 1fr);
+        align-items: center;
+        overflow: hidden;
+      }
+
+      #w25-imweb-demo .w25-demo-intro {
+        width: min(250px, 80%);
+        justify-self: center;
+      }
+
+      #w25-imweb-demo .w25-demo-eyebrow,
+      #w25-imweb-demo .w25-demo-qr-kicker,
+      #w25-imweb-demo .w25-demo-device-label {
+        color: var(--w25-blue);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+      }
+
+      #w25-imweb-demo .w25-demo-intro p {
+        margin: 14px 0 0;
+        color: var(--w25-navy);
+        font-size: clamp(28px, 2.4vw, 42px);
+        font-weight: 700;
+        line-height: 1.18;
+        letter-spacing: -0.045em;
+      }
+
+      #w25-imweb-demo .w25-demo-device-wrap {
+        position: relative;
+        width: 418px;
+        justify-self: center;
+      }
+
+      #w25-imweb-demo .w25-demo-device-label {
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        color: #778098;
+        transform: translateX(-50%);
+        white-space: nowrap;
+      }
+
+      #w25-imweb-demo .w25-demo-device {
+        position: relative;
+        width: 418px;
+        height: 872px;
+        padding: 12px;
+        border: 1px solid #262832;
+        border-radius: 59px;
+        background: linear-gradient(145deg, #454751 0%, #07080d 18%, #000 82%, #32343d 100%);
+        box-shadow:
+          0 44px 90px rgba(1, 10, 67, 0.19),
+          0 12px 30px rgba(1, 10, 67, 0.13),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.13);
+      }
+
+      #w25-imweb-demo .w25-demo-screen {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 48px;
+        background: #f4f5fb;
+      }
+
+      #w25-imweb-demo .w25-demo-app-frame {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #f4f5fb;
+      }
+
+      #w25-imweb-demo .w25-demo-button {
+        position: absolute;
+        z-index: -1;
+        width: 4px;
+        border-radius: 3px 0 0 3px;
+        background: #15161c;
+      }
+
+      #w25-imweb-demo .w25-demo-button--silent {
+        top: 126px;
+        left: -4px;
+        height: 31px;
+      }
+
+      #w25-imweb-demo .w25-demo-button--volume-up {
+        top: 180px;
+        left: -4px;
+        height: 62px;
+      }
+
+      #w25-imweb-demo .w25-demo-button--volume-down {
+        top: 254px;
+        left: -4px;
+        height: 62px;
+      }
+
+      #w25-imweb-demo .w25-demo-button--power {
+        top: 207px;
+        right: -4px;
+        width: 4px;
+        height: 98px;
+        border-radius: 0 3px 3px 0;
+      }
+
+      #w25-imweb-demo .w25-demo-scroll-hint {
+        display: flex;
+        margin: 15px 0 0;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        color: #778098;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      #w25-imweb-demo .w25-demo-scroll-hint span {
+        color: var(--w25-blue);
+        font-size: 16px;
+      }
+
+      #w25-imweb-demo .w25-demo-qr-card {
+        width: 244px;
+        padding: 28px;
+        justify-self: center;
+        border: 1px solid rgba(1, 10, 67, 0.08);
+        border-radius: 26px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 24px 60px rgba(1, 10, 67, 0.1);
+        backdrop-filter: blur(18px);
+      }
+
+      #w25-imweb-demo .w25-demo-qr-card h2 {
+        margin: 10px 0 9px;
+        font-size: 23px;
+        font-weight: 750;
+        line-height: 1.3;
+        letter-spacing: -0.04em;
+      }
+
+      #w25-imweb-demo .w25-demo-qr-card p {
+        margin: 0 0 20px;
+        color: #666f84;
+        font-size: 13px;
+        line-height: 1.55;
+        letter-spacing: -0.015em;
+      }
+
+      #w25-imweb-demo .w25-demo-qr-link {
+        position: relative;
+        display: grid;
+        width: 188px;
+        height: 188px;
+        padding: 8px;
+        place-items: center;
+        overflow: hidden;
+        border: 1px solid var(--w25-line);
+        border-radius: 18px;
+        background: #fff;
+      }
+
+      #w25-imweb-demo .w25-demo-qr-image {
+        position: relative;
+        z-index: 1;
+        display: block;
+        width: 172px;
+        height: 172px;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 180ms ease;
+      }
+
+      #w25-imweb-demo .w25-demo-qr-image.w25-is-loaded {
+        opacity: 1;
+      }
+
+      #w25-imweb-demo .w25-demo-qr-fallback {
+        position: absolute;
+        inset: 8px;
+        display: grid;
+        place-items: center;
+        color: #9da5b7;
+        background:
+          repeating-conic-gradient(var(--w25-navy) 0 25%, transparent 0 50%) 50% / 18px 18px;
+        font-size: 12px;
+        font-weight: 800;
+        line-height: 1.1;
+        text-align: center;
+      }
+
+      #w25-imweb-demo .w25-demo-url-label {
+        display: block;
+        margin-top: 12px;
+        overflow: hidden;
+        color: #8b93a5;
+        font-size: 10px;
+        line-height: 1.4;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      @media (min-width: 768px) and (max-height: 960px) {
+        #w25-imweb-demo .w25-demo-device-wrap {
+          transform: scale(0.92);
+        }
+      }
+
+      @media (min-width: 768px) and (max-height: 880px) {
+        #w25-imweb-demo .w25-demo-device-wrap {
+          transform: scale(0.84);
+        }
+      }
+
+      @media (min-width: 768px) and (max-height: 790px) {
+        #w25-imweb-demo .w25-demo-device-wrap {
+          transform: scale(0.75);
+        }
+      }
+
+      @media (max-width: 1100px) and (min-width: 768px) {
+        #w25-imweb-demo .w25-demo-stage {
+          padding-right: 24px;
+          padding-left: 24px;
+        }
+
+        #w25-imweb-demo .w25-demo-intro {
+          display: none;
+        }
+
+        #w25-imweb-demo .w25-demo-stage {
+          grid-template-columns: minmax(20px, 1fr) 418px minmax(260px, 1fr);
+        }
+      }
+
+      @media (max-width: 767px) {
+        #w25-imweb-demo {
+          width: 100vw;
+          height: 100vh;
+          height: 100dvh;
+          min-height: 0;
+          background: #f4f5fb;
+        }
+
+        #w25-imweb-demo .w25-demo-stage {
+          display: block;
+          width: 100%;
+          height: 100%;
+          min-height: 0;
+          padding: 0;
+        }
+
+        #w25-imweb-demo .w25-demo-intro,
+        #w25-imweb-demo .w25-demo-device-label,
+        #w25-imweb-demo .w25-demo-button,
+        #w25-imweb-demo .w25-demo-scroll-hint,
+        #w25-imweb-demo .w25-demo-qr-card {
+          display: none;
+        }
+
+        #w25-imweb-demo .w25-demo-device-wrap,
+        #w25-imweb-demo .w25-demo-device,
+        #w25-imweb-demo .w25-demo-screen {
+          width: 100%;
+          height: 100%;
+        }
+
+        #w25-imweb-demo .w25-demo-device {
+          padding: 0;
+          border: 0;
+          border-radius: 0;
+          background: #f4f5fb;
+          box-shadow: none;
+        }
+
+        #w25-imweb-demo .w25-demo-screen {
+          border-radius: 0;
+        }
+      }
+    </style>
+
+    <script>
+      (() => {
+        const w25Root = document.getElementById('w25-imweb-demo');
+        if (!w25Root || w25Root.dataset.initialized === 'true') return;
+        w25Root.dataset.initialized = 'true';
+
+        const w25Frame = w25Root.querySelector('.w25-demo-app-frame');
+        const w25QrImage = w25Root.querySelector('.w25-demo-qr-image');
+        const w25QrLink = w25Root.querySelector('.w25-demo-qr-link');
+        const w25UrlLabel = w25Root.querySelector('.w25-demo-url-label');
+        const w25AppSource = w25Root.dataset.appSrc || './app.html';
+        const w25ConfiguredMobileUrl = (w25Root.dataset.mobileUrl || '').trim();
+        const w25CurrentUrl = window.location.href.split('#')[0];
+        const w25IsLocal = /^(file:|https?:\/\/(localhost|127\.0\.0\.1))/i.test(w25CurrentUrl);
+        const w25MobileUrl = w25ConfiguredMobileUrl || (w25IsLocal ? 'https://example.imweb.me/wine25plus' : w25CurrentUrl);
+
+        w25Frame.src = w25AppSource;
+        w25QrLink.href = w25MobileUrl;
+        w25QrImage.addEventListener('load', () => w25QrImage.classList.add('w25-is-loaded'), { once: true });
+        w25QrImage.src = `https://quickchart.io/qr?text=${encodeURIComponent(w25MobileUrl)}&size=344&margin=1&dark=010A43&light=FFFFFF&ecLevel=M`;
+        w25UrlLabel.textContent = w25IsLocal && !w25ConfiguredMobileUrl
+          ? '샘플 QR · 게시 후 현재 주소로 자동 변경'
+          : w25MobileUrl.replace(/^https?:\/\//, '');
+      })();
+    </script>
+  </body>
+</html>

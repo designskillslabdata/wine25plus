@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f4f5fb" />
+    <title>WINE25 PLUS App</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="WINE25 PLUS 모바일 홈">
+      <header class="app-header">
+        <div class="status-bar" aria-label="상태 표시줄">
+          <div class="status-left">
+            <strong>9:41</strong>
+            <img src="./assets/location.svg" alt="위치 서비스 사용 중" />
+          </div>
+          <div class="dynamic-island" aria-hidden="true">
+            <img src="./assets/lens.svg" alt="" />
+          </div>
+          <div class="status-right" aria-hidden="true">
+            <img src="./assets/signal.svg" alt="" />
+            <img src="./assets/data.svg" alt="" />
+            <img class="battery" src="./assets/battery.svg" alt="" />
+          </div>
+        </div>
+
+        <nav class="main-nav" aria-label="주요 메뉴">
+          <a class="brand" href="#top" aria-label="WINE25 PLUS 홈">
+            <img class="brand-wine" src="./assets/logo-plus.svg" alt="" />
+            <img class="brand-mark" src="./assets/logo-wine.svg" alt="" />
+            <img class="brand-plus" src="./assets/logo-25.svg" alt="" />
+          </a>
+          <div class="nav-actions">
+            <button class="icon-button" type="button" data-action="search" aria-label="검색">
+              <img src="./assets/search.svg" alt="" />
+            </button>
+            <button class="icon-button cart-button" type="button" data-action="cart" aria-label="장바구니">
+              <img src="./assets/bag.svg" alt="" />
+              <span class="cart-badge">2</span>
+              <span class="cart-tooltip">공동 장바구니</span>
+            </button>
+            <button class="icon-button" type="button" data-action="profile" aria-label="내 정보">
+              <img src="./assets/profile.svg" alt="" />
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      <div id="top" class="page-content">
+        <button class="store-picker" type="button" data-action="store">
+          <span class="store-chip">픽업매장</span>
+          <strong>GS25 용산숙대점 11.8km</strong>
+          <img src="./assets/chevron.svg" alt="" />
+        </button>
+
+        <section class="hero" aria-label="이번 주 가장 빠르게 사라지는 맥주">
+          <img class="hero-image" src="./assets/hero.png" alt="블루문, 기네스, 써머스비 등 인기 맥주와 하이볼" />
+          <div class="hero-shade" aria-hidden="true"></div>
+          <span class="hero-count">5/33+</span>
+          <h1>이번 주,<br />가장 빠르게 사라지는 맥주</h1>
+        </section>
+
+        <section class="categories" aria-label="주류 카테고리">
+          <a href="#recommendations" class="category">
+            <span class="category-art"><img src="./assets/category-beer.svg" alt="" /><em>Beer</em></span>
+            <span>맥주</span>
+          </a>
+          <a href="#recommendations" class="category">
+            <span class="category-art"><img src="./assets/category-wine.svg" alt="" /><em>Wine</em></span>
+            <span>와인</span>
+          </a>
+          <a href="#recommendations" class="category">
+            <span class="category-art"><img src="./assets/category-liquor.svg" alt="" /><em>Liquor</em></span>
+            <span>양주</span>
+          </a>
+          <a href="#recommendations" class="category">
+            <span class="category-art category-art--highball"><img src="./assets/category-highball.svg" alt="" /><em>High<br />ball</em></span>
+            <span>하이볼</span>
+          </a>
+          <a href="#recommendations" class="category">
+            <span class="category-art category-art--other"><img src="./assets/category-other.svg" alt="" /></span>
+            <span>기타주류</span>
+          </a>
+        </section>
+
+        <a class="story-banner" href="#story">
+          <img src="./assets/story-banner.png" alt="" />
+          <span class="banner-copy">
+            <strong>와인? 알고 마시자!<br />술술 보는 술야기</strong>
+            <small>와인25플러스가 말아주는<br />재미있는 술이야기</small>
+          </span>
+        </a>
+
+        <section id="recommendations" class="recommendations" aria-labelledby="recommend-title">
+          <img class="recommend-bg" src="./assets/recommend-bg.png" alt="" />
+          <h2 id="recommend-title">와인25플러스가<br />추천해주는 술</h2>
+          <div class="card-scroller" tabindex="0" aria-label="추천 상품 목록">
+            <a class="recommend-card" href="#best" style="--card-image: url('./assets/card-best.png')">
+              <span class="card-title">Best 상품</span>
+              <img src="./assets/arrow-best.svg" alt="" />
+              <small>최근 판매량이 높은 순</small>
+            </a>
+            <a class="recommend-card" href="#minimal" style="--card-image: url('./assets/card-minimal.png')">
+              <span class="card-title">미니멀을 위한</span>
+              <img src="./assets/arrow-minimal.svg" alt="" />
+              <small>캔, 팩, 하프, 미니어쳐!</small>
+            </a>
+            <a class="recommend-card" href="#md" style="--card-image: url('./assets/card-md.png')">
+              <span class="card-title">MD’s Pick</span>
+              <img src="./assets/arrow-md.svg" alt="" />
+              <small>MD가 선정한 상품!</small>
+            </a>
+            <a class="recommend-card" href="#asia" style="--card-image: url('./assets/card-asia.png')">
+              <span class="card-title">방구석 동남아</span>
+              <img src="./assets/arrow-asia.svg" alt="" />
+              <small>맥주 기획전</small>
+            </a>
+          </div>
+        </section>
+
+        <a id="story" class="guide-banner" href="#guide">
+          <img src="./assets/guide-banner.png" alt="" />
+          <span class="banner-copy banner-copy--dark">
+            <strong>입점 상담 가이드<br />보러가기 GO</strong>
+            <small>와인25플러스 입점 안내</small>
+          </span>
+        </a>
+      </div>
+
+      <aside class="floating-actions" aria-label="빠른 메뉴">
+        <button type="button" data-action="home" aria-label="맨 위로">
+          <img src="./assets/floating-menu.svg" alt="" />
+        </button>
+        <button type="button" data-action="menu" aria-label="전체 메뉴">
+          <img src="./assets/floating-home.svg" alt="" />
+        </button>
+      </aside>
+
+      <div class="toast" role="status" aria-live="polite"></div>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>
