@@ -92,19 +92,22 @@ a {
 }
 
 .status-left {
-  gap: 4px;
+  gap: 2px;
 }
 
 .status-left strong {
   font-family: "SF Pro Display", -apple-system, sans-serif;
   font-size: 17px;
-  line-height: 14px;
+  line-height: 17px;
   letter-spacing: -0.5px;
 }
 
 .status-left img {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  object-fit: contain;
+  transform: translateY(-2px);
 }
 
 .dynamic-island {
@@ -182,7 +185,7 @@ a {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 7px;
 }
 
 .icon-button {
@@ -202,25 +205,19 @@ a {
   max-height: 21px;
 }
 
-.cart-badge {
-  position: absolute;
-  top: 5px;
-  right: -5px;
-  display: grid;
-  width: 14px;
-  height: 14px;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--navy-deep);
-  color: white;
-  font-size: 8px;
-  font-weight: 700;
+.joint-cart-button {
+  width: 25px;
+}
+
+.joint-cart-button > img {
+  width: 24px;
+  max-height: 23px;
 }
 
 .cart-tooltip {
   position: absolute;
-  top: 37px;
-  right: -5px;
+  top: 35px;
+  right: -10px;
   width: 80px;
   padding: 2px 7px;
   border-radius: 20px;
@@ -246,7 +243,8 @@ a {
 .page-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+  padding-top: 5px;
   padding-bottom: 28px;
 }
 
@@ -290,19 +288,33 @@ a {
   height: 10px;
 }
 
-.hero {
+.hero-carousel {
   position: relative;
   width: calc(100% - 26px);
-  height: 385px;
+  height: 386px;
   margin: 0 13px;
   overflow: hidden;
   border-radius: 14px;
   color: #fff;
+  touch-action: pan-y;
 }
 
-.hero-image {
-  position: absolute;
-  inset: 0;
+.hero-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.hero-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 0 0 100%;
+  overflow: hidden;
+}
+
+.hero-slide > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -316,14 +328,9 @@ a {
   display: none;
 }
 
-.hero-shade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 134, 252, 0) 45%, rgba(0, 134, 252, 0.45));
-}
-
 .hero-count {
   position: absolute;
+  z-index: 3;
   top: 16px;
   left: 17px;
   padding: 4px 12px;
@@ -333,8 +340,9 @@ a {
   font-weight: 600;
 }
 
-.hero h1 {
+.hero-slide h1 {
   position: absolute;
+  z-index: 2;
   bottom: 16px;
   left: 17px;
   margin: 0;
@@ -342,6 +350,46 @@ a {
   font-weight: 600;
   line-height: 1.4;
   letter-spacing: -0.025em;
+  text-shadow: 0 1px 10px rgba(1, 10, 67, 0.25);
+}
+
+.carousel-hit-area {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carousel-hit-area--prev {
+  left: 0;
+}
+
+.carousel-hit-area--next {
+  right: 0;
+}
+
+.carousel-hit-area:focus-visible {
+  outline: none;
+}
+
+.hero-carousel:has(.carousel-hit-area:focus-visible) .hero-count {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  border: 0 !important;
+  white-space: nowrap !important;
 }
 
 .categories {
@@ -407,6 +455,31 @@ a {
   margin: 0 13px;
   overflow: hidden;
   border-radius: var(--radius);
+}
+
+.drink-id-banner {
+  display: block;
+  width: calc(100% - 26px);
+  height: 128px;
+  margin: 0 13px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 14px;
+  background: var(--navy);
+  cursor: pointer;
+}
+
+.drink-id-banner img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.drink-id-banner:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
 }
 
 .story-banner > img,

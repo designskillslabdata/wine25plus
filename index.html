@@ -10,13 +10,13 @@
     <!--
       IMWEB 적용 메모
       1) data-app-src: 실제 앱 HTML 주소. 현재는 같은 폴더의 app.html을 사용합니다.
-      2) data-mobile-url: 비워두면 게시된 현재 페이지 URL이 QR에 자동 입력됩니다.
+      2) data-mobile-url: QR이 연결할 공개 모바일 주소입니다.
          별도 모바일 주소를 쓰려면 https://... 형태로 입력하세요.
     -->
     <section
       id="w25-imweb-demo"
-      data-app-src="./app.html?v=20260825b"
-      data-mobile-url=""
+      data-app-src="./app.html?v=20260825e"
+      data-mobile-url="https://designskillslabdata.github.io/wine25plus/"
       aria-label="WINE25+ PLUS 앱 데모"
     >
       <div class="w25-demo-stage">
@@ -387,12 +387,25 @@
         const w25QrLink = w25Root.querySelector('.w25-demo-qr-link');
         const w25UrlLabel = w25Root.querySelector('.w25-demo-url-label');
         const w25AppSource = w25Root.dataset.appSrc || './app.html';
+        const w25ViewportQuery = window.matchMedia('(max-width: 767px)');
         const w25ConfiguredMobileUrl = (w25Root.dataset.mobileUrl || '').trim();
         const w25CurrentUrl = window.location.href.split('#')[0];
         const w25IsLocal = /^(file:|https?:\/\/(localhost|127\.0\.0\.1))/i.test(w25CurrentUrl);
-        const w25MobileUrl = w25ConfiguredMobileUrl || (w25IsLocal ? 'https://example.imweb.me/wine25plus' : w25CurrentUrl);
+        const w25MobileUrl = w25ConfiguredMobileUrl || (w25IsLocal ? 'https://designskillslabdata.github.io/wine25plus/' : w25CurrentUrl);
 
-        w25Frame.src = w25AppSource;
+        const w25AppUrl = new URL(w25AppSource, window.location.href);
+        w25AppUrl.searchParams.set('display', w25ViewportQuery.matches ? 'mobile' : 'pc');
+
+        const w25SyncDisplayMode = () => {
+          w25Frame.contentWindow?.postMessage({
+            type: 'w25-display-mode',
+            mobile: w25ViewportQuery.matches,
+          }, '*');
+        };
+
+        w25Frame.addEventListener('load', w25SyncDisplayMode);
+        w25ViewportQuery.addEventListener?.('change', w25SyncDisplayMode);
+        w25Frame.src = w25AppUrl.href;
         w25QrLink.href = w25MobileUrl;
         w25QrImage.addEventListener('load', () => w25QrImage.classList.add('w25-is-loaded'), { once: true });
         w25QrImage.src = `https://quickchart.io/qr?text=${encodeURIComponent(w25MobileUrl)}&size=344&margin=1&dark=010A43&light=FFFFFF&ecLevel=M`;

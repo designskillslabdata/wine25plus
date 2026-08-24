@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>WINE25+ PLUS App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260825a" />
+    <link rel="stylesheet" href="./styles.css?v=20260825e" />
   </head>
   <body>
     <main class="phone-shell" aria-label="WINE25+ PLUS 모바일 홈">
@@ -35,9 +35,11 @@
             <button class="icon-button" type="button" data-action="search" aria-label="검색">
               <img src="./assets/search.svg" alt="" />
             </button>
-            <button class="icon-button cart-button" type="button" data-action="cart" aria-label="장바구니">
+            <button class="icon-button" type="button" data-action="cart" aria-label="장바구니">
               <img src="./assets/bag.svg" alt="" />
-              <span class="cart-badge">2</span>
+            </button>
+            <button class="icon-button joint-cart-button" type="button" data-action="shared-cart" aria-label="공동 장바구니">
+              <img src="./assets/cart.svg" alt="" />
               <span class="cart-tooltip">공동 장바구니</span>
             </button>
             <button class="icon-button" type="button" data-action="profile" aria-label="내 정보">
@@ -54,21 +56,39 @@
           <img src="./assets/chevron.svg" alt="" />
         </button>
 
-        <section class="hero" aria-label="이번 주 가장 빠르게 사라지는 맥주">
-          <img class="hero-image" src="./assets/hero-cropped.jpg?v=20260825b" alt="블루문, 기네스, 써머스비 등 인기 맥주와 하이볼" />
-          <div class="hero-shade" aria-hidden="true"></div>
-          <span class="hero-count">5/33+</span>
-          <h1>이번 주,<br />가장 빠르게 사라지는 맥주</h1>
+        <section class="hero-carousel" aria-label="메인 프로모션" aria-roledescription="carousel">
+          <div class="hero-track">
+            <article class="hero-slide is-active" aria-label="1 / 4">
+              <img src="./assets/carousel-main-base.jpg" alt="블루문, 기네스, 써머스비 등 인기 맥주와 하이볼" />
+              <h1>이번 주,<br />가장 빠르게 사라지는 맥주</h1>
+            </article>
+            <article class="hero-slide" aria-label="2 / 4" aria-hidden="true">
+              <img src="./assets/carousel-gift.png" alt="주류 커스텀 기프트 세트" />
+              <h1>특별한 주류 선물,<br />커스텀 기프트 세트</h1>
+            </article>
+            <article class="hero-slide" aria-label="3 / 4" aria-hidden="true">
+              <img src="./assets/carousel-card.png" alt="카드로 취향을 확인하는 술 추천" />
+              <h1>카드 한장으로 뽑는<br />오늘의 술 한 잔</h1>
+            </article>
+            <article class="hero-slide" aria-label="4 / 4" aria-hidden="true">
+              <img src="./assets/carousel-find.png" alt="와인과 어울리는 음식을 찾는 이벤트" />
+              <h1>카드 한장으로 뽑는<br />오늘의 술 한 잔</h1>
+            </article>
+          </div>
+          <span class="hero-count"><span data-carousel-current>1</span>/4+</span>
+          <button class="carousel-hit-area carousel-hit-area--prev" type="button" data-carousel-prev aria-label="이전 배너"></button>
+          <button class="carousel-hit-area carousel-hit-area--next" type="button" data-carousel-next aria-label="다음 배너"></button>
+          <span class="visually-hidden" aria-live="polite" data-carousel-live>1번째 배너</span>
         </section>
 
         <section class="categories" aria-label="주류 카테고리">
           <a href="#recommendations" class="category">
-            <span class="category-art"><img src="./assets/category-beer.svg" alt="" /><em>Beer</em></span>
-            <span>맥주</span>
+            <span class="category-art"><img src="./assets/category-beer.svg" alt="" /><em>Wine</em></span>
+            <span>와인</span>
           </a>
           <a href="#recommendations" class="category">
-            <span class="category-art"><img src="./assets/category-wine.svg" alt="" /><em>Wine</em></span>
-            <span>와인</span>
+            <span class="category-art"><img src="./assets/category-wine.svg" alt="" /><em>Beer</em></span>
+            <span>맥주</span>
           </a>
           <a href="#recommendations" class="category">
             <span class="category-art"><img src="./assets/category-liquor.svg" alt="" /><em>Liquor</em></span>
@@ -91,6 +111,10 @@
             <small>와인25플러스가 말아주는<br />재미있는 술이야기</small>
           </span>
         </a>
+
+        <button class="drink-id-banner" type="button" data-action="drink-id" aria-label="MY DRINK ID로 취향 둘러보기">
+          <img src="./assets/drink-id-banner.png" alt="술자리에서 나는 어떤 타입? MY DRINK ID로 취향 둘러보기" />
+        </button>
 
         <section id="recommendations" class="recommendations" aria-labelledby="recommend-title">
           <img class="recommend-bg" src="./assets/recommend-bg.png" alt="" />
@@ -139,6 +163,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260825a"></script>
+    <script src="./app.js?v=20260825e"></script>
   </body>
 </html>
