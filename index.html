@@ -5,20 +5,140 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f7f8fc" />
     <title>WINE25+ PLUS 모바일 앱 미리보기</title>
+    <link rel="stylesheet" href="./presentation.css?v=20260825i" />
   </head>
   <body style="margin: 0; overflow: hidden">
     <!--
       IMWEB 적용 메모
       1) data-app-src: 실제 앱 HTML 주소. 현재는 같은 폴더의 app.html을 사용합니다.
-      2) data-mobile-url: 비워두면 게시된 현재 페이지 URL이 QR에 자동 입력됩니다.
+      2) data-mobile-url: QR이 연결할 공개 모바일 주소입니다.
          별도 모바일 주소를 쓰려면 https://... 형태로 입력하세요.
     -->
     <section
       id="w25-imweb-demo"
-      data-app-src="./app.html?v=20260825b"
-      data-mobile-url=""
+      data-app-src="./app.html?v=20260825h"
+      data-mobile-url="https://designskillslabdata.github.io/wine25plus/"
       aria-label="WINE25+ PLUS 앱 데모"
     >
+      <div id="w25-presentation" class="w25-presentation" aria-label="WINE25+ PLUS 아이디어 플로우 발표">
+        <header class="w25-presentation-header">
+          <div class="w25-presentation-brand">
+            <strong>WINE25+ PLUS</strong>
+            <span>IDEA TO EXPERIENCE</span>
+          </div>
+          <div class="w25-presentation-progress" aria-live="polite">
+            <span data-presentation-step>01</span>
+            <i aria-hidden="true"></i>
+            <span data-presentation-label>APP ENTRY</span>
+          </div>
+          <div class="w25-presentation-actions">
+            <button type="button" data-presentation-restart>처음부터</button>
+            <button type="button" class="is-primary" data-presentation-live>LIVE APP</button>
+          </div>
+        </header>
+
+        <section class="w25-presentation-panel w25-presentation-intro is-active" data-presentation-panel="intro">
+          <div class="w25-intro-copy">
+            <span class="w25-kicker" data-intro-kicker>01 · APP ENTRY</span>
+            <h1 data-intro-title>우리동네GS에서<br />WINE25+를 만납니다</h1>
+            <p data-intro-description>실제 사용자가 앱을 실행하는 순서대로<br />새로운 홈 화면까지 이동합니다.</p>
+            <button class="w25-intro-next" type="button" data-intro-next>우리동네GS 열기 <span>→</span></button>
+            <small>화면을 클릭하거나 Space / → 키를 누르세요.</small>
+          </div>
+
+          <div class="w25-present-phone-wrap">
+            <span class="w25-present-phone-label" data-phone-label>STEP 01 · PHONE HOME</span>
+            <div class="w25-present-phone">
+              <div class="w25-present-screen">
+                <img class="w25-intro-image" data-intro-image src="./assets/flow/phone-entry.png" alt="아이폰 홈 화면의 우리동네GS 앱" />
+                <iframe class="w25-intro-app" data-intro-app title="WINE25+ 홈 미리보기" tabindex="-1"></iframe>
+                <button class="w25-intro-hotspot" type="button" data-intro-hotspot aria-label="우리동네GS 앱 열기"></button>
+              </div>
+            </div>
+          </div>
+
+          <ol class="w25-intro-timeline" aria-label="앱 진입 순서">
+            <li class="is-active" data-intro-dot="0"><span>01</span>폰 홈</li>
+            <li data-intro-dot="1"><span>02</span>앱 실행</li>
+            <li data-intro-dot="2"><span>03</span>우리동네GS</li>
+            <li data-intro-dot="3"><span>04</span>WINE25+ 홈</li>
+          </ol>
+        </section>
+
+        <section class="w25-presentation-panel w25-flow-panel" data-presentation-panel="flow" aria-label="아이디어 연결 플로우">
+          <div class="w25-flow-heading">
+            <span class="w25-kicker">02 · INTEGRATION MAP</span>
+            <h1>7개의 아이디어를<br />WINE25+ 홈에 연결했습니다</h1>
+            <p>왼쪽 앱을 조작하거나 오른쪽 화면에 마우스를 올려<br />각 아이디어의 진입 경로를 확인해 보세요.</p>
+            <div class="w25-flow-groups" aria-label="아이디어 그룹">
+              <button type="button" data-flow-group="utility"><i></i>상단 기능 <b>2</b></button>
+              <button type="button" data-flow-group="discovery"><i></i>탐색·개인화 <b>2</b></button>
+              <button type="button" data-flow-group="campaign"><i></i>배너·이벤트 <b>3</b></button>
+            </div>
+          </div>
+
+          <div class="w25-flow-stage" data-flow-stage>
+            <svg class="w25-flow-connector" data-flow-connector aria-hidden="true" preserveAspectRatio="none">
+              <defs>
+                <marker id="w25-flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z"></path>
+                </marker>
+              </defs>
+              <path data-flow-path marker-end="url(#w25-flow-arrow)"></path>
+            </svg>
+
+            <div class="w25-flow-phone-column">
+              <span class="w25-flow-phone-caption">LIVE WINE25+ HOME</span>
+              <div class="w25-flow-phone" data-flow-phone>
+                <iframe class="w25-flow-app" data-flow-app title="아이디어 진입점을 확인하는 WINE25+ 홈"></iframe>
+                <div class="w25-flow-result" data-flow-result hidden>
+                  <img data-flow-result-image alt="" />
+                  <button type="button" data-flow-result-close>전체 플로우로 돌아가기</button>
+                </div>
+              </div>
+              <p data-flow-phone-hint>앱 안의 버튼을 마우스로 선택해 보세요.</p>
+            </div>
+
+            <div class="w25-idea-board" data-idea-board>
+              <div class="w25-idea-grid">
+                <button class="w25-idea-card" type="button" data-idea="cellar" data-group="utility">
+                  <span class="w25-idea-number">01</span><img src="./assets/flow/cellar.png" alt="나만의 술장 화면" /><strong>나만의 술장</strong><small>프로필 아이콘</small>
+                </button>
+                <button class="w25-idea-card" type="button" data-idea="shared-cart" data-group="utility">
+                  <span class="w25-idea-number">02</span><img src="./assets/flow/shared-cart.png" alt="공동 장바구니 취향 선택 화면" /><strong>공동 장바구니</strong><small>공동 장바구니 아이콘</small>
+                </button>
+                <button class="w25-idea-card" type="button" data-idea="explore" data-group="discovery">
+                  <span class="w25-idea-number">03</span><img src="./assets/flow/explore.png" alt="주류 탐색 상품 목록 화면" /><strong>주류 탐색</strong><small>주류 카테고리</small>
+                </button>
+                <button class="w25-idea-card" type="button" data-idea="drink-id" data-group="discovery">
+                  <span class="w25-idea-number">04</span><img src="./assets/flow/drink-id.png" alt="MY DRINK ID 화면" /><strong>MY DRINK ID</strong><small>DRINK ID 배너</small>
+                </button>
+                <button class="w25-idea-card" type="button" data-idea="first-drink" data-group="campaign">
+                  <span class="w25-idea-number">05</span><img src="./assets/flow/first-drink.png" alt="인생 첫 술 커스텀 주문 화면" /><strong>인생 첫 술</strong><small>캐러셀 배너 2</small>
+                </button>
+                <button class="w25-idea-card" type="button" data-idea="liquor-card" data-group="campaign">
+                  <span class="w25-idea-number">06</span><img src="./assets/flow/liquor-card.png" alt="오늘의 술을 선택하는 주류 카드 화면" /><strong>주류 카드</strong><small>캐러셀 배너 3</small>
+                </button>
+                <button class="w25-idea-card" type="button" data-idea="pairing" data-group="campaign">
+                  <span class="w25-idea-number">07</span><img src="./assets/flow/pairing.png" alt="술과 음식 조합 찾기 이벤트 화면" /><strong>조합 찾기</strong><small>캐러셀 배너 4</small>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <footer class="w25-flow-footer">
+            <div class="w25-flow-selection">
+              <span data-flow-selection-number>SELECT</span>
+              <p><strong data-flow-selection-title>아이디어를 선택해 보세요</strong><small data-flow-selection-description>홈 화면의 진입점과 학생 아이디어가 하나의 선으로 연결됩니다.</small></p>
+            </div>
+            <div class="w25-flow-footer-actions">
+              <button type="button" data-flow-clear>전체 보기</button>
+              <button type="button" class="is-primary" data-flow-open disabled>선택 화면 보기 <span>↗</span></button>
+            </div>
+          </footer>
+        </section>
+      </div>
+
       <div class="w25-demo-stage">
         <div class="w25-demo-intro" aria-hidden="true">
           <span class="w25-demo-eyebrow">WINE25+ PLUS</span>
@@ -387,12 +507,25 @@
         const w25QrLink = w25Root.querySelector('.w25-demo-qr-link');
         const w25UrlLabel = w25Root.querySelector('.w25-demo-url-label');
         const w25AppSource = w25Root.dataset.appSrc || './app.html';
+        const w25ViewportQuery = window.matchMedia('(max-width: 767px)');
         const w25ConfiguredMobileUrl = (w25Root.dataset.mobileUrl || '').trim();
         const w25CurrentUrl = window.location.href.split('#')[0];
         const w25IsLocal = /^(file:|https?:\/\/(localhost|127\.0\.0\.1))/i.test(w25CurrentUrl);
-        const w25MobileUrl = w25ConfiguredMobileUrl || (w25IsLocal ? 'https://example.imweb.me/wine25plus' : w25CurrentUrl);
+        const w25MobileUrl = w25ConfiguredMobileUrl || (w25IsLocal ? 'https://designskillslabdata.github.io/wine25plus/' : w25CurrentUrl);
 
-        w25Frame.src = w25AppSource;
+        const w25AppUrl = new URL(w25AppSource, window.location.href);
+        w25AppUrl.searchParams.set('display', w25ViewportQuery.matches ? 'mobile' : 'pc');
+
+        const w25SyncDisplayMode = () => {
+          w25Frame.contentWindow?.postMessage({
+            type: 'w25-display-mode',
+            mobile: w25ViewportQuery.matches,
+          }, '*');
+        };
+
+        w25Frame.addEventListener('load', w25SyncDisplayMode);
+        w25ViewportQuery.addEventListener?.('change', w25SyncDisplayMode);
+        w25Frame.src = w25AppUrl.href;
         w25QrLink.href = w25MobileUrl;
         w25QrImage.addEventListener('load', () => w25QrImage.classList.add('w25-is-loaded'), { once: true });
         w25QrImage.src = `https://quickchart.io/qr?text=${encodeURIComponent(w25MobileUrl)}&size=344&margin=1&dark=010A43&light=FFFFFF&ecLevel=M`;
@@ -401,5 +534,6 @@
           : w25MobileUrl.replace(/^https?:\/\//, '');
       })();
     </script>
+    <script src="./presentation.js?v=20260825i"></script>
   </body>
 </html>
