@@ -1,3 +1,20 @@
+function syncDisplayMode() {
+  let isRealMobile = window.matchMedia('(max-width: 767px)').matches;
+
+  if (window !== window.parent) {
+    try {
+      isRealMobile = window.parent.matchMedia('(max-width: 767px)').matches;
+    } catch {
+      // Cross-origin embedding falls back to the current viewport.
+    }
+  }
+
+  document.documentElement.classList.toggle('w25-real-mobile', isRealMobile);
+}
+
+syncDisplayMode();
+window.addEventListener('resize', syncDisplayMode);
+
 const toast = document.querySelector('.toast');
 let toastTimer;
 
