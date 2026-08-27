@@ -13,9 +13,6 @@
   const introKicker = presentation.querySelector('[data-intro-kicker]');
   const introTitle = presentation.querySelector('[data-intro-title]');
   const introDescription = presentation.querySelector('[data-intro-description]');
-  const phoneLabel = presentation.querySelector('[data-phone-label]');
-  const headerStep = presentation.querySelector('[data-presentation-step]');
-  const headerLabel = presentation.querySelector('[data-presentation-label]');
   const flowStage = presentation.querySelector('[data-flow-stage]');
   const flowPhone = presentation.querySelector('[data-flow-phone]');
   const flowApp = presentation.querySelector('[data-flow-app]');
@@ -26,11 +23,6 @@
   const connectorPath = presentation.querySelector('[data-flow-path]');
   const result = presentation.querySelector('[data-flow-result]');
   const resultImage = presentation.querySelector('[data-flow-result-image]');
-  const selectionNumber = presentation.querySelector('[data-flow-selection-number]');
-  const selectionTitle = presentation.querySelector('[data-flow-selection-title]');
-  const selectionDescription = presentation.querySelector('[data-flow-selection-description]');
-  const openButton = presentation.querySelector('[data-flow-open]');
-  const clearButton = presentation.querySelector('[data-flow-clear]');
 
   const appUrl = new URL('./app.html?v=20260825h', window.location.href);
   appUrl.searchParams.set('display', 'pc');
@@ -38,28 +30,28 @@
 
   const introSteps = [
     {
-      step: '01', label: 'APP ENTRY', kicker: '01 · APP ENTRY', phoneLabel: 'STEP 01 · PHONE HOME',
-      title: '우리동네GS에서<br />WINE25+를 만납니다',
+      step: '01', label: 'APP ENTRY', kicker: '01 · APP ENTRY',
+      title: '<span class="w25-intro-title-line">우리동네GS에서</span><span class="w25-intro-title-line">WINE25+PLUS를 만납니다</span>',
       description: '실제 사용자가 앱을 실행하는 순서대로<br />새로운 홈 화면까지 이동합니다.',
       button: '우리동네GS 열기', image: './assets/flow/phone-entry.png', alt: '아이폰 홈 화면의 우리동네GS 앱', className: 'is-phone-home',
     },
     {
-      step: '02', label: 'LAUNCH', kicker: '02 · LAUNCH', phoneLabel: 'STEP 02 · APP SPLASH',
-      title: '앱이 실행되고<br />서비스로 진입합니다',
+      step: '02', label: 'LAUNCH', kicker: '02 · LAUNCH',
+      title: '<span class="w25-intro-title-line">앱이 실행되고</span><span class="w25-intro-title-line">서비스로 진입합니다</span>',
       description: '발표에서는 실제 앱을 여는 순간처럼<br />짧은 스플래시 화면을 거칩니다.',
       button: '잠시 후 자동 이동', image: './assets/flow/splash.png', alt: '우리동네GS 앱 스플래시 화면', className: 'is-splash',
     },
     {
-      step: '03', label: 'OUR GS', kicker: '03 · OUR GS', phoneLabel: 'STEP 03 · OUR GS HOME',
-      title: '우리동네GS 안에서<br />WINE25+를 선택합니다',
-      description: '기존 서비스 홈의 WINE25+ 타일이<br />학생 아이디어를 반영한 앱으로 연결됩니다.',
-      button: 'WINE25+ 들어가기', image: './assets/flow/our-gs.png', alt: '우리동네GS 홈의 WINE25+ 타일', className: 'is-our-gs',
+      step: '03', label: 'OUR GS', kicker: '03 · OUR GS',
+      title: '<span class="w25-intro-title-line">우리동네GS 안에서</span><span class="w25-intro-title-line">WINE25+PLUS를 선택합니다</span>',
+      description: '기존 서비스 홈의 WINE25+PLUS 타일이<br />학생 아이디어를 반영한 앱으로 연결됩니다.',
+      button: 'WINE25+PLUS 들어가기', image: './assets/flow/our-gs.png', alt: '우리동네GS 홈의 WINE25+PLUS 타일', className: 'is-our-gs',
     },
     {
-      step: '04', label: 'NEW HOME', kicker: '04 · NEW HOME', phoneLabel: 'STEP 04 · REDESIGNED HOME',
-      title: '7개의 아이디어가<br />하나의 홈에 연결됩니다',
+      step: '04', label: 'NEW HOME', kicker: '04 · NEW HOME',
+      title: '<span class="w25-intro-title-line">7개의 아이디어가</span><span class="w25-intro-title-line">하나의 홈에 연결됩니다</span>',
       description: '이제 실제 홈 화면의 버튼과 배너가<br />어떤 학생 아이디어로 이어지는지 살펴봅니다.',
-      button: '아이디어 연결 보기', image: '', alt: '새롭게 구성한 WINE25+ 홈 화면', className: 'is-app',
+      button: '아이디어 연결 보기', image: '', alt: '새롭게 구성한 WINE25+PLUS 홈 화면', className: 'is-app',
     },
   ];
 
@@ -150,12 +142,9 @@
     introIndex = Math.max(0, Math.min(index, introSteps.length - 1));
     const step = introSteps[introIndex];
 
-    headerStep.textContent = step.step;
-    headerLabel.textContent = step.label;
     introKicker.textContent = step.kicker;
     introTitle.innerHTML = step.title;
     introDescription.innerHTML = step.description;
-    phoneLabel.textContent = step.phoneLabel;
     introNext.innerHTML = `${step.button} <span>→</span>`;
     introImage.src = step.image || './assets/flow/phone-entry.png';
     introImage.alt = step.alt;
@@ -183,8 +172,6 @@
     clearTimeout(splashTimer);
     introPanel.classList.remove('is-active');
     flowPanel.classList.add('is-active');
-    headerStep.textContent = '05';
-    headerLabel.textContent = 'INTEGRATION MAP';
     loadAppFrame(flowApp);
     window.setTimeout(() => {
       updateAppFrameScales();
@@ -208,21 +195,6 @@
 
   function cardFor(id) {
     return ideaCards.find((card) => card.dataset.idea === id);
-  }
-
-  function updateSelectionCopy(id) {
-    const idea = ideas[id];
-    if (!idea) {
-      selectionNumber.textContent = 'SELECT';
-      selectionTitle.textContent = '아이디어를 선택해 보세요';
-      selectionDescription.textContent = '홈 화면의 진입점과 학생 아이디어가 하나의 선으로 연결됩니다.';
-      openButton.disabled = true;
-      return;
-    }
-    selectionNumber.textContent = idea.number;
-    selectionTitle.textContent = idea.title;
-    selectionDescription.textContent = idea.description;
-    openButton.disabled = false;
   }
 
   function sendFocusToApp(id) {
@@ -287,7 +259,6 @@
 
     ideaGrid.classList.add('has-selection');
     ideaCards.forEach((card) => card.classList.toggle('is-selected', card.dataset.idea === id));
-    updateSelectionCopy(id);
     if (notifyApp) sendFocusToApp(id);
     window.requestAnimationFrame(drawConnector);
     window.setTimeout(drawConnector, 140);
@@ -304,7 +275,6 @@
     ideaGrid.classList.remove('has-selection');
     ideaCards.forEach((card) => card.classList.remove('is-selected'));
     connector.classList.remove('is-visible');
-    updateSelectionCopy('');
     flowApp.contentWindow?.postMessage({ type: 'w25-flow-focus', target: '' }, '*');
   }
 
@@ -315,16 +285,6 @@
     ideaCards.forEach((card) => card.classList.toggle('is-group-muted', Boolean(activeGroup) && card.dataset.group !== activeGroup));
   }
 
-  function openSelected() {
-    const idea = ideas[selectedId || pinnedId];
-    if (!idea) return;
-    pinnedId = selectedId || pinnedId;
-    resultImage.src = idea.image;
-    resultImage.alt = `${idea.title} 학생 아이디어 화면`;
-    result.hidden = false;
-    connector.classList.remove('is-visible');
-  }
-
   introNext.addEventListener('click', advanceIntro);
   introHotspot.addEventListener('click', advanceIntro);
   presentation.querySelector('[data-presentation-restart]').addEventListener('click', restart);
@@ -333,9 +293,6 @@
     result.hidden = true;
     window.requestAnimationFrame(drawConnector);
   });
-  openButton.addEventListener('click', openSelected);
-  clearButton.addEventListener('click', () => clearSelection(false));
-
   ideaCards.forEach((card) => {
     const id = card.dataset.idea;
     card.addEventListener('mouseenter', () => applySelection(id, { notifyApp: true }));
