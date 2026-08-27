@@ -31,31 +31,12 @@
 }
 
 .w25-presentation-header {
-  position: relative;
+  position: absolute;
   z-index: 20;
-  display: grid;
-  height: 72px;
-  padding: 0 42px;
-  border-bottom: 1px solid var(--presentation-line);
-  background: rgba(255, 255, 255, 0.96);
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
+  top: 22px;
+  right: 28px;
 }
 
-.w25-presentation-brand {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-}
-
-.w25-presentation-brand strong {
-  font-size: 17px;
-  letter-spacing: -0.035em;
-}
-
-.w25-presentation-brand span,
-.w25-present-phone-label,
-.w25-flow-phone-caption,
 .w25-kicker {
   color: var(--presentation-blue);
   font-size: 10px;
@@ -63,29 +44,12 @@
   letter-spacing: 0.14em;
 }
 
-.w25-presentation-progress {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-}
-
-.w25-presentation-progress i {
-  width: 72px;
-  height: 2px;
-  background: var(--presentation-navy);
-}
-
 .w25-presentation-actions {
   display: flex;
-  justify-self: end;
   gap: 8px;
 }
 
 .w25-presentation-actions button,
-.w25-flow-footer-actions button,
 .w25-intro-next {
   height: 36px;
   padding: 0 16px;
@@ -106,7 +70,7 @@
 
 .w25-presentation-panel {
   position: absolute;
-  inset: 72px 0 0;
+  inset: 0;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -136,9 +100,14 @@
 .w25-intro-copy h1,
 .w25-flow-heading h1 {
   margin: 17px 0 16px;
-  font-size: clamp(34px, 3.2vw, 56px);
+  font-size: clamp(32px, 2.8vw, 52px);
   line-height: 1.08;
   letter-spacing: -0.06em;
+}
+
+.w25-intro-title-line {
+  display: block;
+  white-space: nowrap;
 }
 
 .w25-intro-copy p,
@@ -163,25 +132,12 @@
   margin-left: 18px;
 }
 
-.w25-intro-copy small {
-  display: block;
-  margin-top: 12px;
-  color: #979eae;
-  font-size: 10px;
-}
-
 .w25-present-phone-wrap,
 .w25-flow-phone-column {
   display: flex;
   min-height: 0;
   flex-direction: column;
   align-items: center;
-}
-
-.w25-present-phone-label,
-.w25-flow-phone-caption {
-  margin-bottom: 10px;
-  color: #747d92;
 }
 
 .w25-present-phone,
@@ -252,15 +208,19 @@
 .w25-intro-hotspot {
   position: absolute;
   z-index: 6;
-  top: 68.5%;
-  left: 8.5%;
-  width: 21%;
-  height: 12%;
+  top: 68.9%;
+  left: 9.4%;
+  width: 17%;
+  height: 7.9%;
   border: 2px solid transparent;
-  border-radius: 18px;
+  border-radius: 16px;
   background: transparent;
   cursor: pointer;
   animation: w25-hotspot 1800ms ease-in-out infinite;
+}
+
+.w25-present-screen.is-splash .w25-intro-hotspot {
+  display: none;
 }
 
 .w25-present-screen.is-our-gs .w25-intro-hotspot {
@@ -335,24 +295,29 @@
 }
 
 .w25-flow-panel {
+  --w25-flow-phone-track: minmax(250px, 0.33fr);
+  --w25-flow-board-track: minmax(680px, 1fr);
+  --w25-flow-column-gap: clamp(50px, 5vw, 92px);
   display: grid;
   position: absolute;
-  padding: 14px 42px 12px;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: 10px;
+  padding: 86px 42px 12px;
+  grid-template-columns: var(--w25-flow-phone-track) var(--w25-flow-board-track);
+  grid-template-rows: minmax(0, 1fr);
+  column-gap: var(--w25-flow-column-gap);
+  row-gap: 10px;
 }
 
 .w25-flow-heading {
   position: absolute;
   z-index: 8;
-  top: 14px;
+  top: clamp(118px, 17vh, 184px);
   right: 42px;
   left: 42px;
   display: grid;
   min-height: 32px;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: var(--w25-flow-phone-track) var(--w25-flow-board-track);
   align-items: center;
-  column-gap: 24px;
+  column-gap: var(--w25-flow-column-gap);
 }
 
 .w25-flow-heading .w25-kicker {
@@ -370,6 +335,7 @@
 .w25-flow-groups {
   display: flex;
   padding-bottom: 3px;
+  justify-self: center;
   grid-column: 2;
   grid-row: 1;
   gap: 6px;
@@ -409,14 +375,15 @@
   position: relative;
   display: grid;
   min-height: 0;
-  grid-template-columns: minmax(250px, 0.33fr) minmax(680px, 1fr);
-  gap: clamp(50px, 5vw, 92px);
+  grid-template-columns: var(--w25-flow-phone-track) var(--w25-flow-board-track);
+  column-gap: var(--w25-flow-column-gap);
   align-items: stretch;
+  grid-column: 1 / -1;
   grid-row: 1;
 }
 
 .w25-flow-phone {
-  height: calc(100% - 38px);
+  height: 100%;
   max-height: 720px;
 }
 
@@ -430,12 +397,6 @@
   display: block;
   border: 0;
   transform-origin: top left;
-}
-
-.w25-flow-phone-hint {
-  margin: 8px 0 0;
-  color: #8c94a5;
-  font-size: 10px;
 }
 
 .w25-idea-board {
@@ -552,54 +513,6 @@
 }
 .w25-flow-connector marker path { fill: var(--presentation-blue); }
 
-.w25-flow-footer {
-  display: flex;
-  min-height: 54px;
-  padding: 8px 14px 8px 18px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  border: 1px solid var(--presentation-line);
-  border-radius: 16px;
-  background: #fff;
-  grid-row: 2;
-}
-
-.w25-flow-selection {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  gap: 14px;
-}
-
-.w25-flow-selection > span {
-  min-width: 54px;
-  color: var(--presentation-blue);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-}
-
-.w25-flow-selection p {
-  display: grid;
-  margin: 0;
-  gap: 2px;
-}
-
-.w25-flow-selection strong { font-size: 13px; }
-.w25-flow-selection small { color: #7e8799; font-size: 10px; }
-
-.w25-flow-footer-actions {
-  display: flex;
-  flex: none;
-  gap: 7px;
-}
-
-.w25-flow-footer-actions button:disabled {
-  opacity: 0.32;
-  cursor: default;
-}
-
 .w25-flow-result {
   position: absolute;
   z-index: 8;
@@ -625,24 +538,23 @@
 }
 
 @media (min-width: 768px) and (max-height: 820px) {
-  .w25-presentation-header { height: 62px; }
-  .w25-presentation-panel { top: 62px; }
   .w25-presentation-intro { padding-top: 20px; padding-bottom: 20px; }
-  .w25-flow-panel { padding-top: 10px; padding-bottom: 9px; gap: 8px; }
-  .w25-flow-heading { top: 10px; }
-  .w25-flow-phone { height: calc(100% - 36px); max-height: 650px; }
+  .w25-flow-panel { padding-top: 72px; padding-bottom: 9px; row-gap: 8px; }
+  .w25-flow-phone { height: 100%; max-height: 650px; }
   .w25-idea-card img { height: clamp(135px, 21vh, 205px); }
-  .w25-flow-footer { min-height: 54px; }
 }
 
 @media (min-width: 768px) and (max-width: 1180px) {
-  .w25-presentation-header { padding-right: 24px; padding-left: 24px; }
+  .w25-presentation-header { top: 16px; right: 18px; }
   .w25-presentation-intro { padding-right: 34px; padding-left: 34px; grid-template-columns: minmax(220px, 0.8fr) minmax(300px, 380px) 150px; gap: 28px; }
-  .w25-flow-panel { padding-right: 24px; padding-left: 24px; }
+  .w25-flow-panel {
+    --w25-flow-phone-track: minmax(220px, 0.31fr);
+    --w25-flow-board-track: minmax(600px, 1fr);
+    --w25-flow-column-gap: 34px;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
   .w25-flow-heading { right: 24px; left: 24px; }
-  .w25-flow-heading { grid-template-columns: 1fr auto; }
-  .w25-flow-groups { grid-column: 2; }
-  .w25-flow-stage { grid-template-columns: minmax(220px, 0.31fr) minmax(600px, 1fr); gap: 34px; }
   .w25-idea-grid { gap: 10px; }
 }
 
