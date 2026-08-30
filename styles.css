@@ -297,6 +297,12 @@ a {
   border-radius: 14px;
   color: #fff;
   touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.hero-carousel.is-dragging {
+  cursor: grabbing;
 }
 
 .hero-track {
@@ -358,7 +364,7 @@ a {
   z-index: 4;
   top: 0;
   bottom: 0;
-  width: 50%;
+  width: 27%;
   padding: 0;
   border: 0;
   background: transparent;
@@ -756,7 +762,8 @@ a {
 }
 
 .product-detail[hidden],
-.pairing-modal[hidden] {
+.pairing-modal[hidden],
+.result-share-modal[hidden] {
   display: none;
 }
 
@@ -3701,7 +3708,10 @@ a {
 .carousel-card-entry {
   position: absolute;
   z-index: 7;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 27%;
+  width: 46%;
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -3883,6 +3893,7 @@ a {
 }
 
 .card-arc-stage.is-dragging { cursor: grabbing; }
+.card-arc-stage.is-coasting { cursor: grab; }
 .card-arc-stage:focus-visible { outline: 3px solid rgba(10, 130, 255, 0.3); outline-offset: -3px; }
 .card-wheel-pointer {
   position: absolute;
@@ -4092,6 +4103,202 @@ a {
 
 .card-pick-reset { position: absolute; z-index: 7; top: 613px; left: 50%; padding: 8px 12px; border: 0; color: #565656; background: transparent; font-size: 14px; font-weight: 500; transform: translateX(-50%); cursor: pointer; white-space: nowrap; }
 .card-pick-reveal .card-pick-primary { bottom: 31px; }
+
+.result-share-modal {
+  position: fixed;
+  z-index: 90;
+  top: 0;
+  right: 50%;
+  bottom: 0;
+  width: min(100%, 390px);
+  transform: translateX(50%);
+}
+
+.result-share-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: rgba(3, 8, 39, 0.54);
+  backdrop-filter: blur(2px);
+}
+
+.result-share-sheet {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 352px;
+  padding: 26px 20px max(25px, env(safe-area-inset-bottom));
+  border-radius: 28px 28px 0 0;
+  color: #080d3d;
+  background: #fff;
+  box-shadow: 0 -16px 45px rgba(3, 8, 39, 0.22);
+  animation: result-share-rise 280ms cubic-bezier(.2, .78, .2, 1);
+}
+
+@keyframes result-share-rise {
+  from { transform: translateY(28px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.result-share-handle {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 38px;
+  height: 4px;
+  border-radius: 99px;
+  background: #d9dce5;
+  transform: translateX(-50%);
+}
+
+.result-share-close {
+  position: absolute;
+  top: 21px;
+  right: 19px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #5d6275;
+  background: #f2f3f7;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.result-share-sheet h2 {
+  margin: 8px 40px 0 0;
+  font-size: 23px;
+  line-height: 1.3;
+  letter-spacing: -.04em;
+}
+
+.result-share-sheet > p:not(.result-share-status) {
+  margin: 7px 0 0;
+  color: #777c8e;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.result-share-sheet > p strong { color: #225cf4; }
+
+.result-share-quick {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 21px;
+}
+
+.result-share-quick > button {
+  display: grid;
+  min-height: 112px;
+  padding: 13px 10px 11px;
+  place-items: center;
+  border: 0;
+  border-radius: 17px;
+  color: #111633;
+  background: #f6f7fb;
+  cursor: pointer;
+}
+
+.share-quick-icon {
+  position: relative;
+  display: block;
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+}
+
+.share-quick-icon--talk { background: #fee500; }
+.share-quick-icon--talk i {
+  position: absolute;
+  top: 15px;
+  left: 12px;
+  width: 28px;
+  height: 21px;
+  border-radius: 50%;
+  background: #191919;
+}
+.share-quick-icon--talk i::after {
+  position: absolute;
+  bottom: -3px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  background: #191919;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  content: "";
+}
+
+.share-quick-icon--copy { background: #2e64f5; }
+.share-quick-icon--copy i,
+.share-quick-icon--copy i::after {
+  position: absolute;
+  width: 20px;
+  height: 24px;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  content: "";
+}
+.share-quick-icon--copy i { top: 13px; left: 18px; }
+.share-quick-icon--copy i::after { top: -6px; left: -8px; background: #2e64f5; }
+
+.result-share-quick b,
+.result-share-quick small { display: block; }
+.result-share-quick b { margin-top: 7px; font-size: 14px; }
+.result-share-quick small { margin-top: 1px; color: #8c91a2; font-size: 11px; }
+
+.result-share-link {
+  display: flex;
+  height: 48px;
+  margin-top: 14px;
+  padding: 5px 5px 5px 14px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e3e6ee;
+  border-radius: 13px;
+  background: #fafbfe;
+}
+
+.result-share-link span {
+  min-width: 0;
+  overflow: hidden;
+  flex: 1;
+  color: #73798c;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.result-share-link button {
+  height: 36px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 9px;
+  color: #fff;
+  background: #080d46;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.result-share-status {
+  min-height: 18px;
+  margin: 8px 0 0;
+  color: #225cf4;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
 
 .w25-real-mobile .phone-shell.is-card-pick-view .app-header { height: 0; }
 .w25-real-mobile .card-pick-page,

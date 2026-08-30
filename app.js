@@ -189,6 +189,10 @@ const resultFront = document.querySelector('.result-card-front');
 const resultBack = document.querySelector('.result-card-back');
 const resultTitle = document.querySelector('[data-result-title]');
 const resultTagline = document.querySelector('[data-result-tagline]');
+const resultShareModal = document.querySelector('[data-result-share-modal]');
+const resultShareCardTitle = document.querySelector('[data-share-card-title]');
+const resultShareUrl = document.querySelector('[data-result-share-url]');
+const resultShareStatus = document.querySelector('[data-result-share-status]');
 let activeDetail = null;
 let surveyIndex = 0;
 let surveyAnswers = [];
@@ -205,6 +209,10 @@ let cardPointerStartX = 0;
 let cardPointerMoved = false;
 let cardPointerCardIndex = null;
 let suppressCardClick = false;
+let cardLastPointerX = 0;
+let cardLastPointerTime = 0;
+let cardVelocityX = 0;
+let cardInertiaFrame = null;
 
 const cardCategoryLabels = {
   movie: '영화',
@@ -326,7 +334,7 @@ function wrapCardIndex(index) {
 
 function shortestCardOffset(index, position = cardWheelPosition) {
   const count = cardPickCards.length;
-  let offset = (index - position + count) % count;
+  let offset = (((index - position) % count) + count) % count;
   if (offset > count / 2) offset -= count;
   return offset;
 }
@@ -479,6 +487,57 @@ function formatOldPrice(price) {
 function closePairingModal() {
   if (!pairingModal) return;
   pairingModal.hidden = true;
+}
+
+function getResultShareData() {
+  const cardIndex = selectedCardIndex ?? activeCardIndex;
+  const card = cardPickCards[cardIndex];
+  const shareUrl = new URL(window.location.href);
+  shareUrl.searchParams.delete('display');
+  shareUrl.searchParams.delete('presentation');
+  shareUrl.searchParams.delete('test');
+  shareUrl.searchParams.set('resultCard', String(cardIndex));
+  shareUrl.hash = '#card-pick/reveal';
+  return {
+    title: 'WINE25+ PLUS 오늘의 술',
+    text: `${card.title} 카드가 추천한 오늘의 술은 디아블로 까베르네 소비뇽이에요.`,
+    url: shareUrl.href,
+    card,
+  };
+}
+
+function closeResultShareModal() {
+  if (!resultShareModal) return;
+  resultShareModal.hidden = true;
+  resultShareStatus.textContent = '';
+}
+
+function openResultShareModal() {
+  if (!resultShareModal) return;
+  const shareData = getResultShareData();
+  resultShareCardTitle.textContent = shareData.card.title;
+  resultShareUrl.textContent = shareData.url;
+  resultShareStatus.textContent = '';
+  resultShareModal.hidden = false;
+  resultShareModal.querySelector('[data-result-share-action="native"]')?.focus();
+}
+
+async function copyShareText(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.append(textarea);
+  textarea.select();
+  const copied = document.execCommand('copy');
+  textarea.remove();
+  if (!copied) throw new Error('copy-failed');
 }
 
 function renderPairings(profile) {
@@ -749,6 +808,15 @@ function renderSharedCartScreen(screen) {
 function syncViewFromHash() {
   const cardPickMatch = window.location.hash.match(/^#card-pick\/(category|cards|reveal)$/);
   if (cardPickMatch) {
+    if (cardPickMatch[1] === 'reveal') {
+      const sharedCardValue = new URLSearchParams(window.location.search).get('resultCard');
+      const sharedCardIndex = Number(sharedCardValue);
+      if (sharedCardValue !== null && Number.isInteger(sharedCardIndex) && cardPickCards[sharedCardIndex]) {
+        selectedCardIndex = sharedCardIndex;
+        activeCardIndex = sharedCardIndex;
+        cardWheelPosition = sharedCardIndex;
+      }
+    }
     renderCardPickScreen(cardPickMatch[1]);
     return;
   }
@@ -823,10 +891,60 @@ cardArc?.addEventListener('click', (event) => {
   selectWheelCard(Number(cardButton.dataset.cardIndex));
 });
 
+function settleCardWheel(animate = true) {
+  cardWheelPosition = Math.round(cardWheelPosition);
+  activeCardIndex = wrapCardIndex(cardWheelPosition);
+  selectedCardIndex = null;
+  renderCardArc(animate);
+}
+
+function startCardInertia(pointerVelocityX) {
+  const startPosition = cardWheelPosition;
+  const wheelVelocity = -pointerVelocityX / 92;
+  const travel = Math.max(-1.65, Math.min(1.65, wheelVelocity * 170));
+
+  if (Math.abs(travel) < 0.12 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    settleCardWheel(true);
+    return;
+  }
+
+  const targetPosition = startPosition + travel;
+  const duration = Math.min(460, 290 + (Math.abs(travel) * 90));
+  const startedAt = performance.now();
+  cardArcStage?.classList.add('is-coasting');
+
+  function coastFrame(now) {
+    const progress = Math.min(1, (now - startedAt) / duration);
+    const eased = 1 - ((1 - progress) ** 3);
+    cardWheelPosition = startPosition + ((targetPosition - startPosition) * eased);
+    activeCardIndex = wrapCardIndex(Math.round(cardWheelPosition));
+    renderCardArc(false);
+
+    if (progress < 1) {
+      cardInertiaFrame = requestAnimationFrame(coastFrame);
+      return;
+    }
+
+    cardInertiaFrame = null;
+    cardArcStage?.classList.remove('is-coasting');
+    settleCardWheel(true);
+  }
+
+  cardInertiaFrame = requestAnimationFrame(coastFrame);
+}
+
 cardArcStage?.addEventListener('pointerdown', (event) => {
+  if (cardInertiaFrame !== null) {
+    cancelAnimationFrame(cardInertiaFrame);
+    cardInertiaFrame = null;
+  }
+  cardArcStage.classList.remove('is-coasting');
   cardPointerStartX = event.clientX;
   cardDragStartPosition = cardWheelPosition;
   cardPointerMoved = false;
+  cardLastPointerX = event.clientX;
+  cardLastPointerTime = performance.now();
+  cardVelocityX = 0;
   const pressedCard = event.target.closest('[data-card-index]');
   cardPointerCardIndex = pressedCard ? Number(pressedCard.dataset.cardIndex) : null;
   selectedCardIndex = null;
@@ -836,6 +954,12 @@ cardArcStage?.addEventListener('pointerdown', (event) => {
 
 cardArcStage?.addEventListener('pointermove', (event) => {
   if (!cardArcStage.classList.contains('is-dragging')) return;
+  const now = performance.now();
+  const elapsed = Math.max(1, now - cardLastPointerTime);
+  const instantVelocity = (event.clientX - cardLastPointerX) / elapsed;
+  cardVelocityX = (cardVelocityX * 0.58) + (instantVelocity * 0.42);
+  cardLastPointerX = event.clientX;
+  cardLastPointerTime = now;
   const totalDelta = event.clientX - cardPointerStartX;
   if (Math.abs(totalDelta) > 8) cardPointerMoved = true;
   cardWheelPosition = cardDragStartPosition - (totalDelta / 92);
@@ -848,10 +972,11 @@ function finishCardDrag(event) {
   cardArcStage.classList.remove('is-dragging');
   cardArcStage.releasePointerCapture?.(event.pointerId);
   if (cardPointerMoved) {
-    cardWheelPosition = Math.round(cardWheelPosition);
-    activeCardIndex = wrapCardIndex(cardWheelPosition);
-    selectedCardIndex = null;
-    renderCardArc(true);
+    const idleTime = Math.max(0, performance.now() - cardLastPointerTime);
+    const releaseVelocity = event.type === 'pointercancel'
+      ? 0
+      : cardVelocityX * Math.max(0, 1 - (idleTime / 120));
+    startCardInertia(releaseVelocity);
   } else if (cardPointerCardIndex !== null) {
     selectWheelCard(cardPointerCardIndex);
     suppressCardClick = true;
@@ -879,22 +1004,38 @@ resultFlipScene?.addEventListener('click', () => {
   resultFlipScene.setAttribute('aria-label', flipped ? '카드 앞면 다시 보기' : '카드를 뒤집어 오늘의 술 확인하기');
 });
 
-document.querySelector('[data-card-share]')?.addEventListener('click', async () => {
-  const card = cardPickCards[selectedCardIndex ?? activeCardIndex];
-  const shareData = {
-    title: 'WINE25+ PLUS 오늘의 술',
-    text: `${card.title} 카드가 추천한 오늘의 술은 디아블로 까베르네 소비뇽이에요.`,
-    url: window.location.href,
-  };
+document.querySelector('[data-card-share]')?.addEventListener('click', openResultShareModal);
+
+document.querySelectorAll('[data-close-result-share]').forEach((button) => {
+  button.addEventListener('click', closeResultShareModal);
+});
+
+document.querySelectorAll('[data-result-share-action]').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const shareData = getResultShareData();
+    const action = button.dataset.resultShareAction;
+    resultShareStatus.textContent = '';
+
   try {
-    if (navigator.share) await navigator.share(shareData);
-    else {
-      await navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`);
-      showToast('결과 링크를 복사했어요.');
+      if (action === 'native') {
+        if (navigator.share) {
+          await navigator.share({ title: shareData.title, text: shareData.text, url: shareData.url });
+          closeResultShareModal();
+        } else {
+          await copyShareText(`${shareData.text}\n${shareData.url}`);
+          resultShareStatus.textContent = '공유 문구를 복사했어요. 카카오톡 등에 붙여넣어 주세요.';
+        }
+      } else if (action === 'copy-result') {
+        await copyShareText(`${shareData.text}\n${shareData.url}`);
+        resultShareStatus.textContent = '결과 문구와 링크를 복사했어요.';
+      } else if (action === 'copy-link') {
+        await copyShareText(shareData.url);
+        resultShareStatus.textContent = '링크를 복사했어요.';
+      }
+    } catch (error) {
+      if (error?.name !== 'AbortError') resultShareStatus.textContent = '공유하지 못했어요. 다시 시도해 주세요.';
     }
-  } catch (error) {
-    if (error?.name !== 'AbortError') showToast('공유 기능을 사용할 수 없어요.');
-  }
+  });
 });
 
 document.querySelectorAll('[data-route-back]').forEach((button) => {
@@ -1030,6 +1171,11 @@ pairingTrigger?.addEventListener('click', () => {
 
 document.querySelectorAll('[data-close-pairing]').forEach((button) => button.addEventListener('click', closePairingModal));
 document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !resultShareModal.hidden) {
+    closeResultShareModal();
+    document.querySelector('[data-card-share]')?.focus();
+    return;
+  }
   if (event.key === 'Escape' && !pairingModal.hidden) {
     closePairingModal();
     pairingTrigger?.focus();
@@ -1060,8 +1206,11 @@ if (carousel) {
   let isMoving = false;
   let autoplayTimer;
   let transitionFallback;
-  let touchStartX = 0;
-  let touchDidSwipe = false;
+  let dragPointerId = null;
+  let dragStartX = 0;
+  let dragDeltaX = 0;
+  let pointerDidDrag = false;
+  let suppressCarouselClick = false;
 
   function setTrackPosition(position, animate = true) {
     if (!animate) track.style.transition = 'none';
@@ -1139,27 +1288,75 @@ if (carousel) {
   });
 
   previousButton.addEventListener('click', () => {
-    if (!touchDidSwipe) moveCarousel(-1);
+    if (!suppressCarouselClick) moveCarousel(-1);
   });
 
   nextButton.addEventListener('click', () => {
-    if (!touchDidSwipe) moveCarousel(1);
+    if (!suppressCarouselClick) moveCarousel(1);
   });
 
-  carousel.addEventListener('touchstart', (event) => {
-    touchStartX = event.changedTouches[0].clientX;
-  }, { passive: true });
+  carousel.addEventListener('click', (event) => {
+    if (!suppressCarouselClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
 
-  carousel.addEventListener('touchend', (event) => {
-    const deltaX = event.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(deltaX) < 40) return;
+  carousel.addEventListener('pointerdown', (event) => {
+    if (isMoving || (event.pointerType === 'mouse' && event.button !== 0)) return;
 
-    touchDidSwipe = true;
-    moveCarousel(deltaX > 0 ? -1 : 1);
-    setTimeout(() => {
-      touchDidSwipe = false;
-    }, 350);
-  }, { passive: true });
+    dragPointerId = event.pointerId;
+    dragStartX = event.clientX;
+    dragDeltaX = 0;
+    pointerDidDrag = false;
+    clearInterval(autoplayTimer);
+  });
+
+  carousel.addEventListener('pointermove', (event) => {
+    if (event.pointerId !== dragPointerId) return;
+
+    dragDeltaX = event.clientX - dragStartX;
+    if (!pointerDidDrag && Math.abs(dragDeltaX) < 6) return;
+
+    if (!pointerDidDrag) carousel.setPointerCapture?.(event.pointerId);
+    pointerDidDrag = true;
+    carousel.classList.add('is-dragging');
+    track.style.transition = 'none';
+    track.style.transform = `translateX(calc(-${trackPosition * 100}% + ${dragDeltaX}px))`;
+    event.preventDefault();
+  });
+
+  function finishCarouselDrag(event) {
+    if (event.pointerId !== dragPointerId) return;
+
+    if (carousel.hasPointerCapture?.(event.pointerId)) {
+      carousel.releasePointerCapture(event.pointerId);
+    }
+    dragPointerId = null;
+    carousel.classList.remove('is-dragging');
+    track.style.transition = '';
+
+    if (!pointerDidDrag) {
+      startAutoplay();
+      return;
+    }
+
+    suppressCarouselClick = true;
+    const swipeThreshold = Math.min(52, carousel.clientWidth * 0.14);
+    if (Math.abs(dragDeltaX) >= swipeThreshold) {
+      moveCarousel(dragDeltaX > 0 ? -1 : 1);
+    } else {
+      setTrackPosition(trackPosition);
+      startAutoplay();
+    }
+
+    window.setTimeout(() => {
+      suppressCarouselClick = false;
+      pointerDidDrag = false;
+    }, 360);
+  }
+
+  carousel.addEventListener('pointerup', finishCarouselDrag);
+  carousel.addEventListener('pointercancel', finishCarouselDrag);
 
   carousel.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
   carousel.addEventListener('mouseleave', startAutoplay);

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>WINE25+ PLUS App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260830n" />
+    <link rel="stylesheet" href="./styles.css?v=20260831e" />
   </head>
   <body>
     <main class="phone-shell" aria-label="WINE25+ PLUS 모바일 홈">
@@ -78,7 +78,7 @@
           <span class="hero-count"><span data-carousel-current>1</span>/4+</span>
           <button class="carousel-hit-area carousel-hit-area--prev" type="button" data-carousel-prev aria-label="이전 배너"></button>
           <button class="carousel-hit-area carousel-hit-area--next" type="button" data-carousel-next aria-label="다음 배너"></button>
-          <button class="carousel-card-entry" type="button" data-action="card-pick" aria-label="카드 한 장으로 오늘의 술 뽑기" hidden></button>
+          <button class="carousel-card-entry" type="button" data-action="card-pick" aria-label="현재 카드 배너 확인" hidden></button>
           <span class="visually-hidden" aria-live="polite" data-carousel-live>1번째 배너</span>
         </section>
 
@@ -616,6 +616,35 @@
         </div>
       </section>
 
+      <div class="result-share-modal" data-result-share-modal hidden>
+        <button class="result-share-backdrop" type="button" data-close-result-share aria-label="공유 팝업 닫기"></button>
+        <section class="result-share-sheet" role="dialog" aria-modal="true" aria-labelledby="result-share-title">
+          <span class="result-share-handle" aria-hidden="true"></span>
+          <button class="result-share-close" type="button" data-close-result-share aria-label="닫기">×</button>
+          <h2 id="result-share-title">친구에게 결과 공유하기</h2>
+          <p><strong data-share-card-title>Rock</strong> 카드가 추천한 오늘의 술을 공유해보세요.</p>
+
+          <div class="result-share-quick" aria-label="빠른 공유">
+            <button type="button" data-result-share-action="native">
+              <span class="share-quick-icon share-quick-icon--talk" aria-hidden="true"><i></i></span>
+              <b>카카오톡 등</b>
+              <small>앱으로 공유</small>
+            </button>
+            <button type="button" data-result-share-action="copy-result">
+              <span class="share-quick-icon share-quick-icon--copy" aria-hidden="true"><i></i></span>
+              <b>결과 복사</b>
+              <small>문구와 링크</small>
+            </button>
+          </div>
+
+          <div class="result-share-link">
+            <span data-result-share-url>공유 링크</span>
+            <button type="button" data-result-share-action="copy-link">링크 복사</button>
+          </div>
+          <p class="result-share-status" data-result-share-status role="status" aria-live="polite"></p>
+        </section>
+      </div>
+
       <div class="pairing-modal" role="dialog" aria-modal="true" aria-labelledby="pairing-title" hidden>
         <button class="pairing-modal-backdrop" type="button" data-close-pairing aria-label="페어링 추천 닫기"></button>
         <div class="pairing-dialog">
@@ -644,6 +673,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260830n"></script>
+    <script src="./app.js?v=20260831e"></script>
   </body>
 </html>
