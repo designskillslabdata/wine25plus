@@ -1,0 +1,19 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="176.923" height="178.015" viewBox="0 0 176.923 178.015" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Mask group">
+<mask id="mask0_0_92" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="177" height="179">
+<rect id="Rectangle 161128090" y="-9.13217e-05" width="176.923" height="178.015" rx="16.3818" fill="url(#paint0_linear_0_92)"/>
+</mask>
+<g mask="url(#mask0_0_92)">
+<path id="Vector" opacity="0.2" d="M99.3827 102.659H29.4872V141.975H99.3827V102.659Z" fill="white"/>
+<path id="Vector_2" opacity="0.2" d="M208.594 102.659H139.791V141.975H208.594V102.659Z" fill="white"/>
+<path id="Vector_3" opacity="0.2" d="M138.699 30.5792H99.3827V99.3826H138.699V30.5792Z" fill="white"/>
+<path id="Vector_4" opacity="0.2" d="M138.699 145.251H99.3827V214.055H138.699V145.251Z" fill="white"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_92" x1="19.1763" y1="-9.09589e-05" x2="157.747" y2="178.015" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E43C31"/>
+<stop offset="1" stop-color="#FF877E"/>
+</linearGradient>
+</defs>
+</svg>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>WINE25+ PLUS App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260825h" />
+    <link rel="stylesheet" href="./styles.css?v=20260830n" />
   </head>
   <body>
     <main class="phone-shell" aria-label="WINE25+ PLUS 모바일 홈">
@@ -78,27 +78,28 @@
           <span class="hero-count"><span data-carousel-current>1</span>/4+</span>
           <button class="carousel-hit-area carousel-hit-area--prev" type="button" data-carousel-prev aria-label="이전 배너"></button>
           <button class="carousel-hit-area carousel-hit-area--next" type="button" data-carousel-next aria-label="다음 배너"></button>
+          <button class="carousel-card-entry" type="button" data-action="card-pick" aria-label="카드 한 장으로 오늘의 술 뽑기" hidden></button>
           <span class="visually-hidden" aria-live="polite" data-carousel-live>1번째 배너</span>
         </section>
 
         <section class="categories" data-flow-target="explore" aria-label="주류 카테고리">
-          <a href="#recommendations" class="category">
+          <a href="#catalog/wine" class="category" data-category="wine">
             <span class="category-art"><img src="./assets/category-beer.svg" alt="" /><em>Wine</em></span>
             <span>와인</span>
           </a>
-          <a href="#recommendations" class="category">
-            <span class="category-art"><img src="./assets/category-wine.svg" alt="" /><em>Beer</em></span>
+          <a href="#catalog/beer" class="category" data-category="beer">
+            <span class="category-art"><img src="./assets/wine-mask.svg" alt="" /><em>Beer</em></span>
             <span>맥주</span>
           </a>
-          <a href="#recommendations" class="category">
+          <a href="#catalog/liquor" class="category" data-category="liquor">
             <span class="category-art"><img src="./assets/category-liquor.svg" alt="" /><em>Liquor</em></span>
             <span>양주</span>
           </a>
-          <a href="#recommendations" class="category">
+          <a href="#catalog/highball" class="category" data-category="highball">
             <span class="category-art category-art--highball"><img src="./assets/category-highball.svg" alt="" /><em>High<br />ball</em></span>
             <span>하이볼</span>
           </a>
-          <a href="#recommendations" class="category">
+          <a href="#catalog/other" class="category" data-category="other">
             <span class="category-art category-art--other"><img src="./assets/category-other.svg" alt="" /></span>
             <span>기타주류</span>
           </a>
@@ -152,6 +153,486 @@
         </a>
       </div>
 
+      <section id="catalog" class="catalog-page" aria-label="주류 탐색" hidden>
+        <nav class="catalog-categories" aria-label="주류 카테고리 선택">
+          <a href="#catalog/wine" class="catalog-category" data-category="wine">
+            <span class="catalog-category-art"><img src="./assets/category-beer.svg" alt="" /><em>Wine</em></span>
+            <span>와인</span>
+          </a>
+          <a href="#catalog/beer" class="catalog-category" data-category="beer">
+            <span class="catalog-category-art"><img src="./assets/wine-mask.svg" alt="" /><em>Beer</em></span>
+            <span>맥주</span>
+          </a>
+          <a href="#catalog/liquor" class="catalog-category" data-category="liquor">
+            <span class="catalog-category-art"><img src="./assets/category-liquor.svg" alt="" /><em>Liquor</em></span>
+            <span>양주</span>
+          </a>
+          <a href="#catalog/highball" class="catalog-category" data-category="highball">
+            <span class="catalog-category-art catalog-category-art--highball"><img src="./assets/category-highball.svg" alt="" /><em>High Ball</em></span>
+            <span>하이볼</span>
+          </a>
+          <a href="#catalog/other" class="catalog-category" data-category="other">
+            <span class="catalog-category-art catalog-category-art--other"><img src="./assets/category-other.svg" alt="" /></span>
+            <span>기타주류</span>
+          </a>
+        </nav>
+
+        <div class="catalog-filter-bar">
+          <span class="catalog-filter-label"><img src="./assets/catalog/filter.svg" alt="" />필터</span>
+          <div class="catalog-filters" role="list" aria-label="상세 필터"></div>
+        </div>
+
+        <div class="catalog-products" aria-live="polite"></div>
+      </section>
+
+      <section id="product" class="product-detail" aria-label="상품 상세" hidden>
+        <div class="detail-card">
+          <div class="detail-visual-column">
+            <div class="detail-image-stage"><img class="detail-product-image" alt="" /></div>
+            <div class="detail-rating">
+              <strong>5.0<span>/5.0</span></strong>
+              <span class="detail-stars" aria-label="평점 5점">
+                <img src="./assets/catalog/detail-star-a.svg" alt="" />
+                <img src="./assets/catalog/detail-star-b.svg" alt="" />
+                <img src="./assets/catalog/detail-star-a.svg" alt="" />
+                <img src="./assets/catalog/detail-star-b.svg" alt="" />
+                <img src="./assets/catalog/detail-star-a.svg" alt="" />
+              </span>
+            </div>
+          </div>
+
+          <div class="detail-insight-column">
+            <div class="detail-gauges" aria-label="맛 지표"></div>
+            <button class="pairing-trigger" type="button" aria-haspopup="dialog">
+              <span>페어링 안주</span>
+              <span class="pairing-tiles" aria-hidden="true">
+                <span><img src="./assets/catalog/pairing-tile-01.svg" alt="" /></span>
+                <span><img src="./assets/catalog/pairing-tile-03.svg" alt="" /></span>
+                <span><img src="./assets/catalog/pairing-tile-02.svg" alt="" /></span>
+              </span>
+            </button>
+          </div>
+
+          <button class="detail-share" type="button" data-action="share" aria-label="상품 공유">
+            <img src="./assets/catalog/detail-share.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="detail-copy">
+          <p class="detail-eyebrow"></p>
+          <h1 class="detail-name"></h1>
+          <p class="detail-price"></p>
+          <p class="detail-discount"><strong></strong><del></del></p>
+        </div>
+
+        <div class="detail-purchase-bar">
+          <img class="detail-purchase-actions" src="./assets/catalog/detail-bottom-actions.svg" alt="찜 및 선물하기" />
+          <span class="detail-pickup"><small>수령 가능일</small><strong></strong></span>
+          <button type="button" data-action="reserve">예약 주문하기</button>
+        </div>
+      </section>
+
+      <section id="winery-view" class="winery-page" aria-label="나의 와이너리" hidden>
+        <header class="account-subheader">
+          <button class="account-back" type="button" data-route-back aria-label="이전 화면">
+            <img src="./assets/account/back-winery.svg" alt="" />
+          </button>
+          <h1>나의 와이너리</h1>
+          <button class="account-settings" type="button" data-action="settings" aria-label="와이너리 설정">
+            <img src="./assets/account/gear.svg" alt="" />
+          </button>
+        </header>
+
+        <div class="winery-body">
+          <section class="membership-hero" aria-labelledby="membership-title">
+            <div class="membership-heading">
+              <h2 id="membership-title"><strong data-membership-name>Rookie</strong>, 김무무님</h2>
+              <button type="button" data-action="grade-info">등급 안내</button>
+            </div>
+            <img class="membership-mascot" src="./assets/account/mascot-winery.png" alt="손을 흔드는 와인25플러스 캐릭터" />
+            <div class="membership-control">
+              <p data-membership-message>다음 등급까지 <strong>150,000원</strong> 남았어요!</p>
+              <input id="membership-range" type="range" min="0" max="3" step="1" value="0" aria-label="시연용 와이너리 등급" />
+              <div class="membership-labels" aria-hidden="true">
+                <span>Rookie</span><span>Mania</span><span>Sommelier</span><span>Master</span>
+              </div>
+            </div>
+          </section>
+
+          <div class="winery-panels">
+            <nav class="account-menu" aria-label="와이너리 혜택">
+              <button type="button" data-action="orders"><span class="account-menu-icon icon-orders" aria-hidden="true"></span><strong>주문내역</strong><small>0개</small></button>
+              <button type="button" data-action="gift-cards"><span class="account-menu-icon icon-gifts" aria-hidden="true"></span><strong>상품권</strong><small>0개</small></button>
+              <button type="button" data-action="mileage"><span class="account-menu-icon icon-mileage" aria-hidden="true"></span><strong>마일리지</strong><small>0점</small></button>
+              <button type="button" data-action="restock"><span class="account-menu-icon icon-restock" aria-hidden="true"></span><strong>재입고 알림</strong><small>0개</small></button>
+            </nav>
+
+            <section class="pickup-section" aria-labelledby="pickup-title">
+              <div class="account-section-heading"><h2 id="pickup-title">픽업 예정 주류</h2><button type="button" data-action="pickup-all">전체보기 &gt;</button></div>
+              <div class="pickup-scroller">
+                <article class="pickup-card pickup-card--filled">
+                  <img src="./assets/account/g7.png" alt="G7 까베르네 소비뇽" />
+                  <strong>G7<br />까베르네 소비뇽</strong>
+                </article>
+                <button class="pickup-card pickup-card--empty" type="button" data-action="recommended"><img src="./assets/account/plus.svg" alt="" /><span>추천 술 보러가기</span></button>
+                <button class="pickup-card pickup-card--empty" type="button" data-action="recommended"><img src="./assets/account/plus.svg" alt="" /><span>추천 술 보러가기</span></button>
+              </div>
+            </section>
+
+            <section class="winery-cellar-entry" aria-labelledby="winery-cellar-title">
+              <h2 id="winery-cellar-title">나만의 술장</h2>
+              <a href="#cellar" aria-label="나만의 술장 열기">
+                <strong>나만의 술장,<br />하나씩 채워볼까요?</strong>
+                <img src="./assets/account/cellar-shelf.png" alt="" />
+              </a>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section id="cellar-view" class="cellar-page" aria-label="나만의 술장" hidden>
+        <header class="account-subheader cellar-subheader">
+          <button class="account-back" type="button" data-route-back aria-label="이전 화면">
+            <img src="./assets/account/back-cellar.svg" alt="" />
+          </button>
+          <h1>나만의 술장</h1>
+          <button class="cellar-filter-button" type="button" data-action="cellar-filter" aria-label="술장 필터">
+            <img src="./assets/account/filter-top.svg" alt="" />
+          </button>
+        </header>
+
+        <div class="cellar-content">
+          <section class="cellar-intro">
+            <div><h2>김무무네 술장</h2><p>오늘도 한 병, 취향을 더해보세요!</p></div>
+            <img src="./assets/account/bottle-07.png" alt="와인잔을 든 와인25플러스 캐릭터" />
+          </section>
+
+          <div class="cellar-stats" aria-label="술장 요약">
+            <span><strong>올해 나의 목표</strong> 100병</span>
+            <span><strong>기록한 술</strong> 7병</span>
+            <span><strong>보관한 술</strong> 1병</span>
+          </div>
+
+          <div class="cellar-controls">
+            <div class="cellar-tabs" role="tablist" aria-label="술 종류">
+              <button type="button" role="tab" aria-selected="true" data-cellar-category="all">전체</button>
+              <button type="button" role="tab" aria-selected="false" data-cellar-category="beer">맥주</button>
+              <button type="button" role="tab" aria-selected="false" data-cellar-category="liquor">양주</button>
+              <button type="button" role="tab" aria-selected="false" data-cellar-category="wine">와인</button>
+              <button type="button" role="tab" aria-selected="false" data-cellar-category="other">기타주류</button>
+            </div>
+            <button class="cellar-sort" type="button" data-action="cellar-sort">직접 설정순⌄</button>
+          </div>
+
+          <div class="cellar-shelf-viewport" tabindex="0" aria-label="내 술장 보관함">
+            <div class="cellar-grid"></div>
+          </div>
+        </div>
+
+        <nav class="cellar-bottom-actions" aria-label="술장 기능">
+          <button type="button" data-action="friends-cellar">친구 술장 구경하기</button>
+          <button type="button" data-action="recommended">주류 추천 받으러 가기 <img src="./assets/account/cellar-arrow.svg" alt="" /></button>
+        </nav>
+      </section>
+
+      <section id="drink-id-view" class="drink-id-page" aria-label="MY DRINK ID" hidden>
+        <div class="drink-screen drink-start" data-drink-screen="start">
+          <div class="drink-start-copy">
+            <h1>나는 어떤<br />술 타입일까?</h1>
+            <p>9개의 질문으로 나의 주류 취향과<br />유형을 확인하고 맞춤형 주종과 상품을 찾아봐요</p>
+          </div>
+          <img class="drink-start-shapes" src="./assets/drink-id/start-shapes.svg" alt="" />
+          <button class="drink-primary-button" type="button" data-drink-go="survey">취향 찾아보기</button>
+        </div>
+
+        <div class="drink-screen drink-survey" data-drink-screen="survey" hidden>
+          <header class="drink-survey-header"><h1>나에게 맞는 소믈리에 찾기</h1><div class="survey-progress"><span></span></div></header>
+          <div class="survey-question-wrap">
+            <p class="survey-count"><strong>1</strong>/9</p>
+            <h2 class="survey-question"></h2>
+            <div class="survey-answers">
+              <button type="button" data-survey-answer="1">그렇다</button>
+              <button type="button" data-survey-answer="0">아니다</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="drink-screen drink-analyzing" data-drink-screen="analyzing" hidden>
+          <img src="./assets/drink-id/analysis-shapes.svg" alt="" />
+          <div><h1>빈빈님의 취향 ID 카드를<br />발급 중이에요</h1><p>잠시만 기다려주세요!</p></div>
+        </div>
+
+        <div class="drink-screen drink-result" data-drink-screen="result" hidden>
+          <header class="drink-subheader"><button type="button" data-drink-back="home" aria-label="홈으로"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>DRINK ID +</h1></header>
+          <article class="drink-result-card">
+            <img class="result-shape" alt="" />
+            <p>MY DRINK ID <time>2026.08.18</time></p>
+            <h2 class="result-title">호기심 입문형</h2>
+            <p class="result-tagline">취향을 찾아가는 탐험가</p>
+            <div class="result-metrics"></div>
+            <button type="button" data-drink-retake>다시 발급하기 &gt;</button>
+          </article>
+
+          <section class="result-explore" aria-labelledby="result-explore-title">
+            <h2 id="result-explore-title">추천 탐색</h2>
+            <div class="result-explore-grid">
+              <button class="result-link result-link--friends" type="button" data-drink-go="friends"><img src="./assets/drink-id/result-types.svg" alt="" /><strong>친구 플러스</strong><span>친구부터 가족, 연인까지<br />취향 추가하기</span></button>
+              <button class="result-link result-link--types" type="button" data-drink-go="browse"><img class="result-type-shape result-type-shape--green" src="./assets/drink-id/type-green.svg" alt="" /><img class="result-type-shape result-type-shape--blue" src="./assets/drink-id/type-blue.svg" alt="" /><img class="result-type-shape result-type-shape--red" src="./assets/drink-id/type-red.svg" alt="" /><strong>유형 둘러보기</strong><span>8가지 취향의 세계</span></button>
+              <button class="result-link result-link--ai" type="button" data-drink-go="ai"><strong>나만의 개인 소믈리에</strong><span>어떤 상품이 나에게<br />적절한지 고민될 땐?</span><em data-sommelier-cta>무무씨와 대화하기 &gt;</em><img class="result-ai-mascot" src="./assets/drink-id/result-mascot-chair.png" alt="와인잔을 든 AI 소믈리에" /></button>
+            </div>
+          </section>
+        </div>
+
+        <div class="drink-screen drink-friends" data-drink-screen="friends" hidden>
+          <header class="drink-subheader"><button type="button" data-drink-back="result" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>친구 플러스</h1><span class="drink-bell" aria-hidden="true">♧</span></header>
+          <div class="drink-type-summary"><p>MY DRINK ID <time>2026.08.18</time></p><img class="summary-shape" alt="" /><h2 class="summary-title">호기심 입문형</h2><span class="summary-tagline">취향을 찾아가는 탐험가</span></div>
+          <div class="friend-stats"><span>친구<strong>4</strong></span><span>수집한 유형<strong>4<small>/8</small></strong></span><span>공통 취향<strong>1</strong></span></div>
+          <section class="friend-list" aria-labelledby="friend-title"><h2 id="friend-title">친구 4</h2><div class="friend-grid"></div></section>
+          <section class="friend-activity"><h2>최근 활동</h2><article><span class="mini-type-shape"><img src="./assets/drink-id/type-green.svg" alt="" /></span><p><strong>수빈님이 새로운 상품을 찜했어요</strong><small>2시간전</small></p><img src="./assets/drink-id/friend-product.png" alt="베이롯 버블리 핑크 모스카토" /><div><strong>베이롯 버블리 핑크 모스카토</strong><span>스파클링 와인(미국)</span><small>★ 4.3(238)</small></div></article></section>
+        </div>
+
+        <div class="drink-screen drink-browse" data-drink-screen="browse" hidden>
+          <header class="drink-subheader"><button type="button" data-drink-back="result" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>유형 둘러보기</h1><span class="drink-bell" aria-hidden="true">♧</span></header>
+          <div class="drink-type-summary"><p>MY DRINK ID <time>2026.08.18</time></p><img class="summary-shape" alt="" /><h2 class="summary-title">호기심 입문형</h2><span class="summary-tagline">취향을 찾아가는 탐험가</span></div>
+          <section class="type-top-products"><h2>내 유형 인기 주류 TOP 5</h2><div class="type-product-scroller">
+            <article><i>1</i><img src="./assets/drink-id/browse-product-01.png" alt="다이아티 모스카토 다스티" /><strong>다이아티 모스카토 다스티</strong><small>5,231명이 주문했어요</small></article>
+            <article><i>2</i><img src="./assets/drink-id/browse-product-02.png" alt="또스띠 핑크 모스카토" /><strong>또스띠 핑크 모스카토</strong><small>3,821명이 주문했어요</small></article>
+            <article><i>3</i><img src="./assets/drink-id/browse-product-03.png" alt="벨레벨벳 베르미르" /><strong>벨레벨벳 베르미르</strong><small>2,945명이 주문했어요</small></article>
+          </div></section>
+          <section class="type-community"><div class="community-heading"><h2>커뮤니티</h2><button type="button" data-action="write-post">글쓰기⌕</button></div><div class="community-tabs"><button class="is-active">전체</button><button>나와 같은 유형</button><button>다른 유형</button><button>Q&amp;A</button></div><article><img class="community-type-icon" src="./assets/drink-id/type-blue.svg" alt="" /><p><small>호기심 입문형</small><strong>술찾아저멀리</strong></p><em>나와 같은 유형</em><h3>편의점 야매 레시피 공유해요</h3><span>투명한 컵에 얼음을 담고 논데종으로 소주 반컵..</span></article><article><img class="community-type-icon" src="./assets/drink-id/type-blue.svg" alt="" /><p><small>편안한 찻잔형</small><strong>유진</strong></p><em>Q&amp;A</em><h3>드라이 와인 추천</h3><span>입문자가 가볍게 마시기 좋은 드라이 와인 추천해주세요</span></article></section>
+        </div>
+
+        <div class="drink-screen drink-ai" data-drink-screen="ai" hidden>
+          <header class="drink-subheader"><button type="button" data-drink-back="result" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>AI 소믈리에</h1></header>
+          <div class="ai-intro"><img src="./assets/drink-id/ai-mascot-laptop.png" alt="AI 소믈리에 무무씨" /><h2>첫 술만큼 중요한 순간은 없죠..<br />만족하실만한 술을 추천드릴게요~</h2><p>술에 대한 여러 궁금증, 소믈리에에게 편하게 말해주세요.<br />다양한 입문자에 따라 특별한 경험을 만들어줄겁니다.</p><span data-ai-prompt-title>무무씨에게 물어보세요!</span></div>
+          <div class="ai-suggestions"><button type="button" data-ai-question="다양한 주류를 경험해보고 싶어">다양한 주류를<br />경험 해보고 싶어</button><button type="button" data-ai-question="내 주량을 테스트해보고 싶어">내 주량을<br />테스트 해보고 싶어</button><button type="button" data-ai-question="달달하고 맛있는 와인을 추천해줘">달달하고 맛있는<br />와인을 추천해줘</button><button type="button" data-ai-question="내 유형의 사람들은 어떤 술을 많이 골라?">내 유형의 사람들은<br />어떤 술을 많이 골라?</button></div>
+          <div class="ai-input"><button type="button" aria-label="추가"><img src="./assets/drink-id/ai-plus.svg" alt="" /></button><label><span class="visually-hidden">소믈리에 질문</span><input type="text" data-ai-input placeholder="무무씨에게 물어보기" /><button type="button" data-ai-send aria-label="음성 또는 질문 보내기"><img src="./assets/drink-id/ai-mic.svg" alt="" /></button></label></div>
+        </div>
+
+        <div class="drink-screen drink-ai-chat" data-drink-screen="ai-chat" hidden>
+          <header class="drink-subheader"><button type="button" data-drink-back="result" aria-label="DRINK ID 결과로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>AI 소믈리에</h1></header>
+          <section class="ai-chat-profile" aria-label="상담 중인 AI 소믈리에">
+            <img src="./assets/drink-id/ai-mascot-laptop.png" alt="AI 소믈리에" />
+            <div><strong data-ai-chat-name>무무씨</strong><span>나의 취향을 아는 개인 소믈리에</span></div>
+          </section>
+          <div class="ai-chat-messages" aria-live="polite">
+            <p class="ai-chat-date">오늘</p>
+            <div class="ai-chat-message ai-chat-message--assistant"><strong data-ai-chat-speaker>무무씨</strong><span>반가워요! 취향에 꼭 맞는 한 잔을 같이 찾아볼게요. 어떤 술이 궁금하세요?</span></div>
+            <div class="ai-chat-message ai-chat-message--user" data-ai-chat-question>달달하고 맛있는 와인을 추천해줘</div>
+            <div class="ai-chat-message ai-chat-message--assistant"><strong data-ai-chat-speaker>무무씨</strong><span>가볍게 시작하기 좋은 달콤한 모스카토와 과실 향이 선명한 로제 와인을 추천해요.</span><article><img src="./assets/drink-id/browse-product-02.png" alt="또스띠 핑크 모스카토" /><div><small>취향 맞춤 추천</small><b>또스띠 핑크 모스카토</b><em>달콤함 · 가벼운 탄산감 · 낮은 도수</em></div></article></div>
+          </div>
+          <div class="ai-input ai-chat-input"><button type="button" aria-label="추가"><img src="./assets/drink-id/ai-plus.svg" alt="" /></button><label><span class="visually-hidden">상담 메시지</span><input type="text" data-ai-chat-input placeholder="메시지를 입력하세요" /><button type="button" data-ai-chat-send aria-label="상담 메시지 보내기"><img src="./assets/drink-id/ai-mic.svg" alt="" /></button></label></div>
+        </div>
+      </section>
+
+      <section id="shared-cart-view" class="shared-cart-page" aria-label="공동 장바구니" hidden>
+        <div class="shared-cart-screen shared-cart-create" data-shared-cart-screen="create">
+          <header class="shared-cart-subheader">
+            <button type="button" data-shared-cart-back="home" aria-label="홈으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          </header>
+
+          <div class="shared-cart-heading">
+            <h1>우리끼리 주문서 만들기</h1>
+            <p>함께 즐길 상품을 정해봐요!</p>
+          </div>
+
+          <form class="shared-cart-form" data-shared-cart-form>
+            <label><strong>모임명</strong><span><input type="text" name="meeting" value="다인이네 생일파티 🍷" maxlength="30" /><small data-meeting-count>10/30</small></span></label>
+            <label><strong>날짜</strong><span><input type="text" name="date" value="2026.07.28 (화) 오후 7:00" /><img src="./assets/shared-cart/icon-calendar.svg" alt="" /></span></label>
+            <label><strong>장소</strong><span><input type="text" name="place" value="다인이네 집" /><img src="./assets/shared-cart/icon-pin.svg" alt="" /></span></label>
+            <label><strong>메모</strong><span><input type="text" name="memo" value="안주는 바로 치킨!" /></span></label>
+          </form>
+
+          <section class="shared-link-card" aria-labelledby="shared-link-title">
+            <h2 id="shared-link-title">초대 링크</h2>
+            <p>링크를 공유하면 누구나 참여할 수 있어요.</p>
+            <div><code>w25plus/dainhouse123</code><button type="button" data-copy-shared-link>복사</button></div>
+            <img src="./assets/shared-cart/invite-mascot.png" alt="초대장을 건네는 와인25플러스 캐릭터" />
+          </section>
+
+          <button class="shared-cart-primary" type="button" data-shared-cart-go="survey">링크 공유하고 시작하기 <img src="./assets/shared-cart/icon-link.svg" alt="" /></button>
+        </div>
+
+        <div class="shared-cart-screen shared-cart-survey" data-shared-cart-screen="survey" hidden>
+          <header class="shared-cart-subheader">
+            <button type="button" data-shared-cart-back="create" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          </header>
+
+          <div class="shared-cart-heading shared-cart-heading--survey">
+            <h1>나의 취향을 선택해주세요</h1>
+            <p>딱 알맞는 제품을 찾기 위한 여정이에요.</p>
+          </div>
+
+          <div class="shared-preference-form">
+            <fieldset class="preference-group preference-group--knowledge">
+              <legend>주류에 대해 잘 알고있나요?</legend>
+              <div>
+                <button type="button" data-shared-choice="knowledge" data-choice-value="know"><img src="./assets/shared-cart/icon-known.svg" alt="" /><span>내 취향을<br />잘 알고있어요</span></button>
+                <button type="button" data-shared-choice="knowledge" data-choice-value="new"><span class="shared-question-icon" aria-hidden="true">?</span><span>아직은<br />잘 모르겠어요</span></button>
+              </div>
+            </fieldset>
+
+            <fieldset class="preference-group">
+              <legend>원하는 술의 도수</legend>
+              <div class="preference-options preference-options--compact">
+                <button type="button" data-shared-choice="proof" data-choice-value="low">낮은 도수<br /><small>(~10%)</small></button>
+                <button type="button" data-shared-choice="proof" data-choice-value="medium">보통 도수<br /><small>(10~14%)</small></button>
+                <button type="button" data-shared-choice="proof" data-choice-value="high">높은 도수<br /><small>(15%~)</small></button>
+                <button type="button" data-shared-choice="proof" data-choice-value="any">상관없어요</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="preference-group">
+              <legend>원하는 술의 느낌</legend>
+              <div class="preference-options">
+                <button type="button" data-shared-choice="taste" data-choice-value="light"><img src="./assets/shared-cart/icon-alone.svg" alt="" />가벼운</button>
+                <button type="button" data-shared-choice="taste" data-choice-value="sweet"><img src="./assets/shared-cart/icon-friends.svg" alt="" />달콤한</button>
+                <button type="button" data-shared-choice="taste" data-choice-value="clean"><img src="./assets/shared-cart/icon-meal.svg" alt="" />깔끔한</button>
+                <button type="button" data-shared-choice="taste" data-choice-value="heavy"><img src="./assets/shared-cart/icon-anniversary.svg" alt="" />묵직한</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="preference-group">
+              <legend>마시는 분위기</legend>
+              <div class="preference-options">
+                <button type="button" data-shared-choice="mood" data-choice-value="alone"><img src="./assets/shared-cart/icon-light.svg" alt="" />혼자 편하게</button>
+                <button type="button" data-shared-choice="mood" data-choice-value="friends"><img src="./assets/shared-cart/icon-sweet.svg" alt="" />친구와 가볍게</button>
+                <button type="button" data-shared-choice="mood" data-choice-value="meal"><img src="./assets/shared-cart/icon-clean.svg" alt="" />식사와 함께</button>
+                <button type="button" data-shared-choice="mood" data-choice-value="anniversary"><img src="./assets/shared-cart/icon-heavy.svg" alt="" />기념일에</button>
+              </div>
+            </fieldset>
+          </div>
+
+          <button class="shared-cart-primary" type="button" data-shared-cart-go="summary">다음으로</button>
+        </div>
+
+        <div class="shared-cart-screen shared-cart-summary" data-shared-cart-screen="summary" hidden>
+          <header class="shared-cart-subheader">
+            <button type="button" data-shared-cart-back="survey" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          </header>
+
+          <section class="shared-friends" aria-labelledby="shared-friends-title">
+            <h1 id="shared-friends-title">친구 목록</h1>
+            <div class="shared-friend-list">
+              <article><span class="shared-avatar shared-avatar--1"></span><strong>다이니</strong></article>
+              <article><span class="shared-avatar shared-avatar--2"></span><strong>김몽댕</strong></article>
+              <article><span class="shared-avatar shared-avatar--3"></span><strong>징오징</strong></article>
+              <article><span class="shared-avatar shared-avatar--4"></span><strong>지존세은</strong></article>
+            </div>
+          </section>
+
+          <section class="shared-analysis" aria-labelledby="shared-analysis-title">
+            <h2 id="shared-analysis-title">4명의 취향을 분석했어요!</h2>
+            <p>우리 모두의 취향과 차이점을 알아보세요</p>
+          </section>
+
+          <section class="shared-common" aria-labelledby="shared-common-title">
+            <h2 id="shared-common-title">공통으로 선호해요</h2>
+            <div><span>가벼운<br />도수</span><span>달콤한<br />맛</span><span>깔끔한<br />느낌</span><span>특별하게<br />즐기기</span></div>
+          </section>
+
+          <section class="shared-recommendations" aria-labelledby="shared-recommendations-title">
+            <h2 id="shared-recommendations-title">모두가 만족할만한 술이에요</h2>
+            <p>교집합이 높은 순서대로 리스트를 짜봤어요</p>
+            <article>
+              <img src="./assets/shared-cart/raw-02.png" alt="모스카토 다스티" />
+              <div><span><em>달콤한</em><em>과일향</em></span><strong>산테로 모스카토 다스티</strong><small>모두의 취향 일치</small></div>
+              <b>75%</b>
+            </article>
+            <article>
+              <img src="./assets/shared-cart/raw-03.png" alt="G7 까베르네 소비뇽" />
+              <div><span><em>부드러운</em><em>균형감</em></span><strong>G7 까베르네 소비뇽</strong><small>3명의 취향 일치</small></div>
+              <b>68%</b>
+            </article>
+          </section>
+
+          <button class="shared-cart-primary" type="button" data-action="shared-cart-next">다음으로</button>
+        </div>
+      </section>
+
+      <section class="card-pick-page" aria-label="카드 한 장으로 오늘의 술 뽑기" hidden>
+        <div class="card-pick-screen card-pick-category" data-card-pick-screen="category">
+          <header class="card-pick-subheader">
+            <button type="button" data-card-pick-back="home" aria-label="홈으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          </header>
+          <div class="card-pick-intro">
+            <h1>카테고리를 선택해 주세요</h1>
+            <p>오늘은 어떤 카테고리에 맞춰<br />술을 골라볼까요?</p>
+          </div>
+          <div class="card-category-grid" role="radiogroup" aria-label="오늘의 술 카테고리">
+            <button class="card-category-option card-category-option--movie" type="button" data-card-category="movie" role="radio" aria-checked="false">
+              <strong>영화</strong><small>나의 최애 영화 장르로 찾기</small><img src="./assets/card-pick/category-movie.png" alt="" />
+            </button>
+            <button class="card-category-option card-category-option--music" type="button" data-card-category="music" role="radio" aria-checked="false">
+              <strong>음악</strong><small>오늘의 음악 장르로 찾기</small><img src="./assets/card-pick/category-music.png" alt="" />
+            </button>
+            <button class="card-category-option card-category-option--season" type="button" data-card-category="season" role="radio" aria-checked="false">
+              <strong>계절</strong><small>내가 태어난 계절로 찾기</small><img src="./assets/card-pick/category-season.png" alt="" />
+            </button>
+            <button class="card-category-option card-category-option--place" type="button" data-card-category="place" role="radio" aria-checked="false">
+              <strong>장소</strong><small>딱 좋은 장소로 찾기</small><img src="./assets/card-pick/category-place.png" alt="" />
+            </button>
+          </div>
+          <button class="card-pick-primary" type="button" data-card-pick-go="cards" disabled>카테고리를 선택하세요</button>
+        </div>
+
+        <div class="card-pick-screen card-pick-cards" data-card-pick-screen="cards" hidden>
+          <header class="card-pick-subheader">
+            <button type="button" data-card-pick-back="category" aria-label="카테고리 선택으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          </header>
+          <div class="card-pick-intro">
+            <h1>카드를 선택하세요</h1>
+            <p>옆으로 넘겨 오늘의 술을 선택하세요</p>
+          </div>
+          <div class="card-arc-stage" tabindex="0" aria-label="좌우로 넘길 수 있는 술 카드">
+            <span class="card-wheel-pointer" aria-hidden="true"></span>
+            <span class="card-wheel-decoration" aria-hidden="true"></span>
+            <div class="card-arc" aria-live="polite"></div>
+          </div>
+          <button class="card-pick-primary" type="button" data-card-pick-confirm disabled>선택했어요</button>
+        </div>
+
+        <div class="card-pick-screen card-pick-reveal" data-card-pick-screen="reveal" hidden>
+          <header class="card-pick-subheader">
+            <button type="button" data-card-pick-back="cards" aria-label="카드 선택으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          </header>
+          <div class="card-pick-intro">
+            <h1>카드를 뒤집어볼까요?</h1>
+            <p>카드를 터치하고 오늘의 술을 확인하세요</p>
+          </div>
+          <button class="result-flip-scene" type="button" data-card-flip aria-label="카드를 뒤집어 오늘의 술 확인하기" aria-pressed="false">
+            <span class="result-flip-card">
+              <span class="result-card-face result-card-front"></span>
+              <span class="result-card-face result-card-back">
+                <span class="result-back-heading"><strong data-result-title>Rock</strong><small data-result-tagline>강렬하고 알싸한 자극</small></span>
+                <img class="result-qr" src="./assets/card-pick/result-01.png" alt="공유용 QR 코드" />
+                <span class="result-drink-copy"><strong>디아블로<br />까베르네 소비뇽</strong><small>DIABLO CABERNET<br />SAUVIGNON</small><em>강렬하고 깊은 레드와인</em><span><b>레드</b><b>칠레</b></span></span>
+                <img class="result-bottle" src="./assets/card-pick/result-03.png" alt="디아블로 까베르네 소비뇽" />
+              </span>
+            </span>
+          </button>
+          <button class="card-pick-reset" type="button" data-card-pick-back="cards">카드를 다시 선택할게요 &gt;</button>
+          <button class="card-pick-primary" type="button" data-card-share>친구와 결과 공유하기</button>
+        </div>
+      </section>
+
+      <div class="pairing-modal" role="dialog" aria-modal="true" aria-labelledby="pairing-title" hidden>
+        <button class="pairing-modal-backdrop" type="button" data-close-pairing aria-label="페어링 추천 닫기"></button>
+        <div class="pairing-dialog">
+          <div class="pairing-dialog-icons" aria-hidden="true">
+            <img src="./assets/catalog/pairing-popup-03.svg" alt="" />
+            <img src="./assets/catalog/pairing-popup-04.svg" alt="" />
+            <img src="./assets/catalog/pairing-popup-02.svg" alt="" />
+            <img src="./assets/catalog/pairing-popup-01.svg" alt="" />
+          </div>
+          <button class="pairing-close" type="button" data-close-pairing aria-label="닫기">
+            <img src="./assets/catalog/pairing-close.svg" alt="" />
+          </button>
+          <h2 id="pairing-title" class="visually-hidden">페어링 안주 추천</h2>
+          <div class="pairing-recommendations"></div>
+        </div>
+      </div>
+
       <aside class="floating-actions" aria-label="빠른 메뉴">
         <button type="button" data-action="home" aria-label="맨 위로">
           <img src="./assets/floating-menu.svg" alt="" />
@@ -163,6 +644,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260825h"></script>
+    <script src="./app.js?v=20260830n"></script>
   </body>
 </html>
