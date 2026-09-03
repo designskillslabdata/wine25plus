@@ -193,6 +193,17 @@ const resultShareModal = document.querySelector('[data-result-share-modal]');
 const resultShareCardTitle = document.querySelector('[data-share-card-title]');
 const resultShareUrl = document.querySelector('[data-result-share-url]');
 const resultShareStatus = document.querySelector('[data-result-share-status]');
+const giftFlowView = document.querySelector('.gift-flow-page');
+const giftFlowScreens = Array.from(document.querySelectorAll('[data-gift-screen]'));
+const giftSlots = document.querySelector('[data-gift-slots]');
+const giftProductsView = document.querySelector('[data-gift-products]');
+const giftFiltersView = document.querySelector('[data-gift-filters]');
+const giftCategoryButtons = Array.from(document.querySelectorAll('[data-gift-category]'));
+const giftSelectionStatus = document.querySelector('[data-gift-selection-status]');
+const giftReserveButton = document.querySelector('[data-gift-reserve]');
+const giftReserveModal = document.querySelector('[data-gift-reserve-modal]');
+const giftQuantityValue = document.querySelector('[data-gift-quantity-value]');
+const giftTotalPrice = document.querySelector('[data-gift-total-price]');
 let activeDetail = null;
 let surveyIndex = 0;
 let surveyAnswers = [];
@@ -213,6 +224,38 @@ let cardLastPointerX = 0;
 let cardLastPointerTime = 0;
 let cardVelocityX = 0;
 let cardInertiaFrame = null;
+let activeGiftCategory = 'all';
+let activeGiftFilter = '전체';
+let selectedGiftProducts = [];
+let giftQuantity = 1;
+
+const giftCategoryFilters = {
+  all: [],
+  liquor: ['전체', '위스키', '보드카/진', '리큐르', '데킬라/럼/브랜디'],
+  beer: ['전체', '라거', '에일', '밀맥주', '사이더'],
+  wine: ['전체', '레드', '화이트', '로제', '스파클링'],
+  traditional: ['전체', '약주', '탁주', '증류주'],
+  other: ['전체', '하이볼', '칵테일', '미니어처'],
+};
+
+const giftProductData = [
+  { id: 'absolut-blue', category: 'liquor', filter: '보드카/진', type: 'VODKA', name: '엡솔루트 블루', note: '깔끔하고 부드러운 프리미엄 보드카', image: './assets/gift-flow/product-08.png', slotImage: './assets/gift-flow/product-08-slot.png' },
+  { id: 'jack-no7', category: 'liquor', filter: '위스키', type: 'WHISKEY', name: '잭다니엘 No.7', note: '강렬한 바닐라, 카라멜, 오크의 조화', image: './assets/gift-flow/product-02.png' },
+  { id: 'absolut-apeach', category: 'liquor', filter: '보드카/진', type: 'VODKA', name: '엡솔루트 어피치', note: '복숭아 향이 산뜻하게 번지는 보드카', image: './assets/gift-flow/product-06.png' },
+  { id: 'chartreuse', category: 'liquor', filter: '리큐르', type: 'LIQUEUR', name: '샤르트뢰즈 옐로우', note: '허브 향과 달콤함이 어우러진 리큐르', image: './assets/gift-flow/product-05.png' },
+  { id: 'jack-honey', category: 'liquor', filter: '위스키', type: 'WHISKEY', name: '잭다니엘 허니', note: '꿀의 달콤한 맛과 오크의 깊은 향', image: './assets/gift-flow/product-07.png' },
+  { id: 'scallywag', category: 'liquor', filter: '위스키', type: 'WHISKEY', name: '스캘리웩', note: '풍부한 셰리와 향신료의 긴 여운', image: './assets/gift-flow/product-10.png' },
+  { id: 'blue-moon', category: 'beer', filter: '밀맥주', type: 'WHEAT BEER', name: '블루문 캔', note: '오렌지 향이 은은한 부드러운 밀맥주', image: './assets/catalog/beer-01.png' },
+  { id: 'cass', category: 'beer', filter: '라거', type: 'LAGER', name: '카스 프레시', note: '가볍고 깨끗하게 마무리되는 라거', image: './assets/catalog/beer-02.png' },
+  { id: 'sommersby', category: 'beer', filter: '사이더', type: 'CIDER', name: '써머스비', note: '상큼한 사과 향과 산뜻한 탄산감', image: './assets/catalog/beer-03.png' },
+  { id: 'cinquanta', category: 'wine', filter: '레드', type: 'RED WINE', name: '신퀀타 꼴레지오네', note: '짙은 과실향과 균형 잡힌 바디감', image: './assets/catalog/wine-raw-01.png' },
+  { id: 'brand-butter', category: 'wine', filter: '레드', type: 'RED WINE', name: '브랜드 앤 버터 피노누아', note: '부드러운 질감과 섬세한 베리 향', image: './assets/catalog/wine-raw-04.png' },
+  { id: 'ancient', category: 'wine', filter: '레드', type: 'RED WINE', name: '앙시앙땅 카베쉬라', note: '스파이시한 향이 매력적인 레드 와인', image: './assets/catalog/wine-raw-06.png' },
+  { id: 'traditional', category: 'traditional', filter: '약주', type: 'YAKJU', name: '담은 약주', note: '쌀의 은은한 단맛과 깨끗한 끝맛', image: './assets/account/bottle-02.png' },
+  { id: 'makgeolli', category: 'traditional', filter: '탁주', type: 'TAKJU', name: '느린마을 막걸리', note: '부드러운 쌀 향과 산뜻한 산미', image: './assets/account/bottle-05.png' },
+  { id: 'highball', category: 'other', filter: '하이볼', type: 'HIGHBALL', name: '카발란 하이볼', note: '위스키 향과 청량한 탄산의 조화', image: './assets/catalog/highball-04.png' },
+  { id: 'miniature', category: 'other', filter: '미니어처', type: 'MINIATURE', name: '미니어처 셀렉션', note: '여러 풍미를 가볍게 경험하는 구성', image: './assets/gift-flow/product-11.png' },
+];
 
 const cardCategoryLabels = {
   movie: '영화',
@@ -318,6 +361,114 @@ function hideCardPick() {
   phoneShell.classList.remove('is-card-pick-view');
 }
 
+function closeGiftReserveModal() {
+  if (!giftReserveModal) return;
+  giftReserveModal.hidden = true;
+  phoneShell.classList.remove('is-gift-modal-open');
+}
+
+function hideGiftFlow() {
+  if (!giftFlowView) return;
+  giftFlowView.hidden = true;
+  phoneShell.classList.remove('is-gift-view');
+  closeGiftReserveModal();
+}
+
+function getVisibleGiftProducts() {
+  return giftProductData.filter((product) => {
+    if (activeGiftCategory !== 'all' && product.category !== activeGiftCategory) return false;
+    return activeGiftFilter === '전체' || product.filter === activeGiftFilter;
+  });
+}
+
+function renderGiftSlots() {
+  if (!giftSlots) return;
+  giftSlots.replaceChildren();
+  for (let index = 0; index < 4; index += 1) {
+    const product = selectedGiftProducts[index];
+    const slot = document.createElement('button');
+    slot.className = 'gift-selected-slot';
+    slot.type = 'button';
+    slot.setAttribute('aria-label', product ? `${index + 1}번 ${product.name} 선택 해제` : `${index + 1}번 빈 선택 칸`);
+    if (product) {
+      slot.classList.add('is-filled');
+      slot.dataset.giftRemove = product.id;
+      const image = document.createElement('img');
+      image.src = product.slotImage || product.image;
+      image.alt = product.name;
+      slot.append(image);
+    } else {
+      const number = document.createElement('span');
+      number.textContent = String(index + 1);
+      slot.append(number);
+    }
+    giftSlots.append(slot);
+  }
+
+  const selectionCount = selectedGiftProducts.length;
+  giftSelectionStatus.textContent = selectionCount === 4 ? '4/4 선택 완료' : `${selectionCount}/4 선택`;
+  giftReserveButton.disabled = selectionCount !== 4;
+}
+
+function renderGiftFilters() {
+  if (!giftFiltersView) return;
+  giftFiltersView.replaceChildren();
+  const filters = giftCategoryFilters[activeGiftCategory] || [];
+  giftFiltersView.hidden = filters.length === 0;
+  filters.forEach((filter) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = filter;
+    button.dataset.giftFilter = filter;
+    button.classList.toggle('is-active', filter === activeGiftFilter);
+    giftFiltersView.append(button);
+  });
+}
+
+function renderGiftProducts() {
+  if (!giftProductsView) return;
+  giftProductsView.replaceChildren();
+  getVisibleGiftProducts().forEach((product) => {
+    const selectedIndex = selectedGiftProducts.findIndex((item) => item.id === product.id);
+    const card = document.createElement('button');
+    card.className = 'gift-product-card';
+    card.classList.toggle('is-selected', selectedIndex >= 0);
+    card.type = 'button';
+    card.dataset.giftProduct = product.id;
+    card.setAttribute('aria-pressed', String(selectedIndex >= 0));
+    card.innerHTML = `<span class="gift-product-image"><img src="${product.image}" alt="${product.name}"></span>
+      <small>${product.type}</small><strong>${product.name}</strong><p>${product.note}</p>
+      <span class="gift-product-check" aria-hidden="true">${selectedIndex >= 0 ? selectedIndex + 1 : '✓'}</span>`;
+    giftProductsView.append(card);
+  });
+}
+
+function renderGiftOrder() {
+  giftCategoryButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.giftCategory === activeGiftCategory));
+  renderGiftSlots();
+  renderGiftFilters();
+  renderGiftProducts();
+}
+
+function renderGiftScreen(screen) {
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  giftFlowView.hidden = false;
+  phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view');
+  phoneShell.classList.add('is-gift-view');
+  closePairingModal();
+  closeGiftReserveModal();
+  giftFlowScreens.forEach((element) => { element.hidden = element.dataset.giftScreen !== screen; });
+  if (screen === 'order') renderGiftOrder();
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
 function cardVisualMarkup(card) {
   return `<span class="pick-card-visual pick-card-visual--${card.tone}">
     <strong>${card.title}</strong>
@@ -416,6 +567,7 @@ function renderCardPickScreen(screen) {
   cellarView.hidden = true;
   drinkIdView.hidden = true;
   hideSharedCart();
+  hideGiftFlow();
   cardPickView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view');
   phoneShell.classList.add('is-card-pick-view');
@@ -437,6 +589,7 @@ function renderCatalog(category) {
   drinkIdView.hidden = true;
   hideSharedCart();
   hideCardPick();
+  hideGiftFlow();
   catalogView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view');
   closePairingModal();
@@ -568,6 +721,7 @@ function renderProductDetail(category, index) {
   drinkIdView.hidden = true;
   hideSharedCart();
   hideCardPick();
+  hideGiftFlow();
   detailView.hidden = false;
   phoneShell.classList.remove('is-account-view', 'is-cellar-view', 'is-drink-view');
   phoneShell.classList.add('is-detail-view');
@@ -617,6 +771,7 @@ function renderHome() {
   drinkIdView.hidden = true;
   hideSharedCart();
   hideCardPick();
+  hideGiftFlow();
   homeView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view');
   closePairingModal();
@@ -645,6 +800,7 @@ function renderWinery() {
   drinkIdView.hidden = true;
   hideSharedCart();
   hideCardPick();
+  hideGiftFlow();
   wineryView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-cellar-view', 'is-drink-view');
   phoneShell.classList.add('is-account-view');
@@ -683,6 +839,7 @@ function renderCellar() {
   drinkIdView.hidden = true;
   hideSharedCart();
   hideCardPick();
+  hideGiftFlow();
   cellarView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-drink-view');
   phoneShell.classList.add('is-account-view', 'is-cellar-view');
@@ -767,6 +924,7 @@ function renderDrinkScreen(screen) {
   cellarView.hidden = true;
   hideSharedCart();
   hideCardPick();
+  hideGiftFlow();
   drinkIdView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view');
   phoneShell.classList.add('is-drink-view');
@@ -797,6 +955,7 @@ function renderSharedCartScreen(screen) {
   cellarView.hidden = true;
   drinkIdView.hidden = true;
   hideCardPick();
+  hideGiftFlow();
   sharedCartView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view');
   phoneShell.classList.add('is-shared-cart-view');
@@ -806,6 +965,11 @@ function renderSharedCartScreen(screen) {
 }
 
 function syncViewFromHash() {
+  const giftMatch = window.location.hash.match(/^#gift\/(event|order|complete|pickup)$/);
+  if (giftMatch) {
+    renderGiftScreen(giftMatch[1]);
+    return;
+  }
   const cardPickMatch = window.location.hash.match(/^#card-pick\/(category|cards|reveal)$/);
   if (cardPickMatch) {
     if (cardPickMatch[1] === 'reveal') {
@@ -853,6 +1017,87 @@ window.addEventListener('load', () => window.scrollTo({ top: 0, behavior: 'auto'
 syncViewFromHash();
 
 membershipRange?.addEventListener('input', () => applyMembershipTier(membershipRange.value));
+
+giftCategoryButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    activeGiftCategory = button.dataset.giftCategory;
+    activeGiftFilter = giftCategoryFilters[activeGiftCategory]?.[0] || '전체';
+    renderGiftOrder();
+  });
+});
+
+giftFiltersView?.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-gift-filter]');
+  if (!button) return;
+  activeGiftFilter = button.dataset.giftFilter;
+  renderGiftFilters();
+  renderGiftProducts();
+});
+
+giftProductsView?.addEventListener('click', (event) => {
+  const card = event.target.closest('[data-gift-product]');
+  if (!card) return;
+  const product = giftProductData.find((item) => item.id === card.dataset.giftProduct);
+  if (!product) return;
+  const selectedIndex = selectedGiftProducts.findIndex((item) => item.id === product.id);
+  if (selectedIndex >= 0) selectedGiftProducts.splice(selectedIndex, 1);
+  else if (selectedGiftProducts.length < 4) selectedGiftProducts.push(product);
+  else {
+    showToast('기프트 세트에는 네 종류까지 담을 수 있어요.');
+    return;
+  }
+  renderGiftSlots();
+  renderGiftProducts();
+});
+
+giftSlots?.addEventListener('click', (event) => {
+  const slot = event.target.closest('[data-gift-remove]');
+  if (!slot) return;
+  selectedGiftProducts = selectedGiftProducts.filter((product) => product.id !== slot.dataset.giftRemove);
+  renderGiftSlots();
+  renderGiftProducts();
+});
+
+document.querySelectorAll('[data-gift-go]').forEach((button) => {
+  button.addEventListener('click', () => {
+    window.location.hash = `#gift/${button.dataset.giftGo}`;
+  });
+});
+
+document.querySelectorAll('[data-gift-back]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const destination = button.dataset.giftBack;
+    window.location.hash = destination === 'home' ? '#top' : `#gift/${destination}`;
+  });
+});
+
+giftReserveButton?.addEventListener('click', () => {
+  if (selectedGiftProducts.length !== 4) return;
+  giftQuantity = 1;
+  giftQuantityValue.textContent = '1';
+  giftTotalPrice.textContent = '28,500';
+  giftReserveModal.hidden = false;
+  phoneShell.classList.add('is-gift-modal-open');
+});
+
+document.querySelectorAll('[data-gift-close-modal]').forEach((button) => button.addEventListener('click', closeGiftReserveModal));
+
+document.querySelectorAll('[data-gift-quantity]').forEach((button) => {
+  button.addEventListener('click', () => {
+    giftQuantity = button.dataset.giftQuantity === 'plus' ? Math.min(9, giftQuantity + 1) : Math.max(1, giftQuantity - 1);
+    giftQuantityValue.textContent = String(giftQuantity);
+    giftTotalPrice.textContent = (28500 * giftQuantity).toLocaleString('ko-KR');
+  });
+});
+
+document.querySelector('[data-gift-confirm]')?.addEventListener('click', () => {
+  closeGiftReserveModal();
+  window.location.hash = '#gift/complete';
+});
+
+document.querySelector('[data-gift-open-pickup]')?.addEventListener('click', () => {
+  window.location.hash = '#gift/pickup';
+});
 
 cardCategoryOptions.forEach((option) => {
   option.addEventListener('click', () => {
@@ -1004,7 +1249,9 @@ resultFlipScene?.addEventListener('click', () => {
   resultFlipScene.setAttribute('aria-label', flipped ? '카드 앞면 다시 보기' : '카드를 뒤집어 오늘의 술 확인하기');
 });
 
-document.querySelector('[data-card-share]')?.addEventListener('click', openResultShareModal);
+document.querySelectorAll('[data-card-share]').forEach((button) => {
+  button.addEventListener('click', openResultShareModal);
+});
 
 document.querySelectorAll('[data-close-result-share]').forEach((button) => {
   button.addEventListener('click', closeResultShareModal);
@@ -1225,7 +1472,9 @@ if (carousel) {
   function updateCarouselState() {
     currentLabel.textContent = String(carouselIndex + 1);
     liveLabel.textContent = `${carouselIndex + 1}번째 배너`;
+    const giftEntry = carousel.querySelector('.carousel-gift-entry');
     const cardEntry = carousel.querySelector('.carousel-card-entry');
+    if (giftEntry) giftEntry.hidden = carouselIndex !== 1;
     if (cardEntry) cardEntry.hidden = carouselIndex !== 2;
 
     slides.forEach((slide, index) => {
@@ -1519,6 +1768,14 @@ document.addEventListener('click', (event) => {
   }
   if (action === 'shared-cart') {
     window.location.hash = '#shared-cart/create';
+    return;
+  }
+  if (action === 'gift-event') {
+    activeGiftCategory = 'all';
+    activeGiftFilter = '전체';
+    selectedGiftProducts = [];
+    giftQuantity = 1;
+    window.location.hash = '#gift/event';
     return;
   }
   if (action === 'card-pick') {

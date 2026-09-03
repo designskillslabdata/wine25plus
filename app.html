@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>WINE25+ PLUS App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260831e" />
+    <link rel="stylesheet" href="./styles.css?v=20260902f" />
   </head>
   <body>
     <main class="phone-shell" aria-label="WINE25+ PLUS 모바일 홈">
@@ -78,6 +78,7 @@
           <span class="hero-count"><span data-carousel-current>1</span>/4+</span>
           <button class="carousel-hit-area carousel-hit-area--prev" type="button" data-carousel-prev aria-label="이전 배너"></button>
           <button class="carousel-hit-area carousel-hit-area--next" type="button" data-carousel-next aria-label="다음 배너"></button>
+          <button class="carousel-gift-entry" type="button" data-action="gift-event" aria-label="커스텀 기프트 세트 이벤트 확인" hidden></button>
           <button class="carousel-card-entry" type="button" data-action="card-pick" aria-label="현재 카드 배너 확인" hidden></button>
           <span class="visually-hidden" aria-live="polite" data-carousel-live>1번째 배너</span>
         </section>
@@ -552,8 +553,12 @@
 
       <section class="card-pick-page" aria-label="카드 한 장으로 오늘의 술 뽑기" hidden>
         <div class="card-pick-screen card-pick-category" data-card-pick-screen="category">
-          <header class="card-pick-subheader">
-            <button type="button" data-card-pick-back="home" aria-label="홈으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          <header class="flow-subheader card-pick-subheader">
+            <button class="flow-header-button flow-header-back" type="button" data-card-pick-back="home" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>오늘의 술</h1>
+            <div class="flow-header-actions">
+              <button class="flow-header-button flow-header-exit" type="button" data-card-pick-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+            </div>
           </header>
           <div class="card-pick-intro">
             <h1>카테고리를 선택해 주세요</h1>
@@ -577,8 +582,12 @@
         </div>
 
         <div class="card-pick-screen card-pick-cards" data-card-pick-screen="cards" hidden>
-          <header class="card-pick-subheader">
-            <button type="button" data-card-pick-back="category" aria-label="카테고리 선택으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          <header class="flow-subheader card-pick-subheader">
+            <button class="flow-header-button flow-header-back" type="button" data-card-pick-back="category" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>오늘의 술</h1>
+            <div class="flow-header-actions">
+              <button class="flow-header-button flow-header-exit" type="button" data-card-pick-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+            </div>
           </header>
           <div class="card-pick-intro">
             <h1>카드를 선택하세요</h1>
@@ -593,8 +602,13 @@
         </div>
 
         <div class="card-pick-screen card-pick-reveal" data-card-pick-screen="reveal" hidden>
-          <header class="card-pick-subheader">
-            <button type="button" data-card-pick-back="cards" aria-label="카드 선택으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          <header class="flow-subheader card-pick-subheader">
+            <button class="flow-header-button flow-header-back" type="button" data-card-pick-back="cards" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>오늘의 술</h1>
+            <div class="flow-header-actions">
+              <button class="flow-header-button flow-header-share" type="button" data-card-share aria-label="결과 공유하기"><img src="./assets/catalog/detail-share.svg" alt="" /></button>
+              <button class="flow-header-button flow-header-exit" type="button" data-card-pick-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+            </div>
           </header>
           <div class="card-pick-intro">
             <h1>카드를 뒤집어볼까요?</h1>
@@ -612,9 +626,122 @@
             </span>
           </button>
           <button class="card-pick-reset" type="button" data-card-pick-back="cards">카드를 다시 선택할게요 &gt;</button>
-          <button class="card-pick-primary" type="button" data-card-share>친구와 결과 공유하기</button>
         </div>
       </section>
+
+      <section class="gift-flow-page" aria-label="커스텀 기프트 세트" hidden>
+        <article class="gift-flow-screen gift-event-screen" data-gift-screen="event" hidden>
+          <header class="flow-subheader gift-subheader">
+            <button class="flow-header-button flow-header-back" type="button" data-gift-back="home" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>이벤트 상세</h1>
+            <div class="flow-header-actions">
+              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+            </div>
+          </header>
+          <p class="gift-event-kicker">특별한 주류 선물, 커스텀 기프트 세트 주문하기</p>
+          <div class="gift-event-visual">
+            <section class="gift-event-intro">
+              <span>WINE25<sup>+</sup> PLUS</span>
+              <h2>소중한 사람에게<br /><strong>인생 첫 술</strong>을<br />선물해보세요!</h2>
+            </section>
+            <img src="./assets/gift-flow/event-hero.png" alt="화이트 패키지와 네 종류의 술로 구성된 커스텀 기프트 세트" />
+            <section class="gift-event-copy">
+              <h3>특별한 주류 선물<br /><strong>커스텀 기프트 세트</strong></h3>
+              <p>오직 와인25플러스에서만<br />만날 수 있는 주류 입문 기프트 세트</p>
+              <p>주류 4종을 조합해 특별한 선물을<br />마련해보세요.</p>
+              <button type="button" data-gift-go="order">기프트 세트 주문하러 가기</button>
+            </section>
+          </div>
+        </article>
+
+        <article class="gift-flow-screen gift-order-screen" data-gift-screen="order" hidden>
+          <header class="flow-subheader gift-subheader">
+            <button class="flow-header-button flow-header-back" type="button" data-gift-back="event" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>커스텀 주문하기</h1>
+            <div class="flow-header-actions">
+              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+            </div>
+          </header>
+
+          <div class="gift-selected-slots" data-gift-slots aria-label="선택한 주류"></div>
+          <nav class="gift-category-tabs" aria-label="기프트 주류 카테고리">
+            <button type="button" class="is-active" data-gift-category="all">전체</button>
+            <button type="button" data-gift-category="liquor">양주</button>
+            <button type="button" data-gift-category="beer">맥주</button>
+            <button type="button" data-gift-category="wine">와인</button>
+            <button type="button" data-gift-category="traditional">전통주</button>
+            <button type="button" data-gift-category="other">기타주류</button>
+          </nav>
+          <div class="gift-detail-filters" data-gift-filters aria-label="세부 카테고리"></div>
+          <div class="gift-product-grid" data-gift-products aria-live="polite"></div>
+
+          <footer class="gift-order-footer">
+            <p data-gift-selection-status>0/4 선택</p>
+            <button type="button" data-gift-reserve disabled>예약 주문하기</button>
+          </footer>
+        </article>
+
+        <article class="gift-flow-screen gift-complete-screen" data-gift-screen="complete" hidden>
+          <header class="flow-subheader gift-subheader">
+            <button class="flow-header-button flow-header-back" type="button" data-gift-back="order" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>커스텀 주문하기</h1>
+            <div class="flow-header-actions">
+              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+            </div>
+          </header>
+          <div class="gift-complete-content">
+            <div class="gift-package-crop" aria-hidden="true"><img src="./assets/gift-flow/completion-gift.png" alt="" /></div>
+            <h2>예약 주문이 완료 되었어요!</h2>
+          </div>
+          <footer class="gift-complete-footer">
+            <p>8/8 18:00부터 수령이 가능합니다.</p>
+            <button type="button" data-gift-open-pickup>픽업 QR보기</button>
+          </footer>
+        </article>
+
+        <article class="gift-flow-screen gift-pickup-screen" data-gift-screen="pickup" hidden>
+          <header class="flow-subheader gift-subheader">
+            <button class="flow-header-button flow-header-back" type="button" data-gift-back="complete" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>픽업 QR</h1>
+            <div class="flow-header-actions">
+              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+            </div>
+          </header>
+          <div class="gift-pickup-content">
+            <div class="gift-package-crop gift-package-crop--pickup" aria-hidden="true"><img src="./assets/gift-flow/completion-gift.png" alt="" /></div>
+            <span class="gift-pickup-state">예약중</span>
+            <h2>커스텀 기프트 세트</h2>
+            <div class="gift-pickup-divider"></div>
+            <img class="gift-pickup-qr-code" src="./assets/gift-flow/pickup-qr-code.svg" alt="픽업 확인 QR 코드" />
+            <small>9401 3985 8372</small>
+            <dl>
+              <div><dt>상품 코드</dt><dd>2800100200784</dd></div>
+              <div><dt>주문 번호</dt><dd>2026050812080481087</dd></div>
+              <div><dt>사용 기한</dt><dd>2026.08.15(토)까지 사용</dd></div>
+              <div><dt>보관 일시</dt><dd>2026.08.08(금) 12:01</dd></div>
+            </dl>
+          </div>
+          <footer class="gift-complete-footer gift-pickup-footer">
+            <p>8/8 18:00부터 수령이 가능합니다.</p>
+            <button type="button" data-gift-back="home">나만의 냉장고로 돌아가기</button>
+          </footer>
+        </article>
+      </section>
+
+      <div class="gift-reserve-modal" data-gift-reserve-modal hidden>
+        <button class="gift-reserve-backdrop" type="button" data-gift-close-modal aria-label="예약 주문 팝업 닫기"></button>
+        <section class="gift-reserve-sheet" role="dialog" aria-modal="true" aria-labelledby="gift-reserve-title">
+          <span class="gift-reserve-handle" aria-hidden="true"></span>
+          <h2 id="gift-reserve-title">커스텀 기프트 세트</h2>
+          <p class="gift-reserve-price"><strong data-gift-total-price>28,500</strong><b>원</b></p>
+          <p class="gift-reserve-discount"><strong>22%</strong><del>34,700원</del></p>
+          <div class="gift-reserve-quantity">
+            <span>수량</span>
+            <div><button type="button" data-gift-quantity="minus">−</button><strong data-gift-quantity-value>1</strong><button type="button" data-gift-quantity="plus">＋</button></div>
+          </div>
+          <button class="gift-reserve-confirm" type="button" data-gift-confirm>예약 주문하기</button>
+        </section>
+      </div>
 
       <div class="result-share-modal" data-result-share-modal hidden>
         <button class="result-share-backdrop" type="button" data-close-result-share aria-label="공유 팝업 닫기"></button>
@@ -673,6 +800,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260831e"></script>
+    <script src="./app.js?v=20260902f"></script>
   </body>
 </html>
