@@ -24,7 +24,7 @@
   const result = presentation.querySelector('[data-flow-result]');
   const resultImage = presentation.querySelector('[data-flow-result-image]');
 
-  const appUrl = new URL('./app.html?v=20260831e', window.location.href);
+  const appUrl = new URL('./app.html?v=20260903a', window.location.href);
   appUrl.searchParams.set('display', 'pc');
   appUrl.searchParams.set('presentation', '1');
 
