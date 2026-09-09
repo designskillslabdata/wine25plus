@@ -16,7 +16,7 @@
     -->
     <section
       id="w25-imweb-demo"
-      data-app-src="./app.html?v=20260903c"
+      data-app-src="./app.html"
       data-mobile-url="https://designskillslabdata.github.io/wine25plus/"
       aria-label="WINE25+ PLUS 앱 데모"
     >
@@ -493,6 +493,9 @@
         const w25MobileUrl = w25ConfiguredMobileUrl || (w25IsLocal ? 'https://designskillslabdata.github.io/wine25plus/' : w25CurrentUrl);
 
         const w25AppUrl = new URL(w25AppSource, window.location.href);
+        // The Pages CDN can keep an older app document even after gh-pages updates.
+        // A per-load key guarantees that the presentation iframe requests the current app.
+        w25AppUrl.searchParams.set('build', Date.now().toString(36));
         w25AppUrl.searchParams.set('display', w25ViewportQuery.matches ? 'mobile' : 'pc');
 
         const w25SyncDisplayMode = () => {
