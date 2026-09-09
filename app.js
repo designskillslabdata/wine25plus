@@ -156,6 +156,23 @@ const pairingModal = document.querySelector('.pairing-modal');
 const pairingRecommendations = document.querySelector('.pairing-recommendations');
 const wineryView = document.querySelector('.winery-page');
 const cellarView = document.querySelector('.cellar-page');
+const cellarmateView = document.querySelector('.cellarmate-page');
+const cellarmateScreens = Array.from(document.querySelectorAll('[data-cellarmate-screen]'));
+const cellarmateTabs = Array.from(document.querySelectorAll('[data-cellarmate-tab]'));
+const cellarmatePanels = Array.from(document.querySelectorAll('[data-cellarmate-panel]'));
+const cellarmateCouponModal = document.querySelector('[data-cellarmate-coupon-modal]');
+const kyoboEventView = document.querySelector('.kyobo-page');
+const kyoboScreens = Array.from(document.querySelectorAll('[data-kyobo-screen]'));
+const kyoboProductCarousel = document.querySelector('.kyobo-product-carousel');
+const worldTourView = document.querySelector('.world-tour-page');
+const worldTourScreens = Array.from(document.querySelectorAll('[data-world-tour-screen]'));
+const findItView = document.querySelector('.find-it-page');
+const findItScreens = Array.from(document.querySelectorAll('[data-find-it-screen]'));
+const findItGameImage = document.querySelector('.find-it-game-image');
+const findItTargets = Array.from(document.querySelectorAll('[data-find-piece]'));
+const findItPieceVisuals = Array.from(document.querySelectorAll('[data-find-piece-visual]'));
+const findItCount = document.querySelector('[data-find-count]');
+const findItCompleteModal = document.querySelector('[data-find-complete-modal]');
 const membershipRange = document.querySelector('#membership-range');
 const membershipName = document.querySelector('[data-membership-name]');
 const membershipMessage = document.querySelector('[data-membership-message]');
@@ -167,7 +184,7 @@ const drinkScreens = Array.from(document.querySelectorAll('[data-drink-screen]')
 const surveyQuestion = document.querySelector('.survey-question');
 const surveyCount = document.querySelector('.survey-count strong');
 const surveyProgress = document.querySelector('.survey-progress');
-const resultMetrics = document.querySelector('.result-metrics');
+const resultMetrics = Array.from(document.querySelectorAll('.result-metrics'));
 const friendGrid = document.querySelector('.friend-grid');
 const aiChatQuestion = document.querySelector('[data-ai-chat-question]');
 const aiChatMessages = document.querySelector('.ai-chat-messages');
@@ -218,6 +235,7 @@ let cardWheelPosition = 1;
 let cardDragStartPosition = 1;
 let cardPointerStartX = 0;
 let cardPointerMoved = false;
+const foundTreasures = new Set();
 let cardPointerCardIndex = null;
 let suppressCardClick = false;
 let cardLastPointerX = 0;
@@ -276,10 +294,10 @@ const cardPickCards = [
 ];
 
 const membershipTiers = [
-  { name: 'Rookie', color: '#2f7c32', accent: '#1f6c24', soft: '#abc7ab', message: '다음 등급까지 <strong>150,000원</strong> 남았어요!' },
-  { name: 'Mania', color: '#d7ac00', accent: '#b68f00', soft: '#f0dda8', message: '다음 등급까지 <strong>350,000원</strong> 남았어요!' },
-  { name: 'Sommelier', color: '#d81810', accent: '#bf100a', soft: '#e9b7b9', message: '다음 등급까지 <strong>700,000원</strong> 남았어요!' },
-  { name: 'Master', color: '#126bbb', accent: '#07599e', soft: '#aec9dd', message: '<strong>최고 등급</strong>을 달성했어요!' },
+  { name: '루키', color: '#2f7c32', accent: '#1f6c24', soft: '#abc7ab', message: '다음 등급까지 <strong>150,000원</strong> 남았어요!' },
+  { name: '매니아', color: '#e9b600', accent: '#806400', soft: '#e3d6b5', message: '다음 등급까지 <strong>150,000원</strong> 남았어요!' },
+  { name: '소믈리에', color: '#d81810', accent: '#bf100a', soft: '#e9b7b9', message: '다음 등급까지 <strong>350,000원</strong> 남았어요!' },
+  { name: '마스터', color: '#126bbb', accent: '#07599e', soft: '#aec9dd', message: '<strong>최고 등급</strong>을 달성했어요!' },
 ];
 
 const cellarBottles = [
@@ -306,13 +324,13 @@ const drinkQuestions = [
 
 const drinkTypes = {
   'curious-beginner': { name: '호기심 입문형', tagline: '취향을 찾아가는 탐험가', color: '#2668ff', shape: './assets/drink-id/type-blue.svg', sommelier: '무무씨', knowledge: false, explore: true, intensity: false },
-  'comfort-cup': { name: '편안한 찻잔형', tagline: '익숙한 한 잔을 천천히 즐기는 타입', color: '#2668ff', shape: './assets/drink-id/type-blue.svg', sommelier: '무무씨', knowledge: false, explore: false, intensity: false },
-  'straight-beginner': { name: '직진 입문형', tagline: '선명한 취향을 향해 곧장 가는 타입', color: '#f0c517', shape: './assets/drink-id/type-yellow.svg', sommelier: '안드레씨', knowledge: false, explore: false, intensity: true },
-  'bold-explorer': { name: '과감한 탐색형', tagline: '새로운 맛을 두려워하지 않는 도전자', color: '#f0c517', shape: './assets/drink-id/type-yellow.svg', sommelier: '안드레씨', knowledge: false, explore: true, intensity: true },
-  tipsy: { name: '알딸딸형', tagline: '가볍고 기분 좋은 한 잔을 아는 타입', color: '#459d47', shape: './assets/drink-id/type-green.svg', sommelier: '순남씨', knowledge: true, explore: false, intensity: false },
-  'light-explorer': { name: '가벼운 탐색가형', tagline: '부담 없이 새로운 맛을 즐기는 탐색가', color: '#459d47', shape: './assets/drink-id/type-green.svg', sommelier: '순남씨', knowledge: true, explore: true, intensity: false },
-  drinker: { name: '주당형', tagline: '진하고 익숙한 한 잔을 즐기는 애호가', color: '#f15824', shape: './assets/drink-id/type-red.svg', sommelier: '머용씨', knowledge: true, explore: false, intensity: true },
-  veteran: { name: '고인물 탐색형', tagline: '깊은 취향으로 낯선 술을 찾는 탐색가', color: '#f15824', shape: './assets/drink-id/type-red.svg', sommelier: '머용씨', knowledge: true, explore: true, intensity: true },
+  'comfort-cup': { name: '편안한 찻잔형', tagline: '익숙한 한 잔을 천천히 즐기는 휴식가', color: '#2668ff', shape: './assets/drink-id/type-blue.svg', sommelier: '무무씨', knowledge: false, explore: false, intensity: false },
+  'straight-beginner': { name: '분위기파', tagline: '술보다 그 순간의 분위기를 마시는 감성파', color: '#efb900', shape: './assets/drink-id/type-yellow.svg', sommelier: '안드레씨', knowledge: false, explore: false, intensity: true },
+  'bold-explorer': { name: '술맛 도전파', tagline: '새로운 술맛에 도전하는 모험가', color: '#efb900', shape: './assets/drink-id/type-yellow.svg', sommelier: '안드레씨', knowledge: false, explore: true, intensity: true },
+  tipsy: { name: '알딸딸형', tagline: '기분 좋은 한 잔을 즐기는 여유파', color: '#13a52a', shape: './assets/drink-id/type-green.svg', sommelier: '순남씨', knowledge: true, explore: false, intensity: false },
+  'light-explorer': { name: '모든걸 먹고파', tagline: '가리지 않고 경험해보는 수집가', color: '#13a52a', shape: './assets/drink-id/type-green.svg', sommelier: '순남씨', knowledge: true, explore: true, intensity: false },
+  drinker: { name: '얼큰한 주당형', tagline: '제대로 즐길 줄 아는 애주가', color: '#f14b2f', shape: './assets/drink-id/type-red.svg', sommelier: '머용씨', knowledge: true, explore: false, intensity: true },
+  veteran: { name: '주류 고인물', tagline: '취향도 지식도 확실한 술잘알', color: '#f14b2f', shape: './assets/drink-id/type-red.svg', sommelier: '머용씨', knowledge: true, explore: true, intensity: true },
 };
 
 function createProductCard(product, category, index) {
@@ -372,6 +390,32 @@ function hideGiftFlow() {
   giftFlowView.hidden = true;
   phoneShell.classList.remove('is-gift-view');
   closeGiftReserveModal();
+}
+
+function hideCellarmate() {
+  if (!cellarmateView) return;
+  cellarmateView.hidden = true;
+  cellarmateCouponModal.hidden = true;
+  phoneShell.classList.remove('is-cellarmate-view');
+}
+
+function hideKyoboEvent() {
+  if (!kyoboEventView) return;
+  kyoboEventView.hidden = true;
+  phoneShell.classList.remove('is-kyobo-view');
+}
+
+function hideWorldTour() {
+  if (!worldTourView) return;
+  worldTourView.hidden = true;
+  phoneShell.classList.remove('is-world-tour-view');
+}
+
+function hideFindIt() {
+  if (!findItView) return;
+  findItView.hidden = true;
+  findItCompleteModal.hidden = true;
+  phoneShell.classList.remove('is-find-it-view');
 }
 
 function getVisibleGiftProducts() {
@@ -451,6 +495,9 @@ function renderGiftOrder() {
 }
 
 function renderGiftScreen(screen) {
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
   homeView.hidden = true;
   catalogView.hidden = true;
   detailView.hidden = true;
@@ -559,6 +606,9 @@ function updateResultCard() {
 }
 
 function renderCardPickScreen(screen) {
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
   clearTimeout(analysisTimer);
   homeView.hidden = true;
   catalogView.hidden = true;
@@ -579,6 +629,9 @@ function renderCardPickScreen(screen) {
 }
 
 function renderCatalog(category) {
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
   const data = catalogData[category];
   const isSupported = Boolean(data);
 
@@ -705,6 +758,9 @@ function renderPairings(profile) {
 }
 
 function renderProductDetail(category, index) {
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
   const data = catalogData[category];
   const product = data?.products[index];
   const profile = detailProfiles[category];
@@ -764,6 +820,9 @@ function renderProductDetail(category, index) {
 }
 
 function renderHome() {
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
   catalogView.hidden = true;
   detailView.hidden = true;
   wineryView.hidden = true;
@@ -793,6 +852,9 @@ function applyMembershipTier(index) {
 }
 
 function renderWinery() {
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
   homeView.hidden = true;
   catalogView.hidden = true;
   detailView.hidden = true;
@@ -832,6 +894,9 @@ function renderCellarSlots(category = 'all') {
 }
 
 function renderCellar() {
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
   homeView.hidden = true;
   catalogView.hidden = true;
   detailView.hidden = true;
@@ -870,6 +935,7 @@ function createResultMetric(label, left, right, value) {
 function renderDrinkResultData() {
   const type = drinkTypes[activeDrinkType];
   drinkIdView.style.setProperty('--drink-color', type.color);
+  drinkIdView.dataset.sommelier = type.sommelier;
   document.querySelectorAll('.result-title, .summary-title').forEach((element) => { element.textContent = type.name; });
   document.querySelectorAll('.result-tagline, .summary-tagline').forEach((element) => { element.textContent = type.tagline; });
   document.querySelectorAll('.result-shape, .summary-shape').forEach((image) => { image.src = type.shape; });
@@ -878,11 +944,11 @@ function renderDrinkResultData() {
   document.querySelector('[data-ai-input]').placeholder = `${type.sommelier}에게 물어보기`;
   document.querySelectorAll('[data-ai-chat-name], [data-ai-chat-speaker]').forEach((element) => { element.textContent = type.sommelier; });
 
-  resultMetrics.replaceChildren(
+  resultMetrics.forEach((metrics) => metrics.replaceChildren(
     createResultMetric('주류 숙련도', '입문자', '애호가', type.knowledge ? 82 : 28),
-    createResultMetric('탐색성', '새로운', '익숙한', type.explore ? 28 : 82),
+    createResultMetric('탐색성', '새로움', '익숙함', type.explore ? 28 : 82),
     createResultMetric('선호 음용 강도', '가볍게', '강하게', type.intensity ? 82 : 28),
-  );
+  ));
 }
 
 function renderSurveyQuestion() {
@@ -895,8 +961,8 @@ function renderFriendCards() {
   const cards = [
     { name: '나영', type: '호기심 입문형', image: './assets/drink-id/type-blue.svg', color: '#2668ff' },
     { name: '수빈', type: '알딸딸형', image: './assets/drink-id/type-green.svg', color: '#459d47' },
-    { name: '유민', type: '주당형', image: './assets/drink-id/type-red.svg', color: '#f15824' },
-    { name: '보연', type: '과감한 탐색형', image: './assets/drink-id/type-yellow.svg', color: '#d4a800' },
+    { name: '유민', type: '주류 고인물', image: './assets/drink-id/type-red.svg', color: '#f14b2f' },
+    { name: '보연', type: '술맛 도전파', image: './assets/drink-id/type-yellow.svg', color: '#d4a800' },
   ];
   friendGrid.replaceChildren();
   cards.forEach((friend) => {
@@ -916,6 +982,9 @@ function renderFriendCards() {
 }
 
 function renderDrinkScreen(screen) {
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
   clearTimeout(analysisTimer);
   homeView.hidden = true;
   catalogView.hidden = true;
@@ -932,7 +1001,7 @@ function renderDrinkScreen(screen) {
 
   drinkScreens.forEach((element) => { element.hidden = element.dataset.drinkScreen !== screen; });
   if (screen === 'survey') renderSurveyQuestion();
-  if (screen === 'result' || screen === 'friends' || screen === 'browse' || screen === 'ai') renderDrinkResultData();
+  if (screen === 'issued' || screen === 'result' || screen === 'friends' || screen === 'browse' || screen === 'ai') renderDrinkResultData();
   if (screen === 'ai-chat') {
     renderDrinkResultData();
     aiChatQuestion.textContent = activeAiQuestion;
@@ -940,13 +1009,16 @@ function renderDrinkScreen(screen) {
   if (screen === 'friends') renderFriendCards();
   if (screen === 'analyzing') {
     analysisTimer = window.setTimeout(() => {
-      window.location.hash = '#drink-id/result';
+      window.location.hash = '#drink-id/issued';
     }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 350 : 1700);
   }
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 function renderSharedCartScreen(screen) {
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
   clearTimeout(analysisTimer);
   homeView.hidden = true;
   catalogView.hidden = true;
@@ -964,7 +1036,138 @@ function renderSharedCartScreen(screen) {
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
+function renderCellarmate(screen) {
+  hideKyoboEvent();
+  hideFindIt();
+  clearTimeout(analysisTimer);
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  hideGiftFlow();
+  cellarmateView.hidden = false;
+  cellarmateCouponModal.hidden = true;
+  cellarmateScreens.forEach((element) => { element.hidden = element.dataset.cellarmateScreen !== screen; });
+  if (screen === 'received') {
+    cellarmateTabs.forEach((tab) => tab.setAttribute('aria-selected', String(tab.dataset.cellarmateTab === 'received')));
+    cellarmatePanels.forEach((panel) => { panel.hidden = panel.dataset.cellarmatePanel !== 'received'; });
+  }
+  phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view');
+  phoneShell.classList.add('is-cellarmate-view');
+  closePairingModal();
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function renderKyoboEvent(screen) {
+  hideFindIt();
+  clearTimeout(analysisTimer);
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  hideGiftFlow();
+  hideCellarmate();
+  kyoboEventView.hidden = false;
+  kyoboScreens.forEach((element) => { element.hidden = element.dataset.kyoboScreen !== screen; });
+  phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view');
+  phoneShell.classList.add('is-kyobo-view');
+  closePairingModal();
+  kyoboEventView.scrollTo({ top: 0, behavior: 'auto' });
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function updateFindItGame() {
+  const isComplete = foundTreasures.size === 4;
+  findItGameImage.src = isComplete ? './assets/find-it/game-complete.png' : './assets/find-it/game-start.png';
+  findItGameImage.alt = isComplete ? '네 가지 보물을 모두 찾은 완성 화면' : '와인, 샌드위치, 디저트, 셔벗 네 가지 보물찾기';
+  findItPieceVisuals.forEach((visual) => {
+    visual.classList.toggle('is-found', !isComplete && foundTreasures.has(visual.dataset.findPieceVisual));
+  });
+  findItTargets.forEach((target) => {
+    const isFound = foundTreasures.has(target.dataset.findPiece);
+    target.classList.toggle('is-found', isFound);
+    target.disabled = isFound;
+  });
+  findItCount.textContent = String(foundTreasures.size);
+}
+
+function renderFindIt(screen) {
+  clearTimeout(analysisTimer);
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  hideGiftFlow();
+  hideCellarmate();
+  hideKyoboEvent();
+  findItView.hidden = false;
+  findItScreens.forEach((element) => { element.hidden = element.dataset.findItScreen !== screen; });
+  findItCompleteModal.hidden = true;
+  phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view', 'is-kyobo-view');
+  phoneShell.classList.add('is-find-it-view');
+  closePairingModal();
+  if (screen === 'game') updateFindItGame();
+  findItView.scrollTo({ top: 0, behavior: 'auto' });
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function renderWorldTour(screen) {
+  clearTimeout(analysisTimer);
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  hideGiftFlow();
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
+  worldTourView.hidden = false;
+  worldTourScreens.forEach((element) => { element.hidden = element.dataset.worldTourScreen !== screen; });
+  phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view', 'is-kyobo-view', 'is-find-it-view');
+  phoneShell.classList.add('is-world-tour-view');
+  closePairingModal();
+  worldTourView.scrollTo({ top: 0, behavior: 'auto' });
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
 function syncViewFromHash() {
+  const worldTourMatch = window.location.hash.match(/^#world-tour\/(world|japan|niigata|product|reserve|coupon|travel-all|travel-wine|travel-sake|travel-detail)$/);
+  if (worldTourMatch) {
+    renderWorldTour(worldTourMatch[1]);
+    return;
+  }
+  hideWorldTour();
+  const findItMatch = window.location.hash.match(/^#find-it\/(game|coupon)$/);
+  if (findItMatch) {
+    renderFindIt(findItMatch[1]);
+    return;
+  }
+  const kyoboMatch = window.location.hash.match(/^#kyobo\/(event|instagram|linktree)$/);
+  if (kyoboMatch) {
+    renderKyoboEvent(kyoboMatch[1]);
+    return;
+  }
+  const cellarmateMatch = window.location.hash.match(/^#cellarmate\/(received|detail)$/);
+  if (cellarmateMatch) {
+    renderCellarmate(cellarmateMatch[1]);
+    return;
+  }
   const giftMatch = window.location.hash.match(/^#gift\/(event|order|complete|pickup)$/);
   if (giftMatch) {
     renderGiftScreen(giftMatch[1]);
@@ -989,7 +1192,7 @@ function syncViewFromHash() {
     renderSharedCartScreen(sharedCartMatch[1]);
     return;
   }
-  const drinkMatch = window.location.hash.match(/^#drink-id\/(start|survey|analyzing|result|friends|browse|ai|ai-chat)$/);
+  const drinkMatch = window.location.hash.match(/^#drink-id\/(start|survey|analyzing|issued|result|friends|browse|ai|ai-chat)$/);
   if (drinkMatch) {
     renderDrinkScreen(drinkMatch[1]);
     return;
@@ -1017,6 +1220,136 @@ window.addEventListener('load', () => window.scrollTo({ top: 0, behavior: 'auto'
 syncViewFromHash();
 
 membershipRange?.addEventListener('input', () => applyMembershipTier(membershipRange.value));
+
+cellarmateTabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const selected = tab.dataset.cellarmateTab;
+    cellarmateTabs.forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
+    cellarmatePanels.forEach((panel) => { panel.hidden = panel.dataset.cellarmatePanel !== selected; });
+  });
+});
+
+document.querySelector('[data-cellarmate-open="detail"]')?.addEventListener('click', () => {
+  window.location.hash = '#cellarmate/detail';
+});
+
+document.querySelectorAll('[data-cellarmate-back]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const destination = button.dataset.cellarmateBack;
+    window.location.hash = destination === 'home' ? '#top' : destination === 'winery' ? '#winery' : '#cellarmate/received';
+  });
+});
+
+document.querySelector('[data-cellarmate-coupon-open]')?.addEventListener('click', () => {
+  cellarmateCouponModal.hidden = false;
+  cellarmateCouponModal.querySelector('[data-cellarmate-coupon-close]')?.focus();
+});
+
+document.querySelectorAll('[data-cellarmate-coupon-close]').forEach((button) => {
+  button.addEventListener('click', () => { cellarmateCouponModal.hidden = true; });
+});
+
+document.querySelectorAll('[data-kyobo-go]').forEach((button) => {
+  button.addEventListener('click', () => { window.location.hash = `#kyobo/${button.dataset.kyoboGo}`; });
+});
+
+document.querySelectorAll('[data-kyobo-back]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const destination = button.dataset.kyoboBack;
+    window.location.hash = destination === 'home' ? '#top' : `#kyobo/${destination}`;
+  });
+});
+
+document.querySelectorAll('[data-world-tour-go]').forEach((button) => {
+  button.addEventListener('click', () => { window.location.hash = `#world-tour/${button.dataset.worldTourGo}`; });
+});
+
+document.querySelectorAll('[data-world-tour-back]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const destination = button.dataset.worldTourBack;
+    window.location.hash = destination === 'home' ? '#top' : `#world-tour/${destination}`;
+  });
+});
+
+findItTargets.forEach((target) => {
+  target.addEventListener('click', () => {
+    if (foundTreasures.has(target.dataset.findPiece)) return;
+    foundTreasures.add(target.dataset.findPiece);
+    updateFindItGame();
+    if (foundTreasures.size === 4) {
+      window.setTimeout(() => {
+        findItCompleteModal.hidden = false;
+        findItCompleteModal.querySelector('.find-it-coupon-button')?.focus();
+      }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 20 : 420);
+    }
+  });
+});
+
+document.querySelectorAll('[data-find-it-go]').forEach((button) => {
+  button.addEventListener('click', () => { window.location.hash = `#find-it/${button.dataset.findItGo}`; });
+});
+
+document.querySelectorAll('[data-find-it-back]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const destination = button.dataset.findItBack;
+    window.location.hash = destination === 'home' ? '#top' : `#find-it/${destination}`;
+  });
+});
+
+document.querySelectorAll('[data-find-complete-close]').forEach((button) => {
+  button.addEventListener('click', () => { findItCompleteModal.hidden = true; });
+});
+
+if (kyoboProductCarousel) {
+  let pointerId = null;
+  let startX = 0;
+  let startScrollLeft = 0;
+  let moved = false;
+  let suppressClick = false;
+
+  kyoboProductCarousel.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    pointerId = event.pointerId;
+    startX = event.clientX;
+    startScrollLeft = kyoboProductCarousel.scrollLeft;
+    moved = false;
+  });
+
+  kyoboProductCarousel.addEventListener('pointermove', (event) => {
+    if (event.pointerId !== pointerId) return;
+    const delta = event.clientX - startX;
+    if (!moved && Math.abs(delta) < 6) return;
+    moved = true;
+    kyoboProductCarousel.classList.add('is-dragging');
+    kyoboProductCarousel.setPointerCapture?.(pointerId);
+    kyoboProductCarousel.scrollLeft = startScrollLeft - delta;
+    event.preventDefault();
+  });
+
+  const finishKyoboDrag = (event) => {
+    if (event.pointerId !== pointerId) return;
+    if (moved) {
+      suppressClick = true;
+      window.setTimeout(() => { suppressClick = false; }, 80);
+    }
+    kyoboProductCarousel.classList.remove('is-dragging');
+    if (kyoboProductCarousel.hasPointerCapture?.(pointerId)) kyoboProductCarousel.releasePointerCapture(pointerId);
+    pointerId = null;
+  };
+
+  kyoboProductCarousel.addEventListener('pointerup', finishKyoboDrag);
+  kyoboProductCarousel.addEventListener('pointercancel', finishKyoboDrag);
+  kyoboProductCarousel.addEventListener('click', (event) => {
+    if (!suppressClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && cellarmateCouponModal && !cellarmateCouponModal.hidden) cellarmateCouponModal.hidden = true;
+  if (event.key === 'Escape' && findItCompleteModal && !findItCompleteModal.hidden) findItCompleteModal.hidden = true;
+});
 
 giftCategoryButtons.forEach((button) => {
   button.addEventListener('click', () => {
@@ -1323,11 +1656,11 @@ document.querySelectorAll('[data-survey-answer]').forEach((button) => {
   });
 });
 
-document.querySelector('[data-drink-retake]')?.addEventListener('click', () => {
+document.querySelectorAll('[data-drink-retake]').forEach((button) => button.addEventListener('click', () => {
   surveyIndex = 0;
   surveyAnswers = [];
   window.location.hash = '#drink-id/survey';
-});
+}));
 
 document.querySelectorAll('[data-drink-back]').forEach((button) => {
   button.addEventListener('click', () => {
@@ -1436,6 +1769,7 @@ if (carousel) {
   const liveLabel = carousel.querySelector('[data-carousel-live]');
   const previousButton = carousel.querySelector('[data-carousel-prev]');
   const nextButton = carousel.querySelector('[data-carousel-next]');
+  const openButton = carousel.querySelector('[data-carousel-open]');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const slideCount = slides.length;
   const firstClone = slides[0].cloneNode(true);
@@ -1472,10 +1806,9 @@ if (carousel) {
   function updateCarouselState() {
     currentLabel.textContent = String(carouselIndex + 1);
     liveLabel.textContent = `${carouselIndex + 1}번째 배너`;
-    const giftEntry = carousel.querySelector('.carousel-gift-entry');
-    const cardEntry = carousel.querySelector('.carousel-card-entry');
-    if (giftEntry) giftEntry.hidden = carouselIndex !== 1;
-    if (cardEntry) cardEntry.hidden = carouselIndex !== 2;
+    const activeAction = slides[carouselIndex]?.dataset.slideAction;
+    openButton.hidden = !activeAction;
+    openButton.dataset.action = activeAction || '';
 
     slides.forEach((slide, index) => {
       const isActive = index === carouselIndex;
@@ -1621,6 +1954,133 @@ if (carousel) {
   startAutoplay();
 }
 
+const storyCarousel = document.querySelector('.story-carousel');
+
+if (storyCarousel) {
+  const storyTrack = storyCarousel.querySelector('.story-track');
+  const storySlides = Array.from(storyCarousel.querySelectorAll('.story-slide'));
+  const storyLive = storyCarousel.querySelector('[data-story-live]');
+  const previousButton = storyCarousel.querySelector('[data-story-prev]');
+  const nextButton = storyCarousel.querySelector('[data-story-next]');
+  const openButton = storyCarousel.querySelector('[data-story-open]');
+  const count = storySlides.length;
+  const firstClone = storySlides[0].cloneNode(true);
+  const lastClone = storySlides[count - 1].cloneNode(true);
+  firstClone.setAttribute('aria-hidden', 'true');
+  lastClone.setAttribute('aria-hidden', 'true');
+  storyTrack.prepend(lastClone);
+  storyTrack.append(firstClone);
+
+  let index = 0;
+  let position = 1;
+  let pointerId = null;
+  let startX = 0;
+  let deltaX = 0;
+  let didDrag = false;
+  let suppressClick = false;
+  let moving = false;
+  let fallback;
+
+  function setPosition(nextPosition, animate = true) {
+    if (!animate) storyTrack.style.transition = 'none';
+    storyTrack.style.transform = `translateX(-${nextPosition * 100}%)`;
+    if (!animate) {
+      storyTrack.getBoundingClientRect();
+      storyTrack.style.transition = '';
+    }
+  }
+
+  function updateStoryState() {
+    storyLive.textContent = `${index + 1}번째 취향 콘텐츠`;
+    openButton.dataset.action = storySlides[index]?.dataset.storyAction || '';
+    storySlides.forEach((slide, slideIndex) => {
+      slide.setAttribute('aria-hidden', String(slideIndex !== index));
+    });
+  }
+
+  function finishStoryMove() {
+    clearTimeout(fallback);
+    if (position === 0) {
+      position = count;
+      setPosition(position, false);
+    } else if (position === count + 1) {
+      position = 1;
+      setPosition(position, false);
+    }
+    moving = false;
+  }
+
+  function moveStory(direction) {
+    if (moving) return;
+    moving = true;
+    index = (index + direction + count) % count;
+    position += direction;
+    updateStoryState();
+    setPosition(position);
+    fallback = window.setTimeout(finishStoryMove, 520);
+  }
+
+  storyTrack.addEventListener('transitionend', (event) => {
+    if (event.target === storyTrack && event.propertyName === 'transform') finishStoryMove();
+  });
+
+  previousButton.addEventListener('click', () => {
+    if (!suppressClick) moveStory(-1);
+  });
+
+  nextButton.addEventListener('click', () => {
+    if (!suppressClick) moveStory(1);
+  });
+
+  storyCarousel.addEventListener('click', (event) => {
+    if (!suppressClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+
+  storyCarousel.addEventListener('pointerdown', (event) => {
+    if (moving || (event.pointerType === 'mouse' && event.button !== 0)) return;
+    pointerId = event.pointerId;
+    startX = event.clientX;
+    deltaX = 0;
+    didDrag = false;
+  });
+
+  storyCarousel.addEventListener('pointermove', (event) => {
+    if (event.pointerId !== pointerId) return;
+    deltaX = event.clientX - startX;
+    if (!didDrag && Math.abs(deltaX) < 6) return;
+    if (!didDrag) storyCarousel.setPointerCapture?.(event.pointerId);
+    didDrag = true;
+    storyCarousel.classList.add('is-dragging');
+    storyTrack.style.transition = 'none';
+    storyTrack.style.transform = `translateX(calc(-${position * 100}% + ${deltaX}px))`;
+    event.preventDefault();
+  });
+
+  function finishStoryDrag(event) {
+    if (event.pointerId !== pointerId) return;
+    if (storyCarousel.hasPointerCapture?.(event.pointerId)) storyCarousel.releasePointerCapture(event.pointerId);
+    pointerId = null;
+    storyCarousel.classList.remove('is-dragging');
+    storyTrack.style.transition = '';
+    if (!didDrag) return;
+    suppressClick = true;
+    if (Math.abs(deltaX) >= Math.min(52, storyCarousel.clientWidth * 0.14)) {
+      moveStory(deltaX > 0 ? -1 : 1);
+    } else {
+      setPosition(position);
+    }
+    window.setTimeout(() => { suppressClick = false; didDrag = false; }, 360);
+  }
+
+  storyCarousel.addEventListener('pointerup', finishStoryDrag);
+  storyCarousel.addEventListener('pointercancel', finishStoryDrag);
+  storyCarousel.addEventListener('dragstart', (event) => event.preventDefault());
+  setPosition(position, false);
+  updateStoryState();
+}
+
 const flowTargets = {
   cellar: document.querySelector('[data-flow-target="cellar"]'),
   'shared-cart': document.querySelector('[data-flow-target="shared-cart"]'),
@@ -1734,6 +2194,12 @@ const messages = {
   'shared-cart': '공동 장바구니 화면으로 연결됩니다.',
   'shared-cart-next': '공동 주문 상품 선택 화면은 다음 단계에서 연결됩니다.',
   'drink-id': 'MY DRINK ID 화면으로 연결됩니다.',
+  'hero-find': '와인 찾기와 쿠폰 이벤트를 준비 중입니다.',
+  'hero-kyobo': '음주 독서 인증 이벤트를 준비 중입니다.',
+  'kyobo-product-later': '구매 페이지는 다음 단계에서 기존 상품 상세와 연결할 예정입니다.',
+  'world-trip': '세계 주류 여행 콘텐츠를 준비 중입니다.',
+  'pairing-finder': '맛잘알 조합 찾기를 준비 중입니다.',
+  'party-quest': '파티 퀘스트를 준비 중입니다.',
   store: '픽업 매장을 변경할 수 있습니다.',
   menu: '전체 메뉴를 준비 중입니다.',
   share: '상품 공유 기능을 준비 중입니다.',
@@ -1748,6 +2214,11 @@ const messages = {
   recommended: '주류 추천 화면을 준비 중입니다.',
   'cellar-filter': '술장 필터를 준비 중입니다.',
   'cellar-sort': '술장 정렬 방식을 준비 중입니다.',
+  'cellar-mate': '셀러메이트 화면을 준비 중입니다.',
+  'cellarmate-sort': '셀러를 최신순으로 정렬했어요.',
+  'cellarmate-recommend': '친구에게 추천할 셀러를 준비할게요.',
+  'cellarmate-cart': '추천 주류를 장바구니에 담았어요.',
+  'cellarmate-coupon-library': '쿠폰함에 쿠폰을 저장했어요.',
   'friends-cellar': '친구 술장 화면을 준비 중입니다.',
   'add-friend': '새 친구를 추가할 수 있습니다.',
   'write-post': '새 커뮤니티 글을 작성할 수 있습니다.',
@@ -1762,8 +2233,38 @@ document.addEventListener('click', (event) => {
     window.location.hash = '#winery';
     return;
   }
+  if (action === 'hero-find') {
+    foundTreasures.clear();
+    window.location.hash = '#find-it/game';
+    return;
+  }
+  if (action === 'hero-kyobo') {
+    window.location.hash = '#kyobo/event';
+    return;
+  }
+  if (action === 'world-trip') {
+    window.location.hash = '#world-tour/world';
+    return;
+  }
+  if (action === 'cellar-mate') {
+    window.location.hash = '#cellarmate/received';
+    return;
+  }
+  if (action === 'cellarmate-coupon-library') {
+    cellarmateCouponModal.hidden = true;
+    showToast(messages[action]);
+    return;
+  }
   if (action === 'drink-id') {
     window.location.hash = '#drink-id/start';
+    return;
+  }
+  if (action === 'drink-friends') {
+    window.location.hash = '#drink-id/friends';
+    return;
+  }
+  if (action === 'story') {
+    window.location.hash = '#story';
     return;
   }
   if (action === 'shared-cart') {
