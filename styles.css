@@ -5689,6 +5689,21 @@ button.cellarmate-list-card {
   -webkit-overflow-scrolling: touch;
 }
 
+.kyobo-page,
+.world-tour-page,
+.find-it-page {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.kyobo-page::-webkit-scrollbar,
+.world-tour-page::-webkit-scrollbar,
+.find-it-page::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 .kyobo-screen {
   overflow: visible;
 }
@@ -5910,6 +5925,72 @@ button.cellarmate-list-card {
   -webkit-user-drag: none;
 }
 
+.world-tour-screen--world {
+  min-height: auto;
+  padding-bottom: 0;
+}
+
+.world-tour-world-lead {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 402 / 599;
+  overflow: hidden;
+}
+
+.world-tour-world-lead > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.world-tour-recommendation-list {
+  display: flex;
+  width: calc(100% - 28px);
+  max-width: 373px;
+  margin: 0 auto;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.world-tour-recommendation-card {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+button.world-tour-recommendation-card {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.world-tour-recommendation-card > img,
+img.world-tour-recommendation-card {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.world-tour-bottom-nav {
+  position: sticky;
+  z-index: 8;
+  bottom: 0;
+  width: 100%;
+  height: 86px;
+  margin-top: 12px;
+  background: #fff url("./assets/world-tour/world.png") center bottom / 100% auto no-repeat;
+  box-shadow: 0 -1px 0 rgb(0 0 0 / 6%);
+  pointer-events: none;
+}
+
 .world-tour-hotspot {
   position: absolute;
   z-index: 3;
@@ -5936,6 +6017,11 @@ button.cellarmate-list-card {
 .world-tour-japan-card { left: 4%; top: 67%; width: 92%; height: 17%; }
 .world-tour-all-open { left: 72%; top: 61.5%; width: 25%; height: 7%; }
 
+.world-tour-screen--world .world-tour-back { top: 10.3%; height: 9.5%; }
+.world-tour-screen--world .world-tour-share { top: 10.3%; height: 9.5%; }
+.world-tour-screen--world .world-tour-japan-map { top: 51%; height: 36%; }
+.world-tour-screen--world .world-tour-all-open { top: 89%; height: 10%; }
+
 .world-tour-niigata { left: 47%; top: 32%; width: 29%; height: 25%; }
 .world-tour-kikusui { left: 2%; top: 74%; width: 51%; height: 21%; }
 .world-tour-reserve { left: 51%; top: 91%; width: 46%; height: 7%; }
@@ -5947,6 +6033,32 @@ button.cellarmate-list-card {
 .world-tour-tab-sake { left: 46%; top: 20%; width: 22%; height: 7%; }
 .world-tour-niigata-trip { left: 3%; top: 32%; width: 94%; height: 28%; }
 .world-tour-detail-back { left: 1%; top: 6%; width: 13%; height: 8%; }
+
+[data-world-tour-screen="niigata"] .world-tour-back {
+  top: 3.4%;
+  height: 5%;
+}
+
+[data-world-tour-screen="niigata"] .world-tour-kikusui {
+  top: 46.5%;
+  height: 17%;
+}
+
+[data-world-tour-screen="travel-sake"] .world-tour-back {
+  top: 3.7%;
+  height: 6%;
+}
+
+[data-world-tour-screen="travel-sake"] .world-tour-tab-all,
+[data-world-tour-screen="travel-sake"] .world-tour-tab-wine {
+  top: 13.5%;
+  height: 5%;
+}
+
+[data-world-tour-screen="travel-sake"] .world-tour-niigata-trip {
+  top: 22.5%;
+  height: 18%;
+}
 
 .find-it-page,
 .find-it-screen {
@@ -6022,26 +6134,453 @@ button.cellarmate-list-card {
   transform: translate(var(--find-piece-x), var(--find-piece-y));
 }
 
+/*
+ * Shared top app bar system
+ * -------------------------
+ * All new screens must reuse these dimensions and icon assets:
+ * 52px bar / 40px controls / 10px side inset / 20px visual icon.
+ * Left: back. Right: contextual action(s), then home. X is modal-only.
+ */
+.phone-shell {
+  --top-appbar-height: 52px;
+  --top-appbar-control: 40px;
+  --top-appbar-side: 10px;
+  --top-appbar-icon: 20px;
+}
+
+.flow-subheader,
+.account-subheader,
+.drink-subheader,
+.shared-cart-subheader {
+  position: relative;
+  z-index: 12;
+  width: 100%;
+  height: var(--top-appbar-height);
+  min-height: var(--top-appbar-height);
+  padding: 0 60px;
+  border-bottom: 1px solid #eef0f4;
+  background: #fff;
+}
+
+.account-subheader,
+.drink-subheader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-subheader h1,
+.drink-subheader h1,
+.flow-subheader h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  max-width: 210px;
+  margin: 0;
+  color: #101018;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+:where(
+  .flow-header-button,
+  .account-back,
+  .account-settings,
+  .cellar-filter-button,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button
+) {
+  position: absolute;
+  top: 6px;
+  display: grid;
+  width: var(--top-appbar-control);
+  height: var(--top-appbar-control);
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+:where(
+  .flow-header-button,
+  .account-back,
+  .account-settings,
+  .cellar-filter-button,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button
+):hover {
+  background: #f3f5f8;
+}
+
+:where(
+  .flow-header-button,
+  .account-back,
+  .account-settings,
+  .cellar-filter-button,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button
+):active {
+  transform: scale(.94);
+}
+
+:where(
+  .flow-header-button,
+  .account-back,
+  .account-settings,
+  .cellar-filter-button,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button
+):focus-visible {
+  outline: 2px solid #1b78f2;
+  outline-offset: -2px;
+}
+
+.flow-header-back,
+.account-back,
+.drink-subheader > button:first-child,
+.shared-cart-subheader > button {
+  right: auto;
+  left: var(--top-appbar-side);
+}
+
+.account-settings,
+.cellar-filter-button {
+  right: var(--top-appbar-side);
+  left: auto;
+}
+
+:where(
+  .flow-header-back,
+  .account-back,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button,
+  .kyobo-instagram-back
+) img {
+  display: none;
+}
+
+:where(
+  .flow-header-back,
+  .account-back,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button,
+  .kyobo-instagram-back
+)::before {
+  display: block;
+  width: var(--top-appbar-icon);
+  height: var(--top-appbar-icon);
+  flex: 0 0 var(--top-appbar-icon);
+  background: url("./assets/ui/back.svg") center / contain no-repeat;
+  content: "";
+}
+
+.account-settings img,
+.cellar-filter-button img {
+  width: var(--top-appbar-icon);
+  height: var(--top-appbar-icon);
+}
+
+.account-settings img {
+  display: none;
+}
+
+.account-settings::before {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background: url("./assets/ui/settings.svg") center / contain no-repeat;
+  content: "";
+}
+
+.flow-header-actions {
+  position: absolute;
+  top: 6px;
+  right: var(--top-appbar-side);
+  display: flex;
+  height: var(--top-appbar-control);
+  align-items: center;
+  gap: 2px;
+}
+
+.flow-header-actions .flow-header-button {
+  position: static;
+}
+
+.flow-header-share img {
+  display: none;
+}
+
+.flow-header-share::before {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background: url("./assets/ui/share.svg") center / contain no-repeat;
+  content: "";
+}
+
+.flow-header-exit img {
+  display: none;
+}
+
+.flow-header-exit::before {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: url("./assets/ui/home.svg") center / contain no-repeat;
+  content: "";
+}
+
+.drink-bell {
+  display: none;
+}
+
+/* Remove legacy header offsets and duplicate imported icons. */
+.phone-shell.is-cellarmate-view .app-header,
+.phone-shell.is-shared-cart-view .app-header {
+  height: 60px;
+}
+
+.cellarmate-header {
+  top: 0;
+}
+
+.cellarmate-tabs {
+  top: var(--top-appbar-height);
+}
+
+.cellarmate-header .flow-header-back img,
+.cellarmate-header .flow-header-exit img,
+.shared-cart-subheader > button img,
+.shared-cart-subheader .flow-header-exit img {
+  display: none;
+}
+
+.shared-cart-subheader h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  max-width: 210px;
+  margin: 0;
+  color: #101018;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+.shared-cart-subheader .flow-header-exit {
+  width: var(--top-appbar-control);
+  height: var(--top-appbar-control);
+}
+
+.cellar-header-actions {
+  position: absolute;
+  top: 6px;
+  right: var(--top-appbar-side);
+  display: flex;
+  height: var(--top-appbar-control);
+  align-items: center;
+}
+
+.cellar-header-actions :where(.cellar-friend-add-button, .cellar-filter-button) {
+  position: static;
+  display: grid;
+  width: var(--top-appbar-control);
+  height: var(--top-appbar-control);
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cellar-header-actions :where(.cellar-friend-add-button, .cellar-filter-button):hover {
+  background: #f3f5f8;
+}
+
+.cellar-friend-add-button img {
+  display: block;
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.cellar-filter-button > img,
+.cellar-filter-button::before {
+  display: none;
+}
+
+.cellar-filter-icon {
+  display: grid;
+  width: 26px;
+  gap: 2px;
+}
+
+.cellar-filter-icon img {
+  display: block;
+  width: 26px;
+  height: 9px;
+}
+
+.cellar-filter-icon img:last-child {
+  transform: scaleX(-1);
+}
+
+/* Normalize controls rendered over imported full-screen Figma artwork. */
+:where(
+  .world-tour-back,
+  .world-tour-detail-back,
+  .kyobo-event-back,
+  .kyobo-instagram-back,
+  .kyobo-linktree-back,
+  .find-it-back,
+  .find-it-coupon-back
+) {
+  z-index: 20 !important;
+  top: 50px !important;
+  right: auto !important;
+  left: 8px !important;
+  display: grid;
+  width: 40px !important;
+  height: 40px !important;
+  place-items: center;
+  border-radius: 50% !important;
+  background: rgb(255 255 255 / 96%) !important;
+  box-shadow: 0 0 0 12px #fff, 0 1px 5px rgb(13 24 48 / 8%);
+}
+
+:where(
+  .world-tour-back,
+  .world-tour-detail-back,
+  .kyobo-event-back,
+  .kyobo-instagram-back,
+  .kyobo-linktree-back,
+  .find-it-back,
+  .find-it-coupon-back
+)::before {
+  display: block;
+  width: var(--top-appbar-icon);
+  height: var(--top-appbar-icon);
+  background: url("./assets/ui/back.svg") center / contain no-repeat;
+  content: "";
+}
+
+:where(.world-tour-home, .kyobo-home, .find-it-home, .find-it-coupon-home) {
+  position: absolute;
+  z-index: 20 !important;
+  top: 50px !important;
+  right: 8px !important;
+  left: auto !important;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0;
+  border: 0;
+  border-radius: 50% !important;
+  background: #fff url("./assets/ui/home.svg") center / 24px 24px no-repeat !important;
+  box-shadow: 0 0 0 12px #fff;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.world-tour-share,
+.kyobo-event-share {
+  position: absolute;
+  z-index: 20 !important;
+  top: 50px !important;
+  right: 50px !important;
+  left: auto !important;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0;
+  border: 0;
+  border-radius: 50% !important;
+  background: #fff url("./assets/ui/share.svg") center / 22px 22px no-repeat !important;
+  box-shadow: 0 0 0 12px #fff;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+:where(
+  .world-tour-back,
+  .world-tour-detail-back,
+  .world-tour-home,
+  .world-tour-share,
+  .kyobo-event-back,
+  .kyobo-linktree-back,
+  .kyobo-home,
+  .kyobo-event-share,
+  .find-it-back,
+  .find-it-home,
+  .find-it-coupon-back,
+  .find-it-coupon-home
+):focus-visible {
+  outline: 2px solid #1b78f2;
+  outline-offset: -2px;
+}
+
 .find-it-piece.is-found {
   opacity: 1;
   filter: drop-shadow(0 8px 10px rgba(0, 89, 174, .18));
 }
 
+/* The game artwork already contains its back control. Keep added controls flat. */
+.find-it-game .find-it-back {
+  background: transparent !important;
+  box-shadow: none;
+}
+
+.find-it-game .find-it-back::before {
+  display: none;
+}
+
+.find-it-game .find-it-home {
+  background: transparent url("./assets/ui/home.svg") center / 24px 24px no-repeat !important;
+  box-shadow: none;
+}
+
+.find-it-target,
+.find-it-target:hover,
+.find-it-target:focus,
+.find-it-target:focus-visible,
+.find-it-target:active,
+.find-it-target.is-found {
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .find-it-piece--wine {
   top: 16%; left: 14%; width: 34%; height: 30%;
   --find-piece-scale: 294.118%; --find-piece-x: -14%; --find-piece-y: -16%;
+  clip-path: ellipse(35% 48% at 47% 50%);
 }
 .find-it-piece--sandwich {
   top: 23%; left: 46%; width: 54%; height: 29%;
   --find-piece-scale: 185.186%; --find-piece-x: -46%; --find-piece-y: -23%;
+  clip-path: polygon(7% 13%, 65% 8%, 100% 42%, 98% 82%, 66% 96%, 9% 82%, 0 49%);
 }
 .find-it-piece--dessert {
   top: 51%; left: 2%; width: 47%; height: 24%;
   --find-piece-scale: 212.766%; --find-piece-x: -2%; --find-piece-y: -51%;
+  clip-path: ellipse(42% 45% at 48% 50%);
 }
 .find-it-piece--sherbet {
   top: 52%; left: 44%; width: 56%; height: 28%;
   --find-piece-scale: 178.572%; --find-piece-x: -44%; --find-piece-y: -52%;
+  clip-path: ellipse(43% 39% at 58% 43%);
 }
 
 .find-it-complete-modal {

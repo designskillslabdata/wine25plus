@@ -318,7 +318,7 @@
           <header class="cellarmate-header flow-subheader">
             <button class="flow-header-button flow-header-back" type="button" data-cellarmate-back="winery" aria-label="나의 와이너리로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
             <h1>셀러메이트</h1>
-            <div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-cellarmate-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button></div>
+            <div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-cellarmate-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button></div>
           </header>
           <div class="cellarmate-tabs" role="tablist" aria-label="셀러 구분">
             <button type="button" role="tab" aria-selected="true" data-cellarmate-tab="received">받은 셀러</button>
@@ -351,7 +351,7 @@
         <div class="cellarmate-screen cellarmate-detail-screen" data-cellarmate-screen="detail" hidden>
           <header class="cellarmate-header flow-subheader">
             <button class="flow-header-button flow-header-back" type="button" data-cellarmate-back="received" aria-label="받은 셀러로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
-            <h1>받은 셀러</h1><div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-cellarmate-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button></div>
+            <h1>받은 셀러</h1><div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-cellarmate-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button></div>
           </header>
           <section class="cellarmate-detail-hero">
             <img class="cellarmate-detail-avatar" src="./assets/cellarmate/detail-avatar.png" alt="이게바로나야 님" />
@@ -377,36 +377,49 @@
       </section>
 
       <section id="world-tour-view" class="world-tour-page" aria-label="술 한 잔으로 떠나는 세계 주류 여행" hidden>
-        <article class="world-tour-screen" data-world-tour-screen="world">
-          <img src="./assets/world-tour/world.png" alt="세계 주류 여행 국가 선택과 이번 주 추천 여행지" />
-          <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="home" aria-label="홈으로 돌아가기"></button>
-          <button class="world-tour-hotspot world-tour-share" type="button" data-action="share" aria-label="세계 주류 여행 공유하기"></button>
-          <button class="world-tour-hotspot world-tour-japan-map" type="button" data-world-tour-go="japan" aria-label="일본 사케 지도 보기"></button>
-          <button class="world-tour-hotspot world-tour-japan-card" type="button" data-world-tour-go="japan" aria-label="일본 사케 지도 열기"></button>
-          <button class="world-tour-hotspot world-tour-all-open" type="button" data-world-tour-go="travel-all" aria-label="제휴 여행 전체 보기"></button>
+        <article class="world-tour-screen world-tour-screen--world" data-world-tour-screen="world">
+          <div class="world-tour-world-lead">
+            <img src="./assets/world-tour/world.png" alt="세계 주류 여행 국가 선택" />
+            <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="home" aria-label="홈으로 돌아가기"></button>
+            <button class="world-tour-hotspot world-tour-share" type="button" data-action="share" aria-label="세계 주류 여행 공유하기"></button>
+            <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
+            <button class="world-tour-hotspot world-tour-japan-map" type="button" data-world-tour-go="japan" aria-label="일본 사케 지도 보기"></button>
+            <button class="world-tour-hotspot world-tour-all-open" type="button" data-world-tour-go="travel-all" aria-label="제휴 여행 전체 보기"></button>
+          </div>
+          <div class="world-tour-recommendation-list" aria-label="이번 주 추천 여행지">
+            <button class="world-tour-recommendation-card" type="button" data-world-tour-go="japan" aria-label="일본 사케 지도 열기">
+              <img src="./assets/world-tour/card-japan.png" alt="일본 사케 여행" />
+            </button>
+            <img class="world-tour-recommendation-card" src="./assets/world-tour/card-mexico.png" alt="멕시코 데킬라 여행" />
+          </div>
+          <div class="world-tour-bottom-nav" aria-hidden="true"></div>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="japan" hidden>
           <img src="./assets/world-tour/japan.png" alt="일본 사케 지도와 지역별 양조장 탐색" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="world" aria-label="세계 지도로 돌아가기"></button>
+          <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-niigata" type="button" data-world-tour-go="niigata" aria-label="니가타 지역 선택"></button>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="niigata" hidden>
-          <img src="./assets/world-tour/niigata.png" alt="니가타 지역과 추천 사케 상품" />
+          <img src="./assets/world-tour/niigata-long.png" alt="니가타 지역과 추천 사케 상품" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="japan" aria-label="일본 사케 지도로 돌아가기"></button>
+          <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-kikusui" type="button" data-world-tour-go="product" aria-label="키쿠스이 준마이 상품 보기"></button>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="product" hidden>
           <img src="./assets/world-tour/product.png" alt="키쿠스이 준마이 상품 상세" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="niigata" aria-label="니가타 추천 상품으로 돌아가기"></button>
+          <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-reserve" type="button" data-world-tour-go="reserve" aria-label="키쿠스이 준마이 예약 주문하기"></button>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="reserve" hidden>
           <img src="./assets/world-tour/reserve.png" alt="키쿠스이 준마이 주문 완료와 세계 주류 여행 기록" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="product" aria-label="상품 상세로 돌아가기"></button>
+          <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-coupon-open" type="button" data-world-tour-go="coupon" aria-label="니가타 여행 완료 쿠폰 다운로드"></button>
           <button class="world-tour-hotspot world-tour-travel-open" type="button" data-world-tour-go="travel-all" aria-label="제휴 여행사 주류 테마 여행 전체 보기"></button>
         </article>
@@ -414,11 +427,13 @@
         <article class="world-tour-screen" data-world-tour-screen="coupon" hidden>
           <img src="./assets/world-tour/coupon.png" alt="세계 주류 여행 니가타 여행 완료 5000원 할인 쿠폰" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="reserve" aria-label="여행 기록으로 돌아가기"></button>
+          <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="travel-all" hidden>
           <img src="./assets/world-tour/travel-all.png" alt="제휴 여행사와 함께하는 추천 주류 여행 목록" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="reserve" aria-label="여행 기록으로 돌아가기"></button>
+          <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-tab-wine" type="button" data-world-tour-go="travel-wine" aria-label="와인 여행 보기"></button>
           <button class="world-tour-hotspot world-tour-tab-sake" type="button" data-world-tour-go="travel-sake" aria-label="사케 여행 보기"></button>
           <button class="world-tour-hotspot world-tour-niigata-trip" type="button" data-world-tour-go="travel-detail" aria-label="사케의 고장 니가타에 취하다 여행 보기"></button>
@@ -427,13 +442,15 @@
         <article class="world-tour-screen" data-world-tour-screen="travel-wine" hidden>
           <img src="./assets/world-tour/travel-wine.png" alt="제휴 여행사의 와인 여행 목록" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="travel-all" aria-label="추천 여행으로 돌아가기"></button>
+          <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-tab-all" type="button" data-world-tour-go="travel-all" aria-label="추천 여행 보기"></button>
           <button class="world-tour-hotspot world-tour-tab-sake" type="button" data-world-tour-go="travel-sake" aria-label="사케 여행 보기"></button>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="travel-sake" hidden>
-          <img src="./assets/world-tour/travel-sake.png" alt="제휴 여행사의 사케 여행 목록" />
+          <img src="./assets/world-tour/travel-sake-long.png" alt="제휴 여행사의 사케 여행 목록" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="travel-all" aria-label="추천 여행으로 돌아가기"></button>
+          <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-tab-all" type="button" data-world-tour-go="travel-all" aria-label="추천 여행 보기"></button>
           <button class="world-tour-hotspot world-tour-tab-wine" type="button" data-world-tour-go="travel-wine" aria-label="와인 여행 보기"></button>
           <button class="world-tour-hotspot world-tour-niigata-trip" type="button" data-world-tour-go="travel-detail" aria-label="사케의 고장 니가타에 취하다 여행 보기"></button>
@@ -442,6 +459,7 @@
         <article class="world-tour-screen" data-world-tour-screen="travel-detail" hidden>
           <img src="./assets/world-tour/travel-detail.png" alt="사케의 고장 니가타에 취하다 여행 상품 상세" />
           <button class="world-tour-hotspot world-tour-detail-back" type="button" data-world-tour-back="travel-sake" aria-label="사케 여행 목록으로 돌아가기"></button>
+          <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
         </article>
       </section>
 
@@ -449,18 +467,22 @@
         <article class="kyobo-screen kyobo-event-screen" data-kyobo-screen="event">
           <img class="kyobo-screen-image" src="./assets/kyobo-event/event-page.png" alt="와인25플러스와 교보문고가 함께하는 음주 독서 인증 이벤트" />
           <button class="kyobo-hotspot kyobo-event-back" type="button" data-kyobo-back="home" aria-label="홈으로 돌아가기"></button>
+          <button class="kyobo-hotspot kyobo-event-share" type="button" data-action="share" aria-label="이벤트 공유하기"></button>
+          <button class="kyobo-hotspot kyobo-home" type="button" data-kyobo-back="home" aria-label="홈으로 나가기"></button>
           <button class="kyobo-hotspot kyobo-magazine-open" type="button" data-kyobo-go="instagram" aria-label="8월 매거진 보러가기"></button>
         </article>
 
         <article class="kyobo-screen kyobo-instagram-screen" data-kyobo-screen="instagram" hidden>
           <img class="kyobo-screen-image" src="./assets/kyobo-event/instagram-page.png" alt="와인25플러스 공식 인스타그램의 8월 음주독서 매거진 게시물" />
           <button class="kyobo-instagram-back flow-header-button flow-header-back" type="button" data-kyobo-back="event" aria-label="이벤트 페이지로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
+          <button class="kyobo-hotspot kyobo-home" type="button" data-kyobo-back="home" aria-label="홈으로 나가기"></button>
           <button class="kyobo-hotspot kyobo-linktree-open" type="button" data-kyobo-go="linktree" aria-label="와인25플러스 링크트리 열기"></button>
         </article>
 
         <article class="kyobo-screen kyobo-linktree-screen" data-kyobo-screen="linktree" hidden>
           <img class="kyobo-screen-image" src="./assets/kyobo-event/linktree-page.png" alt="교보문고와 함께하는 8월의 매거진 및 추천 주류" />
           <button class="kyobo-hotspot kyobo-linktree-back" type="button" data-kyobo-back="instagram" aria-label="인스타그램 게시물로 돌아가기"></button>
+          <button class="kyobo-hotspot kyobo-home" type="button" data-kyobo-back="home" aria-label="홈으로 나가기"></button>
           <div class="kyobo-carousel-mask" aria-hidden="true"></div>
           <div class="kyobo-product-carousel" tabindex="0" aria-label="8월 매거진 추천 주류" aria-roledescription="carousel">
             <button class="kyobo-magazine-card kyobo-magazine-card--one" type="button" data-action="kyobo-product-later" aria-label="이스토리체스키 크림 구매하기"></button>
@@ -475,6 +497,7 @@
         <article class="find-it-screen find-it-game" data-find-it-screen="game">
           <img class="find-it-game-image" src="./assets/find-it/game-start.png" alt="와인, 샌드위치, 디저트, 셔벗 네 가지 보물찾기" />
           <button class="find-it-back" type="button" data-find-it-back="home" aria-label="홈으로 돌아가기"></button>
+          <button class="find-it-home" type="button" data-find-it-back="home" aria-label="홈으로 나가기"></button>
           <span class="find-it-piece find-it-piece--wine" data-find-piece-visual="wine" aria-hidden="true"><img src="./assets/find-it/game-complete.png" alt="" /></span>
           <span class="find-it-piece find-it-piece--sandwich" data-find-piece-visual="sandwich" aria-hidden="true"><img src="./assets/find-it/game-complete.png" alt="" /></span>
           <span class="find-it-piece find-it-piece--dessert" data-find-piece-visual="dessert" aria-hidden="true"><img src="./assets/find-it/game-complete.png" alt="" /></span>
@@ -509,9 +532,14 @@
             <img src="./assets/account/back-cellar.svg" alt="" />
           </button>
           <h1>나만의 술장</h1>
-          <button class="cellar-filter-button" type="button" data-action="cellar-filter" aria-label="술장 필터">
-            <img src="./assets/account/filter-top.svg" alt="" />
-          </button>
+          <div class="cellar-header-actions">
+            <button class="cellar-friend-add-button" type="button" data-action="friends-cellar" aria-label="친구 술장 추가">
+              <img src="./assets/ui/cellar-friend-add.png" alt="" />
+            </button>
+            <button class="cellar-filter-button" type="button" data-action="cellar-filter" aria-label="술장 필터">
+              <span class="cellar-filter-icon" aria-hidden="true"><img src="./assets/ui/cellar-filter-top.svg" alt="" /><img src="./assets/ui/cellar-filter-bottom.svg" alt="" /></span>
+            </button>
+          </div>
         </header>
 
         <div class="cellar-content">
@@ -663,6 +691,8 @@
         <div class="shared-cart-screen shared-cart-create" data-shared-cart-screen="create">
           <header class="shared-cart-subheader">
             <button type="button" data-shared-cart-back="home" aria-label="홈으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>공동 장바구니</h1>
+            <div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-shared-cart-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button></div>
           </header>
 
           <div class="shared-cart-heading">
@@ -690,6 +720,8 @@
         <div class="shared-cart-screen shared-cart-survey" data-shared-cart-screen="survey" hidden>
           <header class="shared-cart-subheader">
             <button type="button" data-shared-cart-back="create" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>공동 장바구니</h1>
+            <div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-shared-cart-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button></div>
           </header>
 
           <div class="shared-cart-heading shared-cart-heading--survey">
@@ -743,6 +775,8 @@
         <div class="shared-cart-screen shared-cart-summary" data-shared-cart-screen="summary" hidden>
           <header class="shared-cart-subheader">
             <button type="button" data-shared-cart-back="survey" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
+            <h1>공동 장바구니</h1>
+            <div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-shared-cart-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button></div>
           </header>
 
           <section class="shared-friends" aria-labelledby="shared-friends-title">
@@ -790,7 +824,7 @@
             <button class="flow-header-button flow-header-back" type="button" data-card-pick-back="home" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
             <h1>오늘의 술</h1>
             <div class="flow-header-actions">
-              <button class="flow-header-button flow-header-exit" type="button" data-card-pick-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+              <button class="flow-header-button flow-header-exit" type="button" data-card-pick-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button>
             </div>
           </header>
           <div class="card-pick-intro">
@@ -819,7 +853,7 @@
             <button class="flow-header-button flow-header-back" type="button" data-card-pick-back="category" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
             <h1>오늘의 술</h1>
             <div class="flow-header-actions">
-              <button class="flow-header-button flow-header-exit" type="button" data-card-pick-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+              <button class="flow-header-button flow-header-exit" type="button" data-card-pick-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button>
             </div>
           </header>
           <div class="card-pick-intro">
@@ -840,7 +874,7 @@
             <h1>오늘의 술</h1>
             <div class="flow-header-actions">
               <button class="flow-header-button flow-header-share" type="button" data-card-share aria-label="결과 공유하기"><img src="./assets/catalog/detail-share.svg" alt="" /></button>
-              <button class="flow-header-button flow-header-exit" type="button" data-card-pick-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+              <button class="flow-header-button flow-header-exit" type="button" data-card-pick-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button>
             </div>
           </header>
           <div class="card-pick-intro">
@@ -869,7 +903,7 @@
             <button class="flow-header-button flow-header-back" type="button" data-gift-back="home" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
             <h1>이벤트 상세</h1>
             <div class="flow-header-actions">
-              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button>
             </div>
           </header>
           <p class="gift-event-kicker">특별한 주류 선물, 커스텀 기프트 세트 주문하기</p>
@@ -893,7 +927,7 @@
             <button class="flow-header-button flow-header-back" type="button" data-gift-back="event" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
             <h1>커스텀 주문하기</h1>
             <div class="flow-header-actions">
-              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button>
             </div>
           </header>
 
@@ -920,7 +954,7 @@
             <button class="flow-header-button flow-header-back" type="button" data-gift-back="order" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
             <h1>커스텀 주문하기</h1>
             <div class="flow-header-actions">
-              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button>
             </div>
           </header>
           <div class="gift-complete-content">
@@ -938,7 +972,7 @@
             <button class="flow-header-button flow-header-back" type="button" data-gift-back="complete" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button>
             <h1>픽업 QR</h1>
             <div class="flow-header-actions">
-              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/catalog/pairing-close.svg" alt="" /></button>
+              <button class="flow-header-button flow-header-exit" type="button" data-gift-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button>
             </div>
           </header>
           <div class="gift-pickup-content">

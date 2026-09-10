@@ -88,6 +88,55 @@ final result: passed
 
 ---
 
+# Design QA — 공통 탑 앱바 시스템 (2026-09-10)
+
+## 적용 범위
+
+- 일반 플로우, 나의 와이너리·술장, 니술내술+, 공동 장바구니, 카드 룰렛, 기프트 세트 화면의 헤더 규격을 하나로 통합했다.
+- 전체 화면 이미지 기반의 세계 주류 여행, 교보문고 이벤트, CAN YOU FIND IT에도 동일한 실제 버튼을 덧씌웠다.
+- 공통 아이콘은 `assets/ui/` 아래의 뒤로가기·홈·설정·공유 SVG만 사용한다.
+
+## 검수 결과
+
+- 앱바 높이 52px, 좌우 10px, 40px 터치 영역, 중앙 제목 정렬: passed.
+- 화면 이탈은 홈 아이콘, 모달 닫기는 X 아이콘으로 역할 분리: passed.
+- 공유와 설정은 기능이 있는 화면에서만 노출: passed.
+- 카드 룰렛, 나의 와이너리, 세계 주류 여행, 교보문고 이벤트 대표 화면 시각 검수: passed.
+- 홈 버튼으로 메인 화면 복귀 및 브라우저 오류 로그 확인: passed.
+
+## 유지 규칙
+
+- 이후 화면은 `UI-GUIDELINES.md`와 공통 CSS 토큰을 재사용하며, Figma 전체 화면 이미지 안에 내비게이션 아이콘을 새로 합성하지 않는다.
+
+## Final Result
+
+final result: passed
+
+---
+
+# Design QA — 세계 주류여행 긴 화면 스크롤 (2026-09-10)
+
+## Comparison Target
+
+- World-tour main report: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-6f741ca7-c5aa-488e-b5c1-8531abfe3ea5.png`
+- Kyobo scrollbar report: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-3ad55116-4073-43cb-adac-71decc38469e.png`
+- Niigata region scroll reference: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-472c5111-317e-42e4-8bf1-4ebcaa4523ce.png`
+- Sake travel scroll reference: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-5d14625f-34ae-49ea-8b0e-0d576326a245.png`
+- Browser states: `#world-tour/world`, `#world-tour/niigata`, `#world-tour/travel-sake`.
+
+## Verification
+
+- P0 interaction: passed — the world-tour main page, selected Niigata region, and sake travel category all expose real vertical overflow and scroll through their complete content.
+- P1 layout: passed — the world-tour lead, recommendations, Niigata products, and travel cards align to the 402 px source width with no black gutter or horizontal offset.
+- P1 routing: passed — the Japan recommendation opens the Japan map and the first sake trip opens the Niigata travel detail.
+- P2 visual polish: passed — the Kyobo, world-tour, and find-it internal scrollbars are hidden without disabling their scrolling.
+
+## Final Result
+
+final result: passed
+
+---
+
 # Design QA — 기프트 CTA·선택 슬롯·픽업 QR 보정 (2026-09-02)
 
 ## Comparison Target
