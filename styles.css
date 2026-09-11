@@ -3649,6 +3649,7 @@ a {
 }
 
 .story-slide {
+  position: relative;
   display: block;
   width: 100%;
   height: 100%;
@@ -5460,6 +5461,32 @@ button.cellarmate-list-card {
   line-height: 1.5;
 }
 
+.cellarmate-sent-panel { position: relative; height: calc(100dvh - 160px); overflow: hidden; background: #f0f2f9; }
+.cellarmate-sent-panel > img { display: block; width: 110%; margin-right: -5%; margin-bottom: -184px; margin-left: -5%; transform: translateY(-184px); }
+.cellarmate-sent-plus { position: absolute; z-index: 2; top: 320px; right: 150px; left: 150px; height: 72px; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.cellarmate-sent-flow { overflow-x: hidden; overflow-y: auto; background: #fff; }
+.cellarmate-sent-flow .cellarmate-header { position: fixed; top: 60px; right: auto; left: 50%; width: min(100%, 390px); transform: translateX(-50%); }
+.cellarmate-sent-flow .cellarmate-figma-stage { padding-top: var(--top-appbar-height); }
+.cellarmate-sent-flow .flow-header-exit { width: 40px; height: 40px; font-size: 27px; font-weight: 300; }
+.cellarmate-figma-stage { position: relative; width: 100%; overflow: hidden; background: #fff; }
+.cellarmate-figma-stage > img { display: block; width: 100%; height: auto; }
+.cellarmate-friend-stage > img, .cellarmate-product-stage > img, .cellarmate-complete-stage > img { width: 115%; margin-right: -7.5%; margin-bottom: -143px; margin-left: -7.5%; transform: translateY(-143px); }
+.cellarmate-friend-stage > img { clip-path: inset(0 0 300px 0); }
+.cellarmate-preview-stage > img { width: 115%; margin-right: -7.5%; margin-left: -7.5%; }
+.cellarmate-friend-stage button, .cellarmate-product-stage button, .cellarmate-preview-stage button, .cellarmate-complete-stage button { position: absolute; z-index: 2; border: 0; background: transparent; cursor: pointer; }
+.cellarmate-friend-choice { width: 154px; height: 184px; }
+.cellarmate-friend-stage .choice-one { top: 125px; left: 37px; }
+.cellarmate-friend-stage .choice-two { top: 125px; right: 37px; }
+.cellarmate-friend-stage .choice-three { top: 312px; left: 37px; }
+.cellarmate-friend-stage [data-cellarmate-next-friend] { top: 630px; right: 24px; left: 24px; display: block; height: 62px; border: 1px solid #0d0a4b; border-radius: 8px; background: #0d0a4b; color: #fff; font-size: 18px; font-weight: 700; text-align: center; }
+.cellarmate-friend-stage [data-cellarmate-next-friend]:disabled { background: #fff; color: #0d0a4b; opacity: 1; }
+.cellarmate-product-stage .cellarmate-product-choice { top: 410px; right: 24px; left: 24px; height: 520px; }
+.cellarmate-product-stage .cellarmate-product-next { top: 640px; right: 24px; width: 185px; height: 56px; }
+.cellarmate-preview-stage button { right: 30px; bottom: 34px; width: 185px; height: 55px; }
+.cellarmate-complete-stage button:first-of-type { right: 38px; bottom: 73px; left: 38px; height: 55px; }
+.cellarmate-complete-stage button:last-of-type { right: 38px; bottom: 21px; left: 38px; height: 45px; }
+.cellarmate-friend-stage button:disabled, .cellarmate-product-stage button:disabled { cursor: default; }
+
 .cellarmate-detail-screen {
   padding-bottom: 76px;
   background: #fff;
@@ -6513,6 +6540,77 @@ img.world-tour-recommendation-card {
   touch-action: manipulation;
 }
 
+/* The Kyobo export already contains app-bar glyphs. Mask those pixels before
+   drawing the shared controls so the back and home icons never overlap. */
+.kyobo-event-screen .kyobo-event-back {
+  background: #fff !important;
+  box-shadow: 0 0 0 11px #fff !important;
+}
+
+.kyobo-event-screen .kyobo-event-back::before {
+  position: relative;
+  z-index: 1;
+}
+
+.kyobo-event-screen .kyobo-home {
+  background-color: #fff !important;
+  box-shadow: 0 0 0 11px #fff !important;
+}
+
+.kyobo-event-screen :where(.kyobo-event-back, .kyobo-event-share, .kyobo-home) {
+  top: 62px !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 9px #fff !important;
+}
+
+.kyobo-event-screen .kyobo-event-back {
+  right: auto !important;
+  left: 5px !important;
+  background: #fff !important;
+}
+
+.kyobo-event-screen .kyobo-event-back::before {
+  display: block !important;
+}
+
+.kyobo-event-screen .kyobo-event-share {
+  right: 45px !important;
+  left: auto !important;
+  background: #fff url("./assets/ui/share.svg") center / 21px 21px no-repeat !important;
+}
+
+.kyobo-event-screen .kyobo-home {
+  right: 5px !important;
+  left: auto !important;
+  background: #fff url("./assets/ui/home.svg") center / 23px 23px no-repeat !important;
+}
+
+.kyobo-linktree-screen :where(.kyobo-linktree-back, .kyobo-home) {
+  top: 4.8% !important;
+  height: 5% !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.kyobo-linktree-screen .kyobo-linktree-back {
+  right: auto !important;
+  left: 1.5% !important;
+  width: 13% !important;
+}
+
+.kyobo-linktree-screen .kyobo-linktree-back::before {
+  display: none !important;
+}
+
+.kyobo-linktree-screen .kyobo-home {
+  right: 1.5% !important;
+  left: auto !important;
+  width: 13% !important;
+}
+
 :where(
   .world-tour-back,
   .world-tour-detail-back,
@@ -7214,6 +7312,7 @@ img.world-tour-recommendation-card {
   cursor: grab;
   touch-action: pan-x;
   user-select: none;
+  background: transparent;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -7229,7 +7328,7 @@ img.world-tour-recommendation-card {
   border: 0;
   border-radius: 20px;
   background: var(--friend-color);
-  box-shadow: 0 8px 18px rgba(27, 31, 40, .16);
+  box-shadow: none;
   color: #fff;
   scroll-snap-align: center;
   scroll-snap-stop: always;
@@ -7259,7 +7358,7 @@ img.world-tour-recommendation-card {
   pointer-events: none;
 }
 
-.friend-character-card.is-selected { box-shadow: 0 12px 28px rgba(27, 31, 40, .22); }
+.friend-character-card.is-selected { box-shadow: none; }
 .friend-character-card:focus-visible { outline: 3px solid #1b78f2; outline-offset: -5px; }
 
 .friend-character-dots {
@@ -7304,11 +7403,16 @@ img.world-tour-recommendation-card {
 
 .friend-selected-banner {
   position: absolute;
+  z-index: 2;
   inset: 0;
   display: block;
   overflow: hidden;
   background: var(--friend-color, #ffa300);
   color: #fff;
+}
+
+.story-slide > [data-friend-banner-default][hidden] {
+  display: none !important;
 }
 
 .friend-selected-banner strong,
@@ -7358,7 +7462,7 @@ img.world-tour-recommendation-card {
   inset: 0;
   width: 100%;
   border: 0;
-  background: rgba(0, 0, 0, .62);
+  background: rgba(8, 10, 16, .58);
   opacity: 0;
   transition: opacity 320ms ease;
 }
@@ -7373,10 +7477,69 @@ img.world-tour-recommendation-card {
   transition: transform 420ms cubic-bezier(.22, .8, .24, 1);
 }
 
-.friend-event-sheet > img { display: block; width: 100%; height: auto; }
+.friend-event-intro {
+  position: relative;
+  height: 243px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.friend-event-intro > img {
+  position: absolute;
+  bottom: -118px;
+  left: -6px;
+  width: 240px;
+  height: 320px;
+  object-fit: contain;
+}
+
+.friend-event-bubble {
+  position: absolute;
+  z-index: 2;
+  top: 1px;
+  left: 104px;
+  width: 218px;
+  min-height: 74px;
+  padding: 17px 16px;
+  border-radius: 21px;
+  background: #fff;
+  color: #222;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.friend-event-bubble::after {
+  position: absolute;
+  bottom: -22px;
+  left: 25px;
+  width: 0;
+  height: 0;
+  border-top: 25px solid #fff;
+  border-right: 18px solid transparent;
+  content: "";
+  transform: skewX(-8deg);
+}
+
+.friend-event-art {
+  position: relative;
+  height: 183px;
+  overflow: hidden;
+}
+
+.friend-event-art img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: 426px;
+  max-width: none;
+}
 .friend-event-close {
   position: absolute;
-  top: 50.5%;
+  top: 45.5%;
   right: 0;
   width: 54px;
   height: 54px;
@@ -7385,8 +7548,174 @@ img.world-tour-recommendation-card {
   background: transparent;
   cursor: pointer;
 }
+.friend-event-close::before,
+.friend-event-close::after {
+  position: absolute;
+  top: 25px;
+  right: 13px;
+  width: 23px;
+  height: 2px;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.35);
+  content: "";
+}
+.friend-event-close::before { transform: rotate(45deg); }
+.friend-event-close::after { transform: rotate(-45deg); }
 .friend-event-modal.is-open .friend-event-backdrop { opacity: 1; }
 .friend-event-modal.is-open .friend-event-sheet { transform: translateY(0); }
+
+/* Character mileage page based on the shared 402 x 874 app frame. */
+.phone-shell.is-friend-mileage-view {
+  min-height: 0;
+  overflow: hidden;
+  background: #f4f5fb;
+}
+
+.phone-shell.is-friend-mileage-view > :not(.friend-mileage-page) {
+  display: none !important;
+}
+
+.friend-mileage-page {
+  width: 100%;
+  height: min(100dvh, 874px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #f4f5fb;
+  color: #11131a;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+.friend-mileage-page::-webkit-scrollbar { display: none; }
+.friend-mileage-page[hidden] { display: none !important; }
+
+.friend-mileage-header {
+  position: sticky;
+  z-index: 8;
+  top: 0;
+  display: grid;
+  height: 58px;
+  border-bottom: 1px solid rgba(220, 221, 228, .45);
+  background: rgba(244,245,251,.96);
+  place-items: center;
+  backdrop-filter: blur(12px);
+}
+
+.friend-mileage-header h1 { margin: 0; font-size: 17px; font-weight: 700; }
+.friend-mileage-back,
+.friend-mileage-actions button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.friend-mileage-back { position: absolute; left: 5px; background-image: url("./assets/ui/back.svg"); background-size: 22px; }
+.friend-mileage-actions { position: absolute; right: 4px; display: flex; }
+.friend-mileage-share { background-image: url("./assets/ui/share.svg"); background-size: 21px; }
+.friend-mileage-cart { background-image: url("./assets/cart.svg"); background-size: 23px; }
+
+.friend-mileage-content { min-height: 820px; padding: 12px 31px 34px; }
+.friend-mileage-hero { position: relative; display: flex; height: 482px; align-items: center; flex-direction: column; }
+.friend-mileage-bubble {
+  position: relative;
+  margin: 0;
+  min-width: 210px;
+  padding: 14px 18px;
+  border-radius: 25px;
+  background: #dedfe5;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+.friend-mileage-bubble::after { position:absolute; bottom:-14px; left:96px; border-top:16px solid #dedfe5; border-right:8px solid transparent; border-left:8px solid transparent; content:""; }
+.friend-mileage-hero img { width: 253px; height: 338px; margin-top: 17px; object-fit: contain; }
+.friend-mileage-hero::after { position:absolute; z-index:-1; bottom:78px; width:190px; height:25px; border-radius:50%; background:rgba(53,55,62,.14); filter:blur(9px); content:""; }
+.friend-mileage-hero > strong { margin-top: -2px; color:#fd8c08; font-size:14px; }
+.friend-mileage-hero h2 { margin: 1px 0 0; font-size:24px; }
+
+.friend-points { margin-top: 6px; }
+.friend-points > span { display:block; margin-bottom:9px; color:#434343; text-align:center; font-size:13px; }
+.friend-points-track { position:relative; height:20px; border-radius:20px; background:#eae8e4; }
+.friend-points-track i { position:absolute; inset:0 auto 0 0; width:65%; border-radius:20px; background:#fd8c08; }
+.friend-points-track b { position:relative; z-index:2; display:inline-block; width:10px; height:10px; margin-top:5px; margin-left:32px; border-radius:50%; background:#fff; }
+.friend-points-track b:nth-of-type(4), .friend-points-track b:nth-of-type(5) { background:#ddd; }
+.friend-points-labels { display:flex; justify-content:space-around; margin-top:5px; color:#a4a5aa; }
+.friend-points-labels small { font-size:12px; }
+.friend-points-labels .is-current { color:#434343; }
+
+.friend-missions { margin-top:27px; }
+.friend-missions > h2 { margin:0 0 8px; color:#434343; font-size:16px; font-weight:500; }
+.friend-mission { position:relative; min-height:80px; margin-bottom:9px; padding:14px 12px; border:1px solid #f1f1f1; border-radius:10px; background:#fff; }
+.friend-mission p { margin:0 0 20px; font-size:13px; }
+.friend-mission > small { position:absolute; right:12px; top:39px; font-size:12px; }
+.friend-mission > i { display:block; height:8px; overflow:hidden; border-radius:12px; background:#d9d9d9; }
+.friend-mission > i b { display:block; width:var(--mission-progress,100%); height:100%; border-radius:12px; background:#fd8c08; }
+.friend-mission.is-complete { background:#ffa300; color:#fff; }
+.friend-mission.is-complete > i b { background:#fff; }
+
+/* Taste-pairing event flow. Figma artwork supplies content only; the app bar
+   stays code-native and shared with the rest of the prototype. */
+.phone-shell.is-pairing-finder-view { min-height:0; overflow:hidden; background:#fff; }
+.phone-shell.is-pairing-finder-view > :not(.pairing-finder-page) { display:none !important; }
+.pairing-finder-page {
+  width:100%;
+  height:min(100dvh, 874px);
+  overflow-x:hidden;
+  overflow-y:auto;
+  background:#fff;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+}
+.pairing-finder-page::-webkit-scrollbar { display:none; }
+.pairing-finder-page[hidden], .pairing-finder-screen[hidden] { display:none !important; }
+.pairing-finder-header {
+  position:sticky;
+  z-index:20;
+  top:0;
+  display:grid;
+  height:52px;
+  border-bottom:1px solid #eee;
+  background:#fff;
+  place-items:center;
+}
+.pairing-finder-header h1 { margin:0; font-size:17px; font-weight:700; }
+.pairing-finder-header button {
+  width:40px;
+  height:40px;
+  padding:0;
+  border:0;
+  background-color:transparent;
+  background-position:center;
+  background-repeat:no-repeat;
+  cursor:pointer;
+}
+.pairing-finder-back { position:absolute; left:5px; background-image:url("./assets/ui/back.svg"); background-size:22px; }
+.pairing-finder-actions { position:absolute; right:4px; display:flex; }
+.pairing-finder-share { background-image:url("./assets/ui/share.svg"); background-size:21px; }
+.pairing-finder-home { background-image:url("./assets/ui/home.svg"); background-size:23px; }
+.pairing-finder-screen { position:relative; width:100%; }
+.pairing-finder-art { position:relative; width:100%; height:2054px; overflow:hidden; }
+.pairing-finder-art > img { display:block; width:100%; height:auto; transform:translateY(-107px); user-select:none; -webkit-user-drag:none; }
+.pairing-chicken-open {
+  position:absolute;
+  z-index:3;
+  top:820px;
+  left:2.5%;
+  width:46%;
+  height:282px;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+}
+.pairing-finder-art--detail { height:767px; }
 
 @media (prefers-reduced-motion: reduce) {
   html {
