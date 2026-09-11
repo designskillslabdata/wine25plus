@@ -125,6 +125,8 @@
         <div class="w25-demo-device-wrap">
           <span class="w25-demo-device-label">LIVE APP PREVIEW</span>
           <div class="w25-demo-device">
+            <button class="w25-alt-main-trigger w25-alt-main-trigger--top" type="button" data-alt-main-trigger tabindex="-1" aria-hidden="true"></button>
+            <button class="w25-alt-main-trigger w25-alt-main-trigger--bottom" type="button" data-alt-main-trigger tabindex="-1" aria-hidden="true"></button>
             <i class="w25-demo-button w25-demo-button--silent" aria-hidden="true"></i>
             <i class="w25-demo-button w25-demo-button--volume-up" aria-hidden="true"></i>
             <i class="w25-demo-button w25-demo-button--volume-down" aria-hidden="true"></i>
@@ -247,6 +249,21 @@
           0 12px 30px rgba(1, 10, 67, 0.13),
           inset 0 0 0 1px rgba(255, 255, 255, 0.13);
       }
+
+      #w25-imweb-demo .w25-alt-main-trigger {
+        position: absolute;
+        z-index: 8;
+        left: 48px;
+        width: calc(100% - 96px);
+        height: 12px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: default;
+      }
+
+      #w25-imweb-demo .w25-alt-main-trigger--top { top: 0; }
+      #w25-imweb-demo .w25-alt-main-trigger--bottom { bottom: 0; }
 
       #w25-imweb-demo .w25-demo-screen {
         width: 100%;
@@ -508,6 +525,11 @@
         w25Frame.addEventListener('load', w25SyncDisplayMode);
         w25ViewportQuery.addEventListener?.('change', w25SyncDisplayMode);
         w25Frame.src = w25AppUrl.href;
+        w25Root.querySelectorAll('[data-alt-main-trigger]').forEach((trigger) => {
+          trigger.addEventListener('click', () => {
+            w25Frame.contentWindow?.postMessage({ type: 'w25-toggle-taste-plus' }, '*');
+          });
+        });
         w25QrLink.href = w25MobileUrl;
         w25QrImage.addEventListener('load', () => w25QrImage.classList.add('w25-is-loaded'), { once: true });
         w25QrImage.src = `https://quickchart.io/qr?text=${encodeURIComponent(w25MobileUrl)}&size=344&margin=1&dark=010A43&light=FFFFFF&ecLevel=M`;

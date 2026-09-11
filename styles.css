@@ -5905,7 +5905,8 @@ button.cellarmate-list-card {
 }
 
 .world-tour-page {
-  height: 100dvh;
+  height: min(100dvh, 844px);
+  max-height: 844px;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: contain;
@@ -6449,7 +6450,7 @@ img.world-tour-recommendation-card {
   .find-it-coupon-back
 ) {
   z-index: 20 !important;
-  top: 50px !important;
+  top: 56px !important;
   right: auto !important;
   left: 8px !important;
   display: grid;
@@ -6457,8 +6458,8 @@ img.world-tour-recommendation-card {
   height: 40px !important;
   place-items: center;
   border-radius: 50% !important;
-  background: rgb(255 255 255 / 96%) !important;
-  box-shadow: 0 0 0 12px #fff, 0 1px 5px rgb(13 24 48 / 8%);
+  background: transparent !important;
+  box-shadow: none;
 }
 
 :where(
@@ -6480,7 +6481,7 @@ img.world-tour-recommendation-card {
 :where(.world-tour-home, .kyobo-home, .find-it-home, .find-it-coupon-home) {
   position: absolute;
   z-index: 20 !important;
-  top: 50px !important;
+  top: 56px !important;
   right: 8px !important;
   left: auto !important;
   width: 40px !important;
@@ -6488,8 +6489,8 @@ img.world-tour-recommendation-card {
   padding: 0;
   border: 0;
   border-radius: 50% !important;
-  background: #fff url("./assets/ui/home.svg") center / 24px 24px no-repeat !important;
-  box-shadow: 0 0 0 12px #fff;
+  background: transparent url("./assets/ui/home.svg") center / 24px 24px no-repeat !important;
+  box-shadow: none;
   cursor: pointer;
   touch-action: manipulation;
 }
@@ -6498,7 +6499,7 @@ img.world-tour-recommendation-card {
 .kyobo-event-share {
   position: absolute;
   z-index: 20 !important;
-  top: 50px !important;
+  top: 56px !important;
   right: 50px !important;
   left: auto !important;
   width: 40px !important;
@@ -6543,6 +6544,262 @@ img.world-tour-recommendation-card {
 
 .find-it-game .find-it-back::before {
   display: none;
+}
+
+/* Travel exports already include the approved app-bar glyphs. The controls are
+   interaction hit areas only, so a second generated icon must never be drawn. */
+.world-tour-screen :where(.world-tour-back, .world-tour-detail-back) {
+  top: 6.2% !important;
+  left: 1.5% !important;
+  width: 13% !important;
+  height: 7% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.world-tour-screen :where(.world-tour-back, .world-tour-detail-back)::before {
+  display: none !important;
+}
+
+.world-tour-screen .world-tour-home {
+  top: 6.2% !important;
+  right: 1.5% !important;
+  width: 13% !important;
+  height: 7% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.world-tour-screen .world-tour-share {
+  top: 6.2% !important;
+  right: 11.5% !important;
+  width: 11% !important;
+  height: 7% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.world-tour-screen--world :where(.world-tour-back, .world-tour-home, .world-tour-share) {
+  top: 8.2% !important;
+  height: 9% !important;
+}
+
+/* These Figma exports end almost exactly at the device viewport. Preserve a
+   small safe area so wheel/touch scrolling remains available in every host. */
+[data-world-tour-screen="reserve"],
+[data-world-tour-screen="travel-all"],
+[data-world-tour-screen="travel-wine"],
+[data-world-tour-screen="travel-detail"] {
+  padding-bottom: 96px;
+}
+
+/* Presenter-only alternate GS25 taste-personalization concept. */
+.phone-shell.is-taste-plus-view {
+  min-height: 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.phone-shell.is-taste-plus-view > :not(.taste-plus-page) {
+  display: none !important;
+}
+
+.taste-plus-page,
+.taste-plus-screen {
+  position: relative;
+  width: 100%;
+  background: #fff;
+}
+
+.taste-plus-page {
+  height: min(100dvh, 852px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+.taste-plus-page::-webkit-scrollbar { display: none; }
+
+.taste-plus-screen[hidden] {
+  display: none !important;
+}
+
+.taste-plus-screen > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.taste-plus-hotspot {
+  position: absolute;
+  z-index: 8;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.taste-plus-hotspot:focus-visible {
+  outline: 3px solid rgba(132, 72, 255, .72);
+  outline-offset: -3px;
+}
+
+.taste-plus-start { top: 56.9%; left: 4%; width: 45%; height: 24.5%; }
+.taste-plus-answer-list { top: 43.5%; left: 6%; width: 88%; height: 33%; }
+.taste-plus-survey-back { top: 14%; left: 3.5%; width: 12%; height: 7%; }
+.taste-plus-exit { bottom: 6.8%; left: 6%; width: 42.5%; height: 7.2%; }
+.taste-plus-move { right: 6%; bottom: 6.8%; width: 43%; height: 7.2%; }
+
+.taste-plus-loading-pulse {
+  position: absolute;
+  top: 36.6%;
+  left: 45.5%;
+  width: 9%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(125, 72, 255, .26);
+  animation: taste-plus-pulse 1.05s ease-out infinite;
+  pointer-events: none;
+}
+
+.taste-plus-result {
+  overflow: hidden;
+  background: #f7f5ed;
+}
+
+.taste-plus-result::before {
+  position: absolute;
+  z-index: 3;
+  top: 540px;
+  left: 54px;
+  width: 285px;
+  height: 122px;
+  background: #f7f8fc;
+  content: "";
+  pointer-events: none;
+}
+
+.taste-plus-result::after {
+  position: absolute;
+  z-index: 2;
+  top: 250px;
+  left: 104px;
+  width: 289px;
+  height: 470px;
+  background: #fff;
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
+.taste-plus-result.is-animating::after {
+  animation: taste-plus-clear-placeholder 300ms ease 360ms forwards;
+}
+
+.taste-plus-result.is-complete::before,
+.taste-plus-result.is-complete::after,
+.taste-plus-result.is-complete :where(.taste-plus-result-card, .taste-plus-result-copy) {
+  display: none;
+}
+
+.taste-plus-result-card,
+.taste-plus-result-copy {
+  position: absolute;
+  z-index: 4;
+  display: block;
+  background-image: url("./assets/taste-plus/result-final.png");
+  background-repeat: no-repeat;
+  background-size: 393px 852px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.taste-plus-result-card {
+  top: 197px;
+  left: 64px;
+  width: 266px;
+  height: 312px;
+  border-radius: 22px;
+  background-position: -64px -197px;
+  transform: rotate(-16deg) scale(.58);
+  transform-origin: 50% 50%;
+}
+
+.taste-plus-result-copy {
+  top: 545px;
+  left: 64px;
+  width: 265px;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: #f7f8fc;
+  color: #111;
+  text-align: center;
+  transform: rotate(-18deg);
+  transform-origin: 100% 50%;
+}
+
+.taste-plus-result-copy b {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.taste-plus-result-copy strong { color: #ffbe00; }
+
+.taste-plus-result-copy small {
+  margin-top: 12px;
+  color: #9296a1;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.taste-plus-result.is-animating .taste-plus-result-card {
+  animation: taste-plus-card-reveal 920ms cubic-bezier(.18, .82, .24, 1) 170ms forwards;
+}
+
+.taste-plus-result.is-animating .taste-plus-result-copy {
+  animation: taste-plus-copy-reveal 720ms cubic-bezier(.2, .78, .25, 1) 720ms forwards;
+}
+
+@keyframes taste-plus-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(125, 72, 255, .3); }
+  100% { box-shadow: 0 0 0 28px rgba(125, 72, 255, 0); }
+}
+
+@keyframes taste-plus-card-reveal {
+  0% { opacity: 0; transform: rotate(-16deg) scale(.58); }
+  55% { opacity: 1; transform: rotate(2.5deg) scale(1.035); }
+  100% { opacity: 1; transform: rotate(0) scale(1); }
+}
+
+@keyframes taste-plus-clear-placeholder {
+  to { opacity: 1; }
+}
+
+@keyframes taste-plus-copy-reveal {
+  0% { opacity: 0; transform: rotate(-18deg) translateY(8px); }
+  70% { opacity: 1; transform: rotate(1.5deg) translateY(0); }
+  100% { opacity: 1; transform: rotate(0) translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .taste-plus-loading-pulse { animation: none; }
+  .taste-plus-result.is-animating :where(.taste-plus-result-card, .taste-plus-result-copy) {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }
 
 .find-it-game .find-it-home {
@@ -6879,6 +7136,257 @@ img.world-tour-recommendation-card {
     padding-left: 12px;
   }
 }
+
+/* Shared character selection flow opened from the lower home carousel. */
+.phone-shell.is-friend-select-view {
+  min-height: 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.phone-shell.is-friend-select-view > :not(.friend-select-page) {
+  display: none !important;
+}
+
+.friend-select-page {
+  position: relative;
+  width: 100%;
+  height: min(100dvh, 874px);
+  overflow: hidden;
+  background: #fff;
+  color: #171b27;
+}
+
+.friend-select-page[hidden],
+.friend-event-modal[hidden],
+.friend-selected-banner[hidden] {
+  display: none !important;
+}
+
+.friend-select-status {
+  height: 54px;
+}
+
+.friend-select-header {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 50px;
+  place-items: center;
+}
+
+.friend-select-header h1 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.friend-select-header button {
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent url("./assets/ui/back.svg") center / 22px 22px no-repeat;
+  cursor: pointer;
+}
+
+.friend-select-page > h2 {
+  margin: 11px 0 17px;
+  text-align: center;
+  font-size: 23px;
+  line-height: 1.25;
+}
+
+.friend-character-carousel {
+  display: flex;
+  width: 100%;
+  gap: 26px;
+  overflow-x: auto;
+  padding: 0 calc((100% - 304px) / 2);
+  scroll-behavior: smooth;
+  scroll-padding-inline: calc((100% - 304px) / 2);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab;
+  touch-action: pan-x;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.friend-character-carousel::-webkit-scrollbar { display: none; }
+.friend-character-carousel.is-grabbing { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
+
+.friend-character-card {
+  position: relative;
+  flex: 0 0 304px;
+  height: 422px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: var(--friend-color);
+  box-shadow: 0 8px 18px rgba(27, 31, 40, .16);
+  color: #fff;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.friend-character-card small,
+.friend-character-card strong {
+  position: absolute;
+  z-index: 2;
+  left: 28px;
+  display: block;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .08);
+}
+
+.friend-character-card small { top: 27px; font-size: 16px; font-weight: 700; }
+.friend-character-card strong { top: 57px; font-size: 26px; font-weight: 900; }
+.friend-character-card img {
+  position: absolute;
+  right: -3px;
+  bottom: -56px;
+  width: 282px;
+  height: 350px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.friend-character-card.is-selected { box-shadow: 0 12px 28px rgba(27, 31, 40, .22); }
+.friend-character-card:focus-visible { outline: 3px solid #1b78f2; outline-offset: -5px; }
+
+.friend-character-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 17px;
+}
+
+.friend-character-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d9dce2;
+}
+
+.friend-character-dots i.is-active { width: 18px; border-radius: 99px; background: #272b35; }
+
+.friend-character-description {
+  margin: 16px 20px 0;
+  color: #656a75;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.friend-select-confirm {
+  position: absolute;
+  right: 20px;
+  bottom: 23px;
+  left: 20px;
+  height: 54px;
+  border: 0;
+  border-radius: 10px;
+  background: #1d212b;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.friend-selected-banner {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: var(--friend-color, #ffa300);
+  color: #fff;
+}
+
+.friend-selected-banner strong,
+.friend-selected-banner small {
+  position: absolute;
+  z-index: 3;
+  left: 20px;
+}
+
+.friend-selected-banner strong { top: 28px; font-size: 22px; font-weight: 900; }
+.friend-selected-banner small { top: 61px; font-size: 12px; font-weight: 700; }
+.friend-selected-banner > img {
+  position: absolute;
+  z-index: 2;
+  right: -10px;
+  bottom: -58px;
+  width: 144px !important;
+  height: 184px !important;
+  object-fit: contain !important;
+}
+
+.friend-selected-banner i {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 45% 55% 52% 48%;
+  background: rgba(255,255,255,.2);
+  transform: rotate(22deg);
+}
+.friend-selected-banner i:nth-of-type(1) { top: -9px; right: 116px; }
+.friend-selected-banner i:nth-of-type(2) { right: 145px; bottom: -19px; width: 72px; height: 72px; }
+.friend-selected-banner i:nth-of-type(3) { top: 17px; right: 13px; width: 32px; height: 32px; }
+
+.friend-event-modal {
+  position: fixed;
+  z-index: 300;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, 390px);
+  overflow: hidden;
+  transform: translateX(-50%);
+}
+
+.friend-event-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  background: rgba(0, 0, 0, .62);
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.friend-event-sheet {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(102%);
+  transition: transform 420ms cubic-bezier(.22, .8, .24, 1);
+}
+
+.friend-event-sheet > img { display: block; width: 100%; height: auto; }
+.friend-event-close {
+  position: absolute;
+  top: 50.5%;
+  right: 0;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.friend-event-modal.is-open .friend-event-backdrop { opacity: 1; }
+.friend-event-modal.is-open .friend-event-sheet { transform: translateY(0); }
 
 @media (prefers-reduced-motion: reduce) {
   html {

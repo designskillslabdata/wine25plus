@@ -173,6 +173,24 @@ const findItTargets = Array.from(document.querySelectorAll('[data-find-piece]'))
 const findItPieceVisuals = Array.from(document.querySelectorAll('[data-find-piece-visual]'));
 const findItCount = document.querySelector('[data-find-count]');
 const findItCompleteModal = document.querySelector('[data-find-complete-modal]');
+const tastePlusView = document.querySelector('.taste-plus-page');
+const tastePlusScreens = Array.from(document.querySelectorAll('[data-taste-plus-screen]'));
+const friendSelectView = document.querySelector('.friend-select-page');
+const friendCarousel = document.querySelector('[data-friend-carousel]');
+const friendCards = Array.from(document.querySelectorAll('[data-friend-index]'));
+const friendDots = Array.from(document.querySelectorAll('.friend-character-dots i'));
+const friendDescription = document.querySelector('[data-friend-description]');
+const friendEventModal = document.querySelector('[data-friend-event-modal]');
+let tastePlusLoadingTimer = 0;
+let tastePlusResultTimer = 0;
+let activeFriendIndex = 0;
+
+const friendCharacters = [
+  { name: '무무씨', image: './assets/drink-friends/mumu.png', color: '#ffa300', description: '퇴근 후 시원한 맥주 한 잔이 삶의 낙<br />무념무상 매일 똑같이 지나가는 하루도<br />소맥과 함께라면 이겨낼 수 있어' },
+  { name: '안드레씨', image: './assets/drink-friends/andre.png', color: '#82daf7', description: '조용해 보여도 술자리에서는 반전 매력<br />익숙한 술도 새로운 조합으로 즐기는<br />든든한 주당 친구와 함께해요' },
+  { name: '머용씨', image: './assets/drink-friends/meoyong.png', color: '#fe6600', description: '처음 보는 술이라면 일단 궁금한 탐험가<br />새로운 향과 맛을 찾아 어디든 떠나는<br />호기심 많은 친구와 함께해요' },
+  { name: '순남씨', image: './assets/drink-friends/sunnam.png', color: '#56b85a', description: '좋은 사람과 천천히 즐기는 한 잔을 좋아해요<br />오늘의 분위기에 잘 맞는 술을 골라주는<br />차분하고 다정한 친구와 함께해요' },
+];
 const membershipRange = document.querySelector('#membership-range');
 const membershipName = document.querySelector('[data-membership-name]');
 const membershipMessage = document.querySelector('[data-membership-message]');
@@ -416,6 +434,127 @@ function hideFindIt() {
   findItView.hidden = true;
   findItCompleteModal.hidden = true;
   phoneShell.classList.remove('is-find-it-view');
+}
+
+function hideTastePlus() {
+  window.clearTimeout(tastePlusLoadingTimer);
+  window.clearTimeout(tastePlusResultTimer);
+  tastePlusLoadingTimer = 0;
+  tastePlusResultTimer = 0;
+  if (!tastePlusView) return;
+  tastePlusView.hidden = true;
+  phoneShell.classList.remove('is-taste-plus-view');
+}
+
+function hideFriendSelect() {
+  if (!friendSelectView) return;
+  friendSelectView.hidden = true;
+  phoneShell.classList.remove('is-friend-select-view');
+}
+
+function closeFriendEvent() {
+  if (!friendEventModal) return;
+  friendEventModal.classList.remove('is-open');
+  window.setTimeout(() => {
+    if (!friendEventModal.classList.contains('is-open')) friendEventModal.hidden = true;
+  }, 360);
+}
+
+function openFriendEvent() {
+  if (!friendEventModal) return;
+  friendEventModal.hidden = false;
+  window.requestAnimationFrame(() => window.requestAnimationFrame(() => friendEventModal.classList.add('is-open')));
+}
+
+function setActiveFriend(index, scroll = false) {
+  activeFriendIndex = Math.max(0, Math.min(friendCharacters.length - 1, Number(index) || 0));
+  friendCards.forEach((card, cardIndex) => {
+    const selected = cardIndex === activeFriendIndex;
+    card.classList.toggle('is-selected', selected);
+    card.setAttribute('aria-selected', String(selected));
+  });
+  friendDots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === activeFriendIndex));
+  if (friendDescription) friendDescription.innerHTML = friendCharacters[activeFriendIndex].description;
+  if (scroll) friendCards[activeFriendIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+}
+
+function renderFriendSelect() {
+  hideTastePlus();
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
+  hideWorldTour();
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  hideGiftFlow();
+  friendSelectView.hidden = false;
+  phoneShell.className = 'phone-shell is-friend-select-view';
+  setActiveFriend(activeFriendIndex);
+  friendSelectView.scrollTo({ top: 0, behavior: 'auto' });
+  window.requestAnimationFrame(() => friendCards[activeFriendIndex]?.scrollIntoView({ block: 'nearest', inline: 'center' }));
+}
+
+function applySelectedFriend() {
+  const friend = friendCharacters[activeFriendIndex];
+  document.querySelectorAll('[data-friend-banner-default]').forEach((element) => { element.hidden = true; });
+  document.querySelectorAll('[data-friend-selected-banner]').forEach((banner) => {
+    banner.hidden = false;
+    banner.style.setProperty('--friend-color', friend.color);
+    banner.querySelectorAll('[data-friend-banner-name]').forEach((name) => { name.textContent = friend.name; });
+    const character = banner.querySelector('[data-friend-banner-character]');
+    if (character) character.src = friend.image;
+  });
+}
+
+function renderTastePlus(screen) {
+  window.clearTimeout(tastePlusLoadingTimer);
+  window.clearTimeout(tastePlusResultTimer);
+  tastePlusLoadingTimer = 0;
+  tastePlusResultTimer = 0;
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  hideGiftFlow();
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
+  hideWorldTour();
+  tastePlusView.hidden = false;
+  tastePlusScreens.forEach((element) => {
+    element.hidden = element.dataset.tastePlusScreen !== screen;
+    element.classList.remove('is-animating', 'is-complete');
+  });
+  phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view', 'is-kyobo-view', 'is-find-it-view', 'is-world-tour-view');
+  phoneShell.classList.add('is-taste-plus-view');
+  tastePlusView.scrollTo({ top: 0, behavior: 'auto' });
+
+  if (screen === 'loading') {
+    tastePlusLoadingTimer = window.setTimeout(() => {
+      window.location.hash = '#taste-plus/result';
+    }, 1650);
+  }
+
+  if (screen === 'result') {
+    const result = tastePlusScreens.find((element) => element.dataset.tastePlusScreen === 'result');
+    const base = result?.querySelector('.taste-plus-result-base');
+    if (base) base.src = './assets/taste-plus/result-start.png';
+    window.requestAnimationFrame(() => window.requestAnimationFrame(() => result?.classList.add('is-animating')));
+    tastePlusResultTimer = window.setTimeout(() => {
+      if (base) base.src = './assets/taste-plus/result-final.png';
+      result?.classList.add('is-complete');
+    }, 1580);
+  }
 }
 
 function getVisibleGiftProducts() {
@@ -820,6 +959,8 @@ function renderProductDetail(category, index) {
 }
 
 function renderHome() {
+  hideTastePlus();
+  hideFriendSelect();
   hideCellarmate();
   hideKyoboEvent();
   hideFindIt();
@@ -1147,6 +1288,17 @@ function renderWorldTour(screen) {
 }
 
 function syncViewFromHash() {
+  if (window.location.hash === '#friend-select') {
+    renderFriendSelect();
+    return;
+  }
+  hideFriendSelect();
+  const tastePlusMatch = window.location.hash.match(/^#taste-plus\/(home|survey-1|survey-7|loading|result|custom-home)$/);
+  if (tastePlusMatch) {
+    renderTastePlus(tastePlusMatch[1]);
+    return;
+  }
+  hideTastePlus();
   const worldTourMatch = window.location.hash.match(/^#world-tour\/(world|japan|niigata|product|reserve|coupon|travel-all|travel-wine|travel-sake|travel-detail)$/);
   if (worldTourMatch) {
     renderWorldTour(worldTourMatch[1]);
@@ -2081,6 +2233,77 @@ if (storyCarousel) {
   updateStoryState();
 }
 
+if (friendCarousel) {
+  let pointerId = null;
+  let pointerStartX = 0;
+  let scrollStart = 0;
+  let dragged = false;
+  let scrollTimer = 0;
+
+  function nearestFriendIndex() {
+    const center = friendCarousel.scrollLeft + (friendCarousel.clientWidth / 2);
+    return friendCards.reduce((nearest, card, index) => {
+      const distance = Math.abs((card.offsetLeft + card.offsetWidth / 2) - center);
+      return distance < nearest.distance ? { index, distance } : nearest;
+    }, { index: 0, distance: Number.POSITIVE_INFINITY }).index;
+  }
+
+  function settleFriendCarousel() {
+    setActiveFriend(nearestFriendIndex(), true);
+  }
+
+  friendCarousel.addEventListener('scroll', () => {
+    window.clearTimeout(scrollTimer);
+    scrollTimer = window.setTimeout(settleFriendCarousel, 90);
+  }, { passive: true });
+
+  friendCards.forEach((card, index) => card.addEventListener('click', () => {
+    if (!dragged) setActiveFriend(index, true);
+  }));
+
+  friendCarousel.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    pointerId = event.pointerId;
+    pointerStartX = event.clientX;
+    scrollStart = friendCarousel.scrollLeft;
+    dragged = false;
+    friendCarousel.classList.add('is-grabbing');
+  });
+
+  friendCarousel.addEventListener('pointermove', (event) => {
+    if (event.pointerId !== pointerId) return;
+    const distance = event.clientX - pointerStartX;
+    if (!dragged && Math.abs(distance) < 5) return;
+    dragged = true;
+    friendCarousel.setPointerCapture?.(event.pointerId);
+    friendCarousel.scrollLeft = scrollStart - distance;
+    event.preventDefault();
+  });
+
+  function finishFriendDrag(event) {
+    if (event.pointerId !== pointerId) return;
+    if (friendCarousel.hasPointerCapture?.(event.pointerId)) friendCarousel.releasePointerCapture(event.pointerId);
+    pointerId = null;
+    friendCarousel.classList.remove('is-grabbing');
+    if (dragged) {
+      settleFriendCarousel();
+      window.setTimeout(() => { dragged = false; }, 180);
+    }
+  }
+
+  friendCarousel.addEventListener('pointerup', finishFriendDrag);
+  friendCarousel.addEventListener('pointercancel', finishFriendDrag);
+  friendCarousel.addEventListener('dragstart', (event) => event.preventDefault());
+}
+
+document.querySelector('[data-friend-select-back]')?.addEventListener('click', () => { window.location.hash = '#top'; });
+document.querySelector('[data-friend-confirm]')?.addEventListener('click', () => {
+  applySelectedFriend();
+  window.location.hash = '#top';
+  window.setTimeout(openFriendEvent, 80);
+});
+document.querySelectorAll('[data-friend-event-close]').forEach((button) => button.addEventListener('click', closeFriendEvent));
+
 const flowTargets = {
   cellar: document.querySelector('[data-flow-target="cellar"]'),
   'shared-cart': document.querySelector('[data-flow-target="shared-cart"]'),
@@ -2224,6 +2447,27 @@ const messages = {
   'write-post': '새 커뮤니티 글을 작성할 수 있습니다.',
 };
 
+document.querySelectorAll('[data-taste-plus-go]').forEach((button) => {
+  button.addEventListener('click', () => {
+    window.location.hash = `#taste-plus/${button.dataset.tastePlusGo}`;
+  });
+});
+
+document.querySelectorAll('[data-taste-plus-back]').forEach((button) => {
+  button.addEventListener('click', () => {
+    window.location.hash = `#taste-plus/${button.dataset.tastePlusBack}`;
+  });
+});
+
+document.querySelector('[data-taste-plus-exit]')?.addEventListener('click', () => {
+  window.location.hash = '#top';
+});
+
+window.addEventListener('message', (event) => {
+  if (event.source !== window.parent || event.data?.type !== 'w25-toggle-taste-plus') return;
+  window.location.hash = window.location.hash.startsWith('#taste-plus/') ? '#top' : '#taste-plus/home';
+});
+
 document.addEventListener('click', (event) => {
   const trigger = event.target.closest('[data-action]');
   if (!trigger) return;
@@ -2260,7 +2504,7 @@ document.addEventListener('click', (event) => {
     return;
   }
   if (action === 'drink-friends') {
-    window.location.hash = '#drink-id/friends';
+    window.location.hash = '#friend-select';
     return;
   }
   if (action === 'story') {
