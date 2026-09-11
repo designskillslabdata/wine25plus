@@ -181,6 +181,9 @@ const friendCards = Array.from(document.querySelectorAll('[data-friend-index]'))
 const friendDots = Array.from(document.querySelectorAll('.friend-character-dots i'));
 const friendDescription = document.querySelector('[data-friend-description]');
 const friendEventModal = document.querySelector('[data-friend-event-modal]');
+const friendMileageView = document.querySelector('.friend-mileage-page');
+const pairingFinderView = document.querySelector('.pairing-finder-page');
+const pairingFinderScreens = Array.from(document.querySelectorAll('[data-pairing-finder-screen]'));
 let tastePlusLoadingTimer = 0;
 let tastePlusResultTimer = 0;
 let activeFriendIndex = 0;
@@ -452,6 +455,18 @@ function hideFriendSelect() {
   phoneShell.classList.remove('is-friend-select-view');
 }
 
+function hideFriendMileage() {
+  if (!friendMileageView) return;
+  friendMileageView.hidden = true;
+  phoneShell.classList.remove('is-friend-mileage-view');
+}
+
+function hidePairingFinder() {
+  if (!pairingFinderView) return;
+  pairingFinderView.hidden = true;
+  phoneShell.classList.remove('is-pairing-finder-view');
+}
+
 function closeFriendEvent() {
   if (!friendEventModal) return;
   friendEventModal.classList.remove('is-open');
@@ -484,6 +499,7 @@ function renderFriendSelect() {
   hideKyoboEvent();
   hideFindIt();
   hideWorldTour();
+  hideFriendMileage();
   homeView.hidden = true;
   catalogView.hidden = true;
   detailView.hidden = true;
@@ -500,6 +516,50 @@ function renderFriendSelect() {
   window.requestAnimationFrame(() => friendCards[activeFriendIndex]?.scrollIntoView({ block: 'nearest', inline: 'center' }));
 }
 
+function renderFriendMileage() {
+  hideTastePlus();
+  hideFriendSelect();
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
+  hideWorldTour();
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  hideGiftFlow();
+  friendMileageView.hidden = false;
+  phoneShell.className = 'phone-shell is-friend-mileage-view';
+  friendMileageView.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function renderPairingFinder(screen = 'list') {
+  hideTastePlus();
+  hideFriendSelect();
+  hideFriendMileage();
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
+  hideWorldTour();
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  hideGiftFlow();
+  pairingFinderView.hidden = false;
+  pairingFinderScreens.forEach((element) => { element.hidden = element.dataset.pairingFinderScreen !== screen; });
+  phoneShell.className = 'phone-shell is-pairing-finder-view';
+  pairingFinderView.scrollTo({ top: 0, behavior: 'auto' });
+}
+
 function applySelectedFriend() {
   const friend = friendCharacters[activeFriendIndex];
   document.querySelectorAll('[data-friend-banner-default]').forEach((element) => { element.hidden = true; });
@@ -509,6 +569,16 @@ function applySelectedFriend() {
     banner.querySelectorAll('[data-friend-banner-name]').forEach((name) => { name.textContent = friend.name; });
     const character = banner.querySelector('[data-friend-banner-character]');
     if (character) character.src = friend.image;
+  });
+  document.querySelectorAll('[data-story-action="drink-friends"]').forEach((slide) => {
+    slide.dataset.storyAction = 'friend-mileage';
+    slide.setAttribute('aria-label', `${friend.name}랑 같이 술마시자`);
+  });
+  document.querySelectorAll('[data-story-open][data-action="drink-friends"]').forEach((button) => { button.dataset.action = 'friend-mileage'; });
+  document.querySelectorAll('[data-friend-mileage-name]').forEach((name) => { name.textContent = friend.name; });
+  document.querySelectorAll('[data-friend-mileage-character]').forEach((character) => {
+    character.src = friend.image;
+    character.alt = `${friend.name} 캐릭터`;
   });
 }
 
@@ -961,6 +1031,8 @@ function renderProductDetail(category, index) {
 function renderHome() {
   hideTastePlus();
   hideFriendSelect();
+  hideFriendMileage();
+  hidePairingFinder();
   hideCellarmate();
   hideKyoboEvent();
   hideFindIt();
@@ -1193,9 +1265,10 @@ function renderCellarmate(screen) {
   cellarmateView.hidden = false;
   cellarmateCouponModal.hidden = true;
   cellarmateScreens.forEach((element) => { element.hidden = element.dataset.cellarmateScreen !== screen; });
-  if (screen === 'received') {
-    cellarmateTabs.forEach((tab) => tab.setAttribute('aria-selected', String(tab.dataset.cellarmateTab === 'received')));
-    cellarmatePanels.forEach((panel) => { panel.hidden = panel.dataset.cellarmatePanel !== 'received'; });
+  if (screen === 'received' || screen === 'sent') {
+    cellarmateScreens.forEach((element) => { element.hidden = element.dataset.cellarmateScreen !== 'received'; });
+    cellarmateTabs.forEach((tab) => tab.setAttribute('aria-selected', String(tab.dataset.cellarmateTab === screen)));
+    cellarmatePanels.forEach((panel) => { panel.hidden = panel.dataset.cellarmatePanel !== screen; });
   }
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view');
   phoneShell.classList.add('is-cellarmate-view');
@@ -1288,6 +1361,17 @@ function renderWorldTour(screen) {
 }
 
 function syncViewFromHash() {
+  const pairingFinderMatch = window.location.hash.match(/^#pairing-finder\/(list|detail)$/);
+  if (pairingFinderMatch) {
+    renderPairingFinder(pairingFinderMatch[1]);
+    return;
+  }
+  hidePairingFinder();
+  if (window.location.hash === '#friend-mileage') {
+    renderFriendMileage();
+    return;
+  }
+  hideFriendMileage();
   if (window.location.hash === '#friend-select') {
     renderFriendSelect();
     return;
@@ -1315,7 +1399,7 @@ function syncViewFromHash() {
     renderKyoboEvent(kyoboMatch[1]);
     return;
   }
-  const cellarmateMatch = window.location.hash.match(/^#cellarmate\/(received|detail)$/);
+  const cellarmateMatch = window.location.hash.match(/^#cellarmate\/(received|detail|sent|sent-friends|sent-products|sent-preview|sent-complete)$/);
   if (cellarmateMatch) {
     renderCellarmate(cellarmateMatch[1]);
     return;
@@ -1376,9 +1460,41 @@ membershipRange?.addEventListener('input', () => applyMembershipTier(membershipR
 cellarmateTabs.forEach((tab) => {
   tab.addEventListener('click', () => {
     const selected = tab.dataset.cellarmateTab;
+    if (selected === 'sent') {
+      window.location.hash = '#cellarmate/sent';
+      return;
+    }
     cellarmateTabs.forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
     cellarmatePanels.forEach((panel) => { panel.hidden = panel.dataset.cellarmatePanel !== selected; });
   });
+});
+
+document.querySelectorAll('[data-cellarmate-go]').forEach((button) => {
+  button.addEventListener('click', () => {
+    if (!button.disabled) window.location.hash = `#cellarmate/${button.dataset.cellarmateGo}`;
+  });
+});
+
+document.querySelectorAll('[data-cellarmate-friend]').forEach((button) => {
+  button.addEventListener('click', () => {
+    document.querySelector('[data-cellarmate-friend-image]').src = './assets/cellarmate-sent/friend-selected.png';
+    document.querySelector('[data-cellarmate-next-friend]').disabled = false;
+  });
+});
+
+document.querySelector('.cellarmate-friend-stage')?.addEventListener('click', (event) => {
+  const next = document.querySelector('[data-cellarmate-next-friend]');
+  const stage = event.currentTarget;
+  if (next.disabled || event.target.closest('[data-cellarmate-friend]')) return;
+  const bounds = stage.getBoundingClientRect();
+  if (event.clientY - bounds.top >= bounds.height * 0.6) {
+    window.location.hash = '#cellarmate/sent-products';
+  }
+});
+
+document.querySelector('[data-cellarmate-product]')?.addEventListener('click', () => {
+  document.querySelector('[data-cellarmate-product-image]').src = './assets/cellarmate-sent/product-selected.png';
+  document.querySelector('.cellarmate-product-next').disabled = false;
 });
 
 document.querySelector('[data-cellarmate-open="detail"]')?.addEventListener('click', () => {
@@ -1388,7 +1504,7 @@ document.querySelector('[data-cellarmate-open="detail"]')?.addEventListener('cli
 document.querySelectorAll('[data-cellarmate-back]').forEach((button) => {
   button.addEventListener('click', () => {
     const destination = button.dataset.cellarmateBack;
-    window.location.hash = destination === 'home' ? '#top' : destination === 'winery' ? '#winery' : '#cellarmate/received';
+    window.location.hash = destination === 'home' ? '#top' : destination === 'winery' ? '#winery' : `#cellarmate/${destination}`;
   });
 });
 
@@ -2297,6 +2413,14 @@ if (friendCarousel) {
 }
 
 document.querySelector('[data-friend-select-back]')?.addEventListener('click', () => { window.location.hash = '#top'; });
+document.querySelector('[data-friend-mileage-back]')?.addEventListener('click', () => { window.location.hash = '#top'; });
+document.querySelector('[data-pairing-finder-back]')?.addEventListener('click', () => {
+  window.location.hash = window.location.hash === '#pairing-finder/detail' ? '#pairing-finder/list' : '#top';
+});
+document.querySelector('[data-pairing-finder-home]')?.addEventListener('click', () => { window.location.hash = '#top'; });
+document.querySelectorAll('[data-pairing-finder-go]').forEach((button) => button.addEventListener('click', () => {
+  window.location.hash = `#pairing-finder/${button.dataset.pairingFinderGo}`;
+}));
 document.querySelector('[data-friend-confirm]')?.addEventListener('click', () => {
   applySelectedFriend();
   window.location.hash = '#top';
@@ -2490,6 +2614,10 @@ document.addEventListener('click', (event) => {
     window.location.hash = '#world-tour/world';
     return;
   }
+  if (action === 'pairing-finder') {
+    window.location.hash = '#pairing-finder/list';
+    return;
+  }
   if (action === 'cellar-mate') {
     window.location.hash = '#cellarmate/received';
     return;
@@ -2505,6 +2633,10 @@ document.addEventListener('click', (event) => {
   }
   if (action === 'drink-friends') {
     window.location.hash = '#friend-select';
+    return;
+  }
+  if (action === 'friend-mileage') {
+    window.location.hash = '#friend-mileage';
     return;
   }
   if (action === 'story') {

@@ -351,7 +351,27 @@
               </article>
             </div>
           </div>
-          <div class="cellarmate-sent-empty" data-cellarmate-panel="sent" hidden><strong>보낸 셀러는 준비 중이에요</strong><p>친구에게 보낸 추천은 다음 업데이트에서 확인할 수 있어요.</p></div>
+          <div class="cellarmate-sent-panel" data-cellarmate-panel="sent" hidden>
+            <img src="./assets/cellarmate-sent/sent-list-new.png" alt="보낸 셀러 목록" />
+            <button class="cellarmate-sent-plus" type="button" data-cellarmate-go="sent-friends" aria-label="새 셀러 만들기"></button>
+          </div>
+        </div>
+
+        <div class="cellarmate-screen cellarmate-sent-flow" data-cellarmate-screen="sent-friends" hidden>
+          <header class="cellarmate-header flow-subheader"><button class="flow-header-button flow-header-back" type="button" data-cellarmate-back="sent" aria-label="보낸 셀러로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>셀러 보내기</h1><div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-cellarmate-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button></div></header>
+          <div class="cellarmate-figma-stage cellarmate-friend-stage"><img data-cellarmate-friend-image src="./assets/cellarmate-sent/friend-empty.png" alt="셀러를 보낼 친구 선택" /><button class="cellarmate-friend-choice choice-one" type="button" data-cellarmate-friend aria-label="이게바로나야 선택"></button><button class="cellarmate-friend-choice choice-two" type="button" data-cellarmate-friend aria-label="딸바보 선택"></button><button class="cellarmate-friend-choice choice-three" type="button" data-cellarmate-friend aria-label="무무씨와 친구들 선택"></button><button type="button" data-cellarmate-go="sent-products" data-cellarmate-next-friend aria-label="다음" disabled>다음</button></div>
+        </div>
+        <div class="cellarmate-screen cellarmate-sent-flow" data-cellarmate-screen="sent-products" hidden>
+          <header class="cellarmate-header flow-subheader"><button class="flow-header-button flow-header-back" type="button" data-cellarmate-back="sent-friends" aria-label="친구 선택으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>셀러 보내기</h1><div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-cellarmate-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button></div></header>
+          <div class="cellarmate-figma-stage cellarmate-product-stage"><img data-cellarmate-product-image src="./assets/cellarmate-sent/product-empty.png" alt="추천할 주류 선택" /><button class="cellarmate-product-choice" type="button" data-cellarmate-product aria-label="추천 주류 선택"></button><button class="cellarmate-product-next" type="button" data-cellarmate-go="sent-preview" aria-label="선택 완료 후 다음" disabled></button></div>
+        </div>
+        <div class="cellarmate-screen cellarmate-sent-flow" data-cellarmate-screen="sent-preview" hidden>
+          <header class="cellarmate-header flow-subheader"><button class="flow-header-button flow-header-back" type="button" data-cellarmate-back="sent-products" aria-label="주류 선택으로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>셀러 보내기</h1><div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-cellarmate-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button></div></header>
+          <div class="cellarmate-figma-stage cellarmate-preview-stage"><img src="./assets/cellarmate-sent/preview.png" alt="보낼 셀러 구성 확인" /><button type="button" data-cellarmate-go="sent-complete" aria-label="셀러 보내기"></button></div>
+        </div>
+        <div class="cellarmate-screen cellarmate-sent-flow" data-cellarmate-screen="sent-complete" hidden>
+          <header class="cellarmate-header flow-subheader"><button class="flow-header-button flow-header-back" type="button" data-cellarmate-back="sent" aria-label="보낸 셀러로 돌아가기"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>셀러 보내기</h1><div class="flow-header-actions"><button class="flow-header-button flow-header-exit" type="button" data-cellarmate-back="home" aria-label="홈으로 나가기"><img src="./assets/floating-menu.svg" alt="" /></button></div></header>
+          <div class="cellarmate-figma-stage cellarmate-complete-stage"><img src="./assets/cellarmate-sent/complete.png" alt="친구에게 셀러를 보냈어요" /><button type="button" data-cellarmate-go="sent-friends" aria-label="다른 친구에게 보내기"></button><button type="button" data-cellarmate-go="sent" aria-label="내 셀러 보기"></button></div>
         </div>
 
         <div class="cellarmate-screen cellarmate-detail-screen" data-cellarmate-screen="detail" hidden>
@@ -538,10 +558,70 @@
       <div class="friend-event-modal" data-friend-event-modal role="dialog" aria-modal="true" aria-label="장마철 방콕 이벤트" hidden>
         <button class="friend-event-backdrop" type="button" data-friend-event-close aria-label="이벤트 팝업 닫기"></button>
         <div class="friend-event-sheet">
-          <img src="./assets/drink-friends/event-sheet.png" alt="비 오는 날 집에서 쉬어볼까, 장마철 방콕 이벤트" />
+          <div class="friend-event-intro">
+            <span class="friend-event-bubble">비도 오는데<br />집에서 맥주 한 잔 콜?</span>
+            <img src="./assets/drink-friends/mumu.png" alt="맥주를 든 무무씨" />
+          </div>
+          <div class="friend-event-art">
+            <img src="./assets/drink-friends/event-sheet.png" alt="장마철 방콕 이벤트, 비 오는 날 집에서 쉬어볼까" />
+          </div>
           <button class="friend-event-close" type="button" data-friend-event-close aria-label="닫기"></button>
         </div>
       </div>
+
+      <section id="friend-mileage-view" class="friend-mileage-page" aria-label="술친구 마일리지" hidden>
+        <div class="friend-mileage-status status-bar" aria-label="상태 표시줄">
+          <div class="status-left"><strong>9:41</strong><img src="./assets/location.svg" alt="위치 서비스 사용 중" /></div>
+          <div class="dynamic-island" aria-hidden="true"><img src="./assets/lens.svg" alt="" /></div>
+          <div class="status-right" aria-hidden="true"><img src="./assets/signal.svg" alt="" /><img src="./assets/data.svg" alt="" /><img class="battery" src="./assets/battery.svg" alt="" /></div>
+        </div>
+        <header class="friend-mileage-header">
+          <button class="friend-mileage-back" type="button" data-friend-mileage-back aria-label="뒤로가기"></button>
+          <h1><span data-friend-mileage-name>무무씨</span> 마일리지</h1>
+          <div class="friend-mileage-actions">
+            <button class="friend-mileage-share" type="button" data-action="share" aria-label="공유하기"></button>
+            <button class="friend-mileage-cart" type="button" data-action="cart" aria-label="장바구니"></button>
+          </div>
+        </header>
+        <main class="friend-mileage-content">
+          <section class="friend-mileage-hero">
+            <p class="friend-mileage-bubble">술은 무난한게 제일이지.</p>
+            <img data-friend-mileage-character src="./assets/drink-friends/mumu.png" alt="맥주를 든 무무씨" />
+            <strong>기본파</strong>
+            <h2 data-friend-mileage-name>무무씨</h2>
+          </section>
+          <section class="friend-points" aria-label="마일리지 150 포인트">
+            <span>마일리지바</span>
+            <div class="friend-points-track"><i></i><b></b><b></b><b></b><b></b><b></b></div>
+            <div class="friend-points-labels"><small>50pt</small><small>100pt</small><small class="is-current">150pt</small><small>200pt</small><small>250pt</small></div>
+          </section>
+          <section class="friend-missions" aria-labelledby="friend-mission-title">
+            <h2 id="friend-mission-title">mission</h2>
+            <article class="friend-mission is-complete"><p><span data-friend-mileage-name>무무씨</span>와 장마철 방콕 이벤트 참가하기</p><small>clear!</small><i><b></b></i></article>
+            <article class="friend-mission"><p>5일 연속 접속하기(3/5)</p><i><b style="--mission-progress:40%"></b></i></article>
+            <article class="friend-mission"><p><span data-friend-mileage-name>무무씨</span>의 Pick 구매하기(2/5)</p><i><b style="--mission-progress:40%"></b></i></article>
+          </section>
+        </main>
+      </section>
+
+      <section id="pairing-finder-view" class="pairing-finder-page" aria-label="맛잘알 조합찾기" hidden>
+        <div class="pairing-finder-status status-bar" aria-label="상태 표시줄">
+          <div class="status-left"><strong>9:41</strong><img src="./assets/location.svg" alt="위치 서비스 사용 중" /></div>
+          <div class="dynamic-island" aria-hidden="true"><img src="./assets/lens.svg" alt="" /></div>
+          <div class="status-right" aria-hidden="true"><img src="./assets/signal.svg" alt="" /><img src="./assets/data.svg" alt="" /><img class="battery" src="./assets/battery.svg" alt="" /></div>
+        </div>
+        <header class="pairing-finder-header">
+          <button class="pairing-finder-back" type="button" data-pairing-finder-back aria-label="뒤로가기"></button>
+          <h1>이벤트 상세</h1>
+          <div class="pairing-finder-actions"><button class="pairing-finder-share" type="button" data-action="share" aria-label="공유하기"></button><button class="pairing-finder-home" type="button" data-pairing-finder-home aria-label="홈으로 나가기"></button></div>
+        </header>
+        <article class="pairing-finder-screen" data-pairing-finder-screen="list">
+          <div class="pairing-finder-art"><img src="./assets/pairing-finder/list.png" alt="맛잘알 조합찾기 이벤트와 대상상품 8개" /><button class="pairing-chicken-open" type="button" data-pairing-finder-go="detail" aria-label="고기반찬 닭볶음탕 자세히보기"></button></div>
+        </article>
+        <article class="pairing-finder-screen" data-pairing-finder-screen="detail" hidden>
+          <div class="pairing-finder-art pairing-finder-art--detail"><img src="./assets/pairing-finder/detail.png" alt="고기반찬 닭볶음탕과 수수마니엘로 와인의 맛잘알 조합 상세" /></div>
+        </article>
+      </section>
 
       <section id="kyobo-event-view" class="kyobo-page" aria-label="교보문고 음주 독서 이벤트" hidden>
         <article class="kyobo-screen kyobo-event-screen" data-kyobo-screen="event">
