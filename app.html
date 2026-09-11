@@ -116,7 +116,13 @@
               <img src="./assets/home-refresh/story-drink-id.png" alt="니술내술 플러스, 내 DRINK ID로 취향 둘러보기" />
             </article>
             <article class="story-slide" data-story-action="drink-friends" aria-label="나랑 같이 술마실래">
-              <img src="./assets/home-refresh/story-friends.png" alt="나의 술친구 고르러 가기" />
+              <img data-friend-banner-default src="./assets/home-refresh/story-friends.png" alt="나의 술친구 고르러 가기" />
+              <span class="friend-selected-banner" data-friend-selected-banner hidden>
+                <strong><span data-friend-banner-name>무무씨</span>랑 같이 술마시자!</strong>
+                <small><span data-friend-banner-name>무무씨</span> 마일리지 확인하러 가기</small>
+                <img data-friend-banner-character src="./assets/drink-friends/mumu.png" alt="" />
+                <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
+              </span>
             </article>
             <article class="story-slide" data-story-action="gift-event" aria-label="인생첫술 선물하기">
               <img src="./assets/home-refresh/story-gift.png" alt="원하는 대로 조합하는 술 선물" />
@@ -377,7 +383,7 @@
       </section>
 
       <section id="world-tour-view" class="world-tour-page" aria-label="술 한 잔으로 떠나는 세계 주류 여행" hidden>
-        <article class="world-tour-screen world-tour-screen--world" data-world-tour-screen="world">
+        <article class="world-tour-screen world-tour-screen--world" data-world-tour-screen="world" data-world-tour-title="세계 주류 여행">
           <div class="world-tour-world-lead">
             <img src="./assets/world-tour/world.png" alt="세계 주류 여행 국가 선택" />
             <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="home" aria-label="홈으로 돌아가기"></button>
@@ -395,28 +401,28 @@
           <div class="world-tour-bottom-nav" aria-hidden="true"></div>
         </article>
 
-        <article class="world-tour-screen" data-world-tour-screen="japan" hidden>
+        <article class="world-tour-screen" data-world-tour-screen="japan" data-world-tour-title="세계 주류 여행" hidden>
           <img src="./assets/world-tour/japan.png" alt="일본 사케 지도와 지역별 양조장 탐색" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="world" aria-label="세계 지도로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-niigata" type="button" data-world-tour-go="niigata" aria-label="니가타 지역 선택"></button>
         </article>
 
-        <article class="world-tour-screen" data-world-tour-screen="niigata" hidden>
+        <article class="world-tour-screen" data-world-tour-screen="niigata" data-world-tour-title="세계 주류 여행" hidden>
           <img src="./assets/world-tour/niigata-long.png" alt="니가타 지역과 추천 사케 상품" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="japan" aria-label="일본 사케 지도로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-kikusui" type="button" data-world-tour-go="product" aria-label="키쿠스이 준마이 상품 보기"></button>
         </article>
 
-        <article class="world-tour-screen" data-world-tour-screen="product" hidden>
+        <article class="world-tour-screen" data-world-tour-screen="product" data-world-tour-title="상품 상세" hidden>
           <img src="./assets/world-tour/product.png" alt="키쿠스이 준마이 상품 상세" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="niigata" aria-label="니가타 추천 상품으로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-reserve" type="button" data-world-tour-go="reserve" aria-label="키쿠스이 준마이 예약 주문하기"></button>
         </article>
 
-        <article class="world-tour-screen" data-world-tour-screen="reserve" hidden>
+        <article class="world-tour-screen" data-world-tour-screen="reserve" data-world-tour-title="결제 완료" hidden>
           <img src="./assets/world-tour/reserve.png" alt="키쿠스이 준마이 주문 완료와 세계 주류 여행 기록" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="product" aria-label="상품 상세로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
@@ -424,13 +430,13 @@
           <button class="world-tour-hotspot world-tour-travel-open" type="button" data-world-tour-go="travel-all" aria-label="제휴 여행사 주류 테마 여행 전체 보기"></button>
         </article>
 
-        <article class="world-tour-screen" data-world-tour-screen="coupon" hidden>
+        <article class="world-tour-screen" data-world-tour-screen="coupon" data-world-tour-title="쿠폰" hidden>
           <img src="./assets/world-tour/coupon.png" alt="세계 주류 여행 니가타 여행 완료 5000원 할인 쿠폰" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="reserve" aria-label="여행 기록으로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
         </article>
 
-        <article class="world-tour-screen" data-world-tour-screen="travel-all" hidden>
+        <article class="world-tour-screen" data-world-tour-screen="travel-all" data-world-tour-title="세계 주류 여행" hidden>
           <img src="./assets/world-tour/travel-all.png" alt="제휴 여행사와 함께하는 추천 주류 여행 목록" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="reserve" aria-label="여행 기록으로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
@@ -439,7 +445,7 @@
           <button class="world-tour-hotspot world-tour-niigata-trip" type="button" data-world-tour-go="travel-detail" aria-label="사케의 고장 니가타에 취하다 여행 보기"></button>
         </article>
 
-        <article class="world-tour-screen" data-world-tour-screen="travel-wine" hidden>
+        <article class="world-tour-screen" data-world-tour-screen="travel-wine" data-world-tour-title="세계 주류 여행" hidden>
           <img src="./assets/world-tour/travel-wine.png" alt="제휴 여행사의 와인 여행 목록" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="travel-all" aria-label="추천 여행으로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
@@ -447,7 +453,7 @@
           <button class="world-tour-hotspot world-tour-tab-sake" type="button" data-world-tour-go="travel-sake" aria-label="사케 여행 보기"></button>
         </article>
 
-        <article class="world-tour-screen" data-world-tour-screen="travel-sake" hidden>
+        <article class="world-tour-screen" data-world-tour-screen="travel-sake" data-world-tour-title="세계 주류 여행" hidden>
           <img src="./assets/world-tour/travel-sake-long.png" alt="제휴 여행사의 사케 여행 목록" />
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="travel-all" aria-label="추천 여행으로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
@@ -456,12 +462,86 @@
           <button class="world-tour-hotspot world-tour-niigata-trip" type="button" data-world-tour-go="travel-detail" aria-label="사케의 고장 니가타에 취하다 여행 보기"></button>
         </article>
 
-        <article class="world-tour-screen" data-world-tour-screen="travel-detail" hidden>
+        <article class="world-tour-screen" data-world-tour-screen="travel-detail" data-world-tour-title="여행 상세" hidden>
           <img src="./assets/world-tour/travel-detail.png" alt="사케의 고장 니가타에 취하다 여행 상품 상세" />
           <button class="world-tour-hotspot world-tour-detail-back" type="button" data-world-tour-back="travel-sake" aria-label="사케 여행 목록으로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
         </article>
       </section>
+
+      <section id="taste-plus-view" class="taste-plus-page" aria-label="취향 플러스 맞춤 홈 체험" hidden>
+        <article class="taste-plus-screen" data-taste-plus-screen="home">
+          <img src="./assets/taste-plus/home-start.png" alt="취향을 탐색 중인 GS25 맞춤 홈" />
+          <button class="taste-plus-hotspot taste-plus-start" type="button" data-taste-plus-go="survey-1" aria-label="취향 플러스 검사 시작"></button>
+        </article>
+
+        <article class="taste-plus-screen" data-taste-plus-screen="survey-1" hidden>
+          <img src="./assets/taste-plus/survey-1.png" alt="취향 플러스 첫 번째 질문" />
+          <button class="taste-plus-hotspot taste-plus-answer-list" type="button" data-taste-plus-go="survey-7" aria-label="첫 번째 질문 답변 선택"></button>
+          <button class="taste-plus-hotspot taste-plus-survey-back" type="button" data-taste-plus-back="home" aria-label="맞춤 홈으로 돌아가기"></button>
+        </article>
+
+        <article class="taste-plus-screen" data-taste-plus-screen="survey-7" hidden>
+          <img src="./assets/taste-plus/survey-7.png" alt="취향 플러스 일곱 번째 질문" />
+          <button class="taste-plus-hotspot taste-plus-answer-list" type="button" data-taste-plus-go="loading" aria-label="마지막 질문 답변 선택"></button>
+          <button class="taste-plus-hotspot taste-plus-survey-back" type="button" data-taste-plus-back="survey-1" aria-label="첫 번째 질문으로 돌아가기"></button>
+        </article>
+
+        <article class="taste-plus-screen taste-plus-loading" data-taste-plus-screen="loading" hidden>
+          <img src="./assets/taste-plus/loading.png" alt="취향 유형 결과 분석 중" />
+          <span class="taste-plus-loading-pulse" aria-hidden="true"></span>
+        </article>
+
+        <article class="taste-plus-screen taste-plus-result" data-taste-plus-screen="result" hidden>
+          <img class="taste-plus-result-base" src="./assets/taste-plus/result-start.png" alt="취향 유형 결과 주류 탐험가" />
+          <span class="taste-plus-result-card" aria-hidden="true"></span>
+          <span class="taste-plus-result-copy" aria-hidden="true"><b>진아님의 취향 유형이<br /><strong>플러스</strong> 되었어요!</b><small>내게 맞춰진 추천 주류, 지금 함께 확인해봐요!</small></span>
+          <button class="taste-plus-hotspot taste-plus-exit" type="button" data-taste-plus-exit aria-label="기존 WINE25+ 홈으로 나가기"></button>
+          <button class="taste-plus-hotspot taste-plus-move" type="button" data-taste-plus-go="custom-home" aria-label="맞춤 홈으로 이동하기"></button>
+        </article>
+
+        <article class="taste-plus-screen" data-taste-plus-screen="custom-home" hidden>
+          <img src="./assets/taste-plus/home-custom-long.png" alt="주류 탐험가 취향과 추천 콘텐츠가 등록된 GS25 맞춤 홈" />
+        </article>
+      </section>
+
+      <section id="friend-select-view" class="friend-select-page" aria-label="나의 술친구 캐릭터 선택" hidden>
+        <div class="friend-select-status status-bar" aria-label="상태 표시줄">
+          <div class="status-left"><strong>9:41</strong><img src="./assets/location.svg" alt="위치 서비스 사용 중" /></div>
+          <div class="dynamic-island" aria-hidden="true"><img src="./assets/lens.svg" alt="" /></div>
+          <div class="status-right" aria-hidden="true"><img src="./assets/signal.svg" alt="" /><img src="./assets/data.svg" alt="" /><img class="battery" src="./assets/battery.svg" alt="" /></div>
+        </div>
+        <header class="friend-select-header">
+          <button type="button" data-friend-select-back aria-label="홈으로 돌아가기"></button>
+          <h1>나의 캐릭터 선택</h1>
+        </header>
+        <h2>나의 술친구는...</h2>
+        <div class="friend-character-carousel" data-friend-carousel tabindex="0" aria-label="술친구 캐릭터 목록">
+          <button class="friend-character-card is-selected" type="button" data-friend-index="0" style="--friend-color:#ffa300">
+            <small>소주 맥주가 최고야</small><strong>뭐래여우 무무씨</strong><img src="./assets/drink-friends/mumu.png" alt="맥주를 든 여우 무무씨" />
+          </button>
+          <button class="friend-character-card" type="button" data-friend-index="1" style="--friend-color:#82daf7">
+            <small>반전매력 주당</small><strong>북끄토끼 안드레씨</strong><img src="./assets/drink-friends/andre.png" alt="토끼 안드레씨" />
+          </button>
+          <button class="friend-character-card" type="button" data-friend-index="2" style="--friend-color:#fe6600">
+            <small>새로운 술이 궁금해</small><strong>호기심쟁이 머용씨</strong><img src="./assets/drink-friends/meoyong.png" alt="캐릭터 머용씨" />
+          </button>
+          <button class="friend-character-card" type="button" data-friend-index="3" style="--friend-color:#56b85a">
+            <small>차분하게 즐겨요</small><strong>느긋한 순남씨</strong><img src="./assets/drink-friends/sunnam.png" alt="캐릭터 순남씨" />
+          </button>
+        </div>
+        <div class="friend-character-dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i><i></i></div>
+        <p class="friend-character-description" data-friend-description>퇴근 후 시원한 맥주 한 잔이 삶의 낙<br />무념무상 매일 똑같이 지나가는 하루도<br />소맥과 함께라면 이겨낼 수 있어</p>
+        <button class="friend-select-confirm" type="button" data-friend-confirm>캐릭터 선택하기</button>
+      </section>
+
+      <div class="friend-event-modal" data-friend-event-modal role="dialog" aria-modal="true" aria-label="장마철 방콕 이벤트" hidden>
+        <button class="friend-event-backdrop" type="button" data-friend-event-close aria-label="이벤트 팝업 닫기"></button>
+        <div class="friend-event-sheet">
+          <img src="./assets/drink-friends/event-sheet.png" alt="비 오는 날 집에서 쉬어볼까, 장마철 방콕 이벤트" />
+          <button class="friend-event-close" type="button" data-friend-event-close aria-label="닫기"></button>
+        </div>
+      </div>
 
       <section id="kyobo-event-view" class="kyobo-page" aria-label="교보문고 음주 독서 이벤트" hidden>
         <article class="kyobo-screen kyobo-event-screen" data-kyobo-screen="event">
