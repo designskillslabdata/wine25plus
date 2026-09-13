@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>WINE25+ PLUS App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260913f" />
+    <link rel="stylesheet" href="./styles.css?v=20260913h" />
   </head>
   <body>
     <main class="phone-shell" aria-label="WINE25+ PLUS 모바일 홈">
@@ -431,17 +431,33 @@
 
         <article class="world-tour-screen" data-world-tour-screen="product" data-world-tour-title="상품 상세" hidden>
           <img src="./assets/world-tour/product.png" alt="키쿠스이 준마이 상품 상세" />
+          <div class="world-product-gauges" aria-label="맛 지표">
+            <i style="--world-gauge:50%"></i>
+            <i style="--world-gauge:80%"></i>
+            <i style="--world-gauge:66%"></i>
+          </div>
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="niigata" aria-label="니가타 추천 상품으로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-reserve" type="button" data-world-tour-go="reserve" aria-label="키쿠스이 준마이 예약 주문하기"></button>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="reserve" data-world-tour-title="결제 완료" hidden>
-          <img src="./assets/world-tour/reserve-v2-crop.png" alt="키쿠스이 준마이 주문 완료와 세계 주류 여행 기록" />
+          <div class="world-reserve-media">
+            <span class="world-reserve-media-slice world-reserve-media-slice--top">
+              <img src="./assets/world-tour/reserve-v2-crop.png" alt="키쿠스이 준마이 주문 완료와 세계 주류 여행 기록" />
+            </span>
+            <span class="world-reserve-media-slice world-reserve-media-slice--bottom" aria-hidden="true">
+              <img src="./assets/world-tour/reserve-v2-crop.png" alt="" />
+            </span>
+          </div>
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="product" aria-label="상품 상세로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-coupon-open" type="button" data-world-tour-go="coupon" aria-label="니가타 여행 완료 쿠폰 다운로드"></button>
           <button class="world-tour-hotspot world-tour-travel-open" type="button" data-world-tour-go="travel-all" aria-label="제휴 여행사 주류 테마 여행 전체 보기"></button>
+          <nav class="world-reserve-fixed-actions" aria-label="주문 완료 기능">
+            <button type="button" data-action="world-order-detail">주문 상세 보기</button>
+            <button type="button" data-action="world-open-fridge">나만의 냉장고 보기</button>
+          </nav>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="coupon" data-world-tour-title="쿠폰" hidden>
@@ -483,6 +499,7 @@
 
         <article class="world-tour-screen world-tour-modetour-detail" data-world-tour-screen="modetour-detail" data-world-tour-title="모두투어 여행 상품" hidden>
           <img src="./assets/world-tour/modetour-detail.png" alt="사케의 고장 니가타에 취하다 모두투어 여행 상품 상세" />
+          <button class="world-tour-hotspot world-modetour-menu" type="button" data-world-tour-back="home" aria-label="와인25플러스 메인으로 돌아가기"></button>
         </article>
       </section>
 
@@ -587,18 +604,29 @@
             <strong>기본파</strong>
             <h2 data-friend-mileage-name>무무씨</h2>
           </section>
-          <section class="friend-points" aria-label="마일리지 150 포인트">
-            <span>마일리지바</span>
+          <section class="friend-points" aria-label="마일리지 150 포인트" data-friend-points>
+            <span>마일리지 <strong data-friend-points-value>150pt</strong></span>
             <div class="friend-points-track"><i></i><b></b><b></b><b></b><b></b><b></b></div>
             <div class="friend-points-labels"><small>50pt</small><small>100pt</small><small class="is-current">150pt</small><small>200pt</small><small>250pt</small></div>
           </section>
           <section class="friend-missions" aria-labelledby="friend-mission-title">
             <h2 id="friend-mission-title">mission</h2>
-            <article class="friend-mission is-complete"><p><span data-friend-mileage-name>무무씨</span>와 장마철 방콕 이벤트 참가하기</p><small>clear!</small><i><b></b></i></article>
-            <article class="friend-mission"><p>5일 연속 접속하기(3/5)</p><i><b style="--mission-progress:40%"></b></i></article>
-            <article class="friend-mission"><p><span data-friend-mileage-name>무무씨</span>의 Pick 구매하기(2/5)</p><i><b style="--mission-progress:40%"></b></i></article>
+            <button class="friend-mission" type="button" data-friend-mission="event" style="--mission-progress:0%"><span><span data-friend-mileage-name>무무씨</span>와 장마철 방콕 이벤트 참가하기</span><small>참여하기</small><i><b></b></i></button>
+            <button class="friend-mission" type="button" data-friend-mission="login" style="--mission-progress:60%"><span>5일 연속 접속하기(3/5)</span><small>3/5</small><i><b></b></i></button>
+            <button class="friend-mission" type="button" data-friend-mission="pick" style="--mission-progress:40%"><span><span data-friend-mileage-name>무무씨</span>의 Pick 구매하기(2/5)</span><small>2/5</small><i><b></b></i></button>
           </section>
         </main>
+        <div class="friend-gift-modal" data-friend-gift-modal hidden>
+          <button class="friend-gift-backdrop" type="button" data-friend-gift-close aria-label="선물 팝업 닫기"></button>
+          <button class="friend-gift-card" type="button" data-friend-gift-close aria-label="무무씨의 선물 확인 후 닫기">
+            <span class="friend-gift-reveal">
+              <strong>무무씨의 선물이 도착했어요!</strong>
+              <img src="./assets/drink-friends/mumu-gift.png" alt="선물 상자를 든 무무씨" />
+              <span class="friend-gift-message">넌 내 최고의 술친구야.<br />항상 고마워.</span>
+            </span>
+            <span class="friend-gift-action"><span>나의 쿠폰함 가기</span></span>
+          </button>
+        </div>
       </section>
 
       <section id="pairing-finder-view" class="pairing-finder-page" aria-label="맛잘알 조합찾기" hidden>
@@ -1225,6 +1253,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260913f"></script>
+    <script src="./app.js?v=20260913h"></script>
   </body>
 </html>

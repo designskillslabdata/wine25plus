@@ -182,12 +182,18 @@ const friendDots = Array.from(document.querySelectorAll('.friend-character-dots 
 const friendDescription = document.querySelector('[data-friend-description]');
 const friendEventModal = document.querySelector('[data-friend-event-modal]');
 const friendMileageView = document.querySelector('.friend-mileage-page');
+const friendMileageMissions = Array.from(document.querySelectorAll('[data-friend-mission]'));
+const friendPoints = document.querySelector('[data-friend-points]');
+const friendPointsValue = document.querySelector('[data-friend-points-value]');
+const friendGiftModal = document.querySelector('[data-friend-gift-modal]');
 const pairingFinderView = document.querySelector('.pairing-finder-page');
 const pairingFinderScreens = Array.from(document.querySelectorAll('[data-pairing-finder-screen]'));
 let tastePlusLoadingTimer = 0;
 let tastePlusResultTimer = 0;
 let worldTourLoadingTimer = 0;
 let activeFriendIndex = 0;
+const completedFriendMissions = new Set();
+let friendGiftShown = false;
 
 const friendCharacters = [
   { name: '무무씨', image: './assets/drink-friends/mumu.png', color: '#ffa300', description: '퇴근 후 시원한 맥주 한 잔이 삶의 낙<br />무념무상 매일 똑같이 지나가는 하루도<br />소맥과 함께라면 이겨낼 수 있어' },
@@ -554,8 +560,51 @@ function hideFriendSelect() {
 
 function hideFriendMileage() {
   if (!friendMileageView) return;
+  if (friendGiftModal) {
+    friendGiftModal.hidden = true;
+    friendGiftModal.classList.remove('is-open');
+  }
   friendMileageView.hidden = true;
   phoneShell.classList.remove('is-friend-mileage-view');
+}
+
+function updateFriendMileage() {
+  const completedCount = completedFriendMissions.size;
+  const points = completedCount === 3 ? 250 : Math.round(150 + (completedCount * 100 / 3));
+  const progress = 60 + (completedCount * 40 / 3);
+  friendPoints?.style.setProperty('--friend-points-progress', `${progress}%`);
+  if (friendPointsValue) friendPointsValue.textContent = `${points}pt`;
+  if (friendPoints) friendPoints.setAttribute('aria-label', `마일리지 ${points} 포인트`);
+  document.querySelectorAll('.friend-points-labels small').forEach((label) => {
+    label.classList.toggle('is-current', label.textContent === `${points}pt` || (points === 250 && label.textContent === '250pt'));
+  });
+}
+
+function resetFriendMileage() {
+  completedFriendMissions.clear();
+  friendGiftShown = false;
+  friendMileageMissions.forEach((mission) => {
+    mission.classList.remove('is-complete', 'is-completing');
+    const kind = mission.dataset.friendMission;
+    mission.style.setProperty('--mission-progress', kind === 'login' ? '60%' : kind === 'pick' ? '40%' : '0%');
+    const status = mission.querySelector('small');
+    if (status) status.textContent = kind === 'login' ? '3/5' : kind === 'pick' ? '2/5' : '참여하기';
+  });
+  updateFriendMileage();
+}
+
+function showFriendGift() {
+  if (!friendGiftModal || friendGiftShown) return;
+  friendGiftShown = true;
+  friendGiftModal.hidden = false;
+  window.requestAnimationFrame(() => friendGiftModal.classList.add('is-open'));
+  friendGiftModal.querySelector('.friend-gift-card')?.focus({ preventScroll: true });
+}
+
+function closeFriendGift() {
+  if (!friendGiftModal) return;
+  friendGiftModal.classList.remove('is-open');
+  window.setTimeout(() => { friendGiftModal.hidden = true; }, 240);
 }
 
 function hidePairingFinder() {
@@ -668,6 +717,7 @@ function renderPairingFinder(screen = 'list') {
 
 function applySelectedFriend() {
   const friend = friendCharacters[activeFriendIndex];
+  resetFriendMileage();
   document.querySelectorAll('[data-friend-banner-default]').forEach((element) => { element.hidden = true; });
   document.querySelectorAll('[data-friend-selected-banner]').forEach((banner) => {
     banner.hidden = false;
@@ -1465,6 +1515,11 @@ function renderWorldTour(screen) {
   worldTourView.dataset.activeScreen = screen;
   updateStandaloneChrome(worldTourChrome, worldTourChromeRules[screen], 'world-tour');
   worldTourScreens.forEach((element) => { element.hidden = element.dataset.worldTourScreen !== screen; });
+  const worldProductGauges = worldTourView.querySelector('.world-product-gauges');
+  worldProductGauges?.classList.remove('is-animated');
+  if (screen === 'product') {
+    window.requestAnimationFrame(() => window.requestAnimationFrame(() => worldProductGauges?.classList.add('is-animated')));
+  }
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view', 'is-kyobo-view', 'is-find-it-view');
   phoneShell.classList.add('is-world-tour-view');
   closePairingModal();
@@ -2538,6 +2593,27 @@ if (friendCarousel) {
 
 document.querySelector('[data-friend-select-back]')?.addEventListener('click', () => { window.location.hash = '#top'; });
 document.querySelector('[data-friend-mileage-back]')?.addEventListener('click', () => { window.location.hash = '#top'; });
+friendMileageMissions.forEach((mission) => {
+  mission.addEventListener('click', () => {
+    const missionId = mission.dataset.friendMission;
+    if (!missionId || completedFriendMissions.has(missionId)) return;
+    completedFriendMissions.add(missionId);
+    mission.classList.add('is-completing');
+    mission.style.setProperty('--mission-progress', '100%');
+    window.setTimeout(() => {
+      mission.classList.remove('is-completing');
+      mission.classList.add('is-complete');
+      const status = mission.querySelector('small');
+      if (status) status.textContent = 'clear!';
+      if (completedFriendMissions.size === friendMileageMissions.length) {
+        window.setTimeout(showFriendGift, 420);
+      }
+    }, 420);
+    updateFriendMileage();
+  });
+});
+document.querySelectorAll('[data-friend-gift-close]').forEach((button) => button.addEventListener('click', closeFriendGift));
+resetFriendMileage();
 document.querySelector('[data-pairing-finder-back]')?.addEventListener('click', () => {
   window.location.hash = window.location.hash === '#pairing-finder/detail' ? '#pairing-finder/list' : '#top';
 });
@@ -2693,6 +2769,7 @@ const messages = {
   'friends-cellar': '친구 술장 화면을 준비 중입니다.',
   'add-friend': '새 친구를 추가할 수 있습니다.',
   'write-post': '새 커뮤니티 글을 작성할 수 있습니다.',
+  'world-order-detail': '키쿠스이 준마이 주문 상세를 확인했어요.',
 };
 
 document.querySelectorAll('[data-taste-plus-go]').forEach((button) => {
@@ -2761,6 +2838,10 @@ document.addEventListener('click', (event) => {
   }
   if (action === 'friend-mileage') {
     window.location.hash = '#friend-mileage';
+    return;
+  }
+  if (action === 'world-open-fridge') {
+    window.location.hash = '#cellar';
     return;
   }
   if (action === 'story') {
