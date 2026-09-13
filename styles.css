@@ -339,7 +339,8 @@ a {
   align-items: center;
   justify-content: center;
   border-radius: 53px;
-  background: rgba(1, 10, 67, 0.88);
+  /* The exported banner bitmaps contain an obsolete 5/33+ badge. */
+  background: #010a43;
   color: #fff;
   font-size: 12px;
   font-weight: 600;
@@ -5932,8 +5933,8 @@ button.cellarmate-list-card {
 }
 
 .world-tour-page {
-  height: min(100dvh, 844px);
-  max-height: 844px;
+  height: 100dvh;
+  max-height: none;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: contain;
@@ -6081,6 +6082,73 @@ img.world-tour-recommendation-card {
 [data-world-tour-screen="travel-sake"] .world-tour-tab-wine {
   top: 13.5%;
   height: 5%;
+}
+
+/* Updated journey assets are taller than one viewport. Keep the screen as the
+   scroll content itself instead of constraining it to the old 874px export. */
+[data-world-tour-screen="reserve"] .world-tour-coupon-open {
+  top: 43.5%;
+  left: 5%;
+  width: 90%;
+  height: 7%;
+}
+
+[data-world-tour-screen="reserve"] .world-tour-travel-open {
+  top: 50.5%;
+  left: 3%;
+  width: 94%;
+  height: 12%;
+}
+
+[data-world-tour-screen="travel-all"] .world-tour-tab-wine {
+  top: 13.6%;
+  left: 24%;
+  width: 22%;
+  height: 5%;
+}
+
+[data-world-tour-screen="travel-all"] .world-tour-tab-sake {
+  top: 13.6%;
+  left: 46%;
+  width: 22%;
+  height: 5%;
+}
+
+[data-world-tour-screen="travel-sake"] .world-tour-niigata-trip {
+  top: 22%;
+  height: 20%;
+}
+
+.world-tour-modetour-loading,
+.world-tour-modetour-detail {
+  min-height: 100dvh;
+  background: #fff;
+}
+
+.world-tour-page[data-active-screen="modetour-loading"] .standalone-chrome,
+.world-tour-page[data-active-screen="modetour-detail"] .standalone-chrome {
+  height: var(--app-statusbar-height);
+  margin-bottom: calc(var(--app-statusbar-height) * -1);
+}
+
+.world-tour-page > .standalone-chrome {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: none;
+}
+
+.world-tour-page[data-active-screen="modetour-loading"] .standalone-chrome .app-topbar,
+.world-tour-page[data-active-screen="modetour-detail"] .standalone-chrome .app-topbar {
+  display: none;
+}
+
+.world-tour-modetour-loading > img,
+.world-tour-modetour-detail > img {
+  min-height: 100dvh;
+  object-fit: cover;
+  object-position: top center;
 }
 
 [data-world-tour-screen="travel-sake"] .world-tour-niigata-trip {
@@ -7183,6 +7251,264 @@ img.world-tour-recommendation-card {
   content: '';
 }
 
+/* ==========================================================================
+   Canonical status bar + top app bar
+   This final authority block intentionally comes after screen-specific Figma
+   styles. New screens must reuse these dimensions and icon roles.
+   ========================================================================== */
+.phone-shell {
+  --app-statusbar-height: 60px;
+  --top-appbar-height: 52px;
+  --top-appbar-control: 40px;
+  --top-appbar-side: 10px;
+  --top-appbar-icon: 21px;
+}
+
+.status-bar,
+.app-statusbar,
+.friend-select-status,
+.friend-mileage-status,
+.pairing-finder-status {
+  width: 100%;
+  height: var(--app-statusbar-height) !important;
+  min-height: var(--app-statusbar-height);
+  padding: 0 25px 0 30px;
+  background: #fff;
+}
+
+:where(
+  .flow-subheader,
+  .account-subheader,
+  .drink-subheader,
+  .shared-cart-subheader,
+  .friend-select-header,
+  .friend-mileage-header,
+  .pairing-finder-header,
+  .app-topbar
+) {
+  position: relative;
+  z-index: 30;
+  display: grid;
+  width: 100%;
+  height: var(--top-appbar-height) !important;
+  min-height: var(--top-appbar-height);
+  padding: 0 60px;
+  border-bottom: 1px solid #eef0f4;
+  background: #fff;
+  place-items: center;
+}
+
+:where(
+  .flow-subheader,
+  .account-subheader,
+  .drink-subheader,
+  .shared-cart-subheader,
+  .friend-select-header,
+  .friend-mileage-header,
+  .pairing-finder-header,
+  .app-topbar
+) h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  max-width: 210px;
+  margin: 0;
+  color: #101018;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+:where(
+  .flow-header-button,
+  .account-back,
+  .account-settings,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button,
+  .friend-select-header > button,
+  .friend-mileage-back,
+  .friend-mileage-actions button,
+  .pairing-finder-header button,
+  .app-topbar-button
+) {
+  display: grid;
+  width: var(--top-appbar-control) !important;
+  height: var(--top-appbar-control) !important;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(
+  .flow-header-back,
+  .account-back,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button,
+  .friend-select-header > button,
+  .friend-mileage-back,
+  .pairing-finder-back,
+  .app-topbar-back
+) {
+  position: absolute;
+  top: 6px !important;
+  right: auto !important;
+  left: var(--top-appbar-side) !important;
+  background-image: url("./assets/ui/back.svg");
+  background-size: var(--top-appbar-icon) var(--top-appbar-icon);
+}
+
+:where(
+  .flow-header-back,
+  .account-back,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button
+)::before {
+  width: var(--top-appbar-icon);
+  height: var(--top-appbar-icon);
+  background-size: contain;
+}
+
+:where(.flow-header-actions, .cellar-header-actions, .friend-mileage-actions, .pairing-finder-actions, .app-topbar-actions) {
+  position: absolute;
+  top: 6px !important;
+  right: var(--top-appbar-side) !important;
+  left: auto !important;
+  display: flex;
+  height: var(--top-appbar-control);
+  align-items: center;
+  gap: 2px;
+}
+
+.app-topbar-actions .app-topbar-button { position: static; }
+.app-topbar-button[hidden] { display: none !important; }
+.app-topbar-share { background-image: url("./assets/ui/share.svg"); background-size: 22px 22px; }
+.app-topbar-home { background-image: url("./assets/ui/home.svg"); background-size: 24px 24px; }
+.friend-mileage-share,
+.pairing-finder-share { background-image: url("./assets/ui/share.svg"); background-size: 22px 22px; }
+.pairing-finder-home { background-image: url("./assets/ui/home.svg"); background-size: 24px 24px; }
+
+:where(
+  .flow-header-button,
+  .account-back,
+  .account-settings,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button,
+  .friend-select-header > button,
+  .friend-mileage-back,
+  .friend-mileage-actions button,
+  .pairing-finder-header button,
+  .app-topbar-button
+):hover { background-color: #f3f5f8; }
+
+:where(
+  .flow-header-button,
+  .account-back,
+  .account-settings,
+  .drink-subheader > button:first-child,
+  .shared-cart-subheader > button,
+  .friend-select-header > button,
+  .friend-mileage-back,
+  .friend-mileage-actions button,
+  .pairing-finder-header button,
+  .app-topbar-button
+):focus-visible { outline: 2px solid #1b78f2; outline-offset: -2px; }
+
+.friend-mileage-status,
+.pairing-finder-status {
+  position: sticky;
+  z-index: 31;
+  top: 0;
+}
+
+.friend-mileage-header,
+.pairing-finder-header {
+  position: sticky;
+  top: var(--app-statusbar-height);
+}
+
+.cellarmate-sent-flow .cellarmate-header {
+  top: var(--app-statusbar-height) !important;
+}
+
+/* One code-native chrome masks every header embedded in full-screen artwork. */
+.standalone-chrome {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: 50%;
+  width: min(100%, 390px);
+  height: calc(var(--app-statusbar-height) + var(--top-appbar-height));
+  margin-bottom: calc((var(--app-statusbar-height) + var(--top-appbar-height)) * -1);
+  background: #fff;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.standalone-chrome > * { pointer-events: auto; }
+.standalone-chrome .app-statusbar { position: relative; z-index: 1; }
+.standalone-chrome .app-topbar { position: relative; z-index: 2; }
+
+.standalone-status-only {
+  position: fixed;
+  z-index: 80;
+  top: 0;
+  left: 50%;
+  width: min(100%, 390px);
+  height: var(--app-statusbar-height);
+  margin-bottom: calc(var(--app-statusbar-height) * -1);
+  background: #fff;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* Gift flow uses the shared status bar in the document flow. Its top app bar
+   must begin immediately after that 60px status region, with no second offset. */
+.phone-shell.is-gift-view .app-header {
+  display: block !important;
+  height: var(--app-statusbar-height) !important;
+  min-height: var(--app-statusbar-height);
+}
+
+.phone-shell.is-gift-view .gift-flow-page {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.phone-shell.is-gift-view .gift-subheader {
+  top: 0 !important;
+  margin-top: 0 !important;
+  transform: none !important;
+}
+
+:where(
+  .world-tour-back,
+  .world-tour-detail-back,
+  .world-tour-home,
+  .world-tour-share,
+  .kyobo-event-back,
+  .kyobo-instagram-back,
+  .kyobo-linktree-back,
+  .kyobo-home,
+  .kyobo-event-share,
+  .find-it-back,
+  .find-it-home,
+  .find-it-coupon-back,
+  .find-it-coupon-home
+) {
+  display: none !important;
+}
+
 @media (max-width: 370px) {
   .status-bar {
     padding-right: 19px;
@@ -7716,6 +8042,83 @@ img.world-tour-recommendation-card {
   cursor:pointer;
 }
 .pairing-finder-art--detail { height:767px; }
+
+/* Final screen-family override: legacy blocks above may not change chrome. */
+:where(.friend-select-header, .friend-mileage-header, .pairing-finder-header) {
+  z-index: 30;
+  display: grid;
+  width: 100%;
+  height: var(--top-appbar-height) !important;
+  min-height: var(--top-appbar-height);
+  padding: 0 60px;
+  border-bottom: 1px solid #eef0f4;
+  background: #fff;
+  place-items: center;
+}
+:where(.friend-select-header, .friend-mileage-header, .pairing-finder-header) h1 {
+  position: absolute;
+  top: 50%; left: 50%;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+:where(.friend-select-header > button, .friend-mileage-back, .pairing-finder-back) {
+  position: absolute;
+  top: 6px !important;
+  left: var(--top-appbar-side) !important;
+  width: var(--top-appbar-control) !important;
+  height: var(--top-appbar-control) !important;
+  background: transparent url("./assets/ui/back.svg") center / var(--top-appbar-icon) var(--top-appbar-icon) no-repeat;
+}
+:where(.friend-mileage-actions, .pairing-finder-actions) {
+  position: absolute;
+  top: 6px !important;
+  right: var(--top-appbar-side) !important;
+  display: flex;
+  height: var(--top-appbar-control);
+  gap: 2px;
+}
+.friend-mileage-header,
+.pairing-finder-header { position: sticky; top: var(--app-statusbar-height); }
+.friend-mileage-status,
+.pairing-finder-status { position: sticky; z-index: 31; top: 0; height: var(--app-statusbar-height) !important; }
+.pairing-finder-share { background-image: url("./assets/ui/share.svg"); background-size: 22px; }
+.pairing-finder-home { background-image: url("./assets/ui/home.svg"); background-size: 24px; }
+
+/* The presentation runs in a narrow browser, not inside a native iOS shell.
+   Keep the shared status bar visible there as well. */
+.w25-real-mobile .status-bar { display: flex !important; }
+.w25-real-mobile .app-header { height: 118px; }
+.w25-real-mobile .phone-shell:is(
+  .is-account-view,
+  .is-drink-view,
+  .is-shared-cart-view,
+  .is-card-pick-view,
+  .is-gift-view,
+  .is-cellarmate-view
+) .app-header { height: var(--app-statusbar-height); }
+.w25-real-mobile .phone-shell.is-account-view .app-header,
+.w25-real-mobile .phone-shell.is-drink-view .app-header,
+.w25-real-mobile .phone-shell.is-shared-cart-view .app-header,
+.w25-real-mobile .phone-shell.is-card-pick-view .app-header,
+.w25-real-mobile .phone-shell.is-gift-view .app-header,
+.w25-real-mobile .phone-shell.is-cellarmate-view .app-header {
+  display: block !important;
+  height: var(--app-statusbar-height) !important;
+}
+.w25-real-mobile .cellarmate-header { top: var(--app-statusbar-height); }
+.w25-real-mobile .cellarmate-sent-flow .cellarmate-header {
+  position: sticky !important;
+  top: 0 !important;
+  right: auto;
+  left: auto;
+  transform: none;
+}
+.w25-real-mobile .cellarmate-sent-flow .cellarmate-figma-stage { padding-top: 0; }
+.w25-real-mobile .cellarmate-tabs { top: calc(var(--app-statusbar-height) + var(--top-appbar-height)); }
 
 @media (prefers-reduced-motion: reduce) {
   html {
