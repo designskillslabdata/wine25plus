@@ -186,6 +186,7 @@ const pairingFinderView = document.querySelector('.pairing-finder-page');
 const pairingFinderScreens = Array.from(document.querySelectorAll('[data-pairing-finder-screen]'));
 let tastePlusLoadingTimer = 0;
 let tastePlusResultTimer = 0;
+let worldTourLoadingTimer = 0;
 let activeFriendIndex = 0;
 
 const friendCharacters = [
@@ -194,6 +195,99 @@ const friendCharacters = [
   { name: '머용씨', image: './assets/drink-friends/meoyong.png', color: '#fe6600', description: '처음 보는 술이라면 일단 궁금한 탐험가<br />새로운 향과 맛을 찾아 어디든 떠나는<br />호기심 많은 친구와 함께해요' },
   { name: '순남씨', image: './assets/drink-friends/sunnam.png', color: '#56b85a', description: '좋은 사람과 천천히 즐기는 한 잔을 좋아해요<br />오늘의 분위기에 잘 맞는 술을 골라주는<br />차분하고 다정한 친구와 함께해요' },
 ];
+
+/*
+ * Shared mobile chrome
+ * --------------------
+ * Figma exports sometimes contain their own status/app bars.  Those pixels are
+ * treated as artwork only; the interactive chrome below is the single source
+ * of truth for position, icons and hit targets on every full-screen flow.
+ */
+const standaloneChrome = new Map();
+
+function createStandaloneChrome(page, key) {
+  if (!page) return null;
+  const sourceStatus = document.querySelector('.app-header .status-bar');
+  const chrome = document.createElement('div');
+  chrome.className = 'standalone-chrome';
+  if (sourceStatus) {
+    const status = sourceStatus.cloneNode(true);
+    status.classList.add('app-statusbar');
+    chrome.append(status);
+  }
+
+  const header = document.createElement('header');
+  header.className = 'app-topbar';
+  header.innerHTML = `
+    <button class="app-topbar-button app-topbar-back" type="button" aria-label="이전 화면"></button>
+    <h1></h1>
+    <div class="app-topbar-actions">
+      <button class="app-topbar-button app-topbar-share" type="button" data-action="share" aria-label="공유하기"></button>
+      <button class="app-topbar-button app-topbar-home" type="button" aria-label="홈으로 나가기"></button>
+    </div>`;
+  chrome.append(header);
+  page.prepend(chrome);
+
+  const record = {
+    chrome,
+    title: header.querySelector('h1'),
+    back: header.querySelector('.app-topbar-back'),
+    share: header.querySelector('.app-topbar-share'),
+    home: header.querySelector('.app-topbar-home'),
+  };
+  record.home.addEventListener('click', () => { window.location.hash = '#top'; });
+  standaloneChrome.set(key, record);
+  return record;
+}
+
+function createStandaloneStatus(page) {
+  const sourceStatus = document.querySelector('.app-header .status-bar');
+  if (!page || !sourceStatus) return;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'standalone-status-only';
+  const status = sourceStatus.cloneNode(true);
+  status.classList.add('app-statusbar');
+  wrapper.append(status);
+  page.prepend(wrapper);
+}
+
+const worldTourChrome = createStandaloneChrome(worldTourView, 'world-tour');
+const kyoboChrome = createStandaloneChrome(kyoboEventView, 'kyobo');
+const findItChrome = createStandaloneChrome(findItView, 'find-it');
+createStandaloneStatus(tastePlusView);
+
+const worldTourChromeRules = {
+  world: ['세계 주류 여행', 'home', true],
+  japan: ['세계 주류 여행', 'world', false],
+  niigata: ['세계 주류 여행', 'japan', false],
+  product: ['상품 상세', 'niigata', false],
+  reserve: ['결제 완료', 'product', false],
+  coupon: ['쿠폰', 'reserve', false],
+  'travel-all': ['세계 주류 여행', 'reserve', false],
+  'travel-wine': ['세계 주류 여행', 'travel-all', false],
+  'travel-sake': ['세계 주류 여행', 'travel-all', false],
+  'modetour-loading': ['', 'travel-sake', false],
+  'modetour-detail': ['', 'travel-sake', false],
+};
+const kyoboChromeRules = {
+  event: ['이벤트 상세', 'home', true],
+  instagram: ['WINE25+ 공식', 'event', false],
+  linktree: ['이벤트 상세', 'instagram', false],
+};
+const findItChromeRules = {
+  game: ['보물찾기', 'home', false],
+  coupon: ['쿠폰', 'game', false],
+};
+
+function updateStandaloneChrome(record, rule, routePrefix) {
+  if (!record || !rule) return;
+  const [title, backTarget, canShare] = rule;
+  record.title.textContent = title;
+  record.share.hidden = !canShare;
+  record.back.onclick = () => {
+    window.location.hash = backTarget === 'home' ? '#top' : `#${routePrefix}/${backTarget}`;
+  };
+}
 const membershipRange = document.querySelector('#membership-range');
 const membershipName = document.querySelector('[data-membership-name]');
 const membershipMessage = document.querySelector('[data-membership-message]');
@@ -428,7 +522,10 @@ function hideKyoboEvent() {
 
 function hideWorldTour() {
   if (!worldTourView) return;
+  window.clearTimeout(worldTourLoadingTimer);
+  worldTourLoadingTimer = 0;
   worldTourView.hidden = true;
+  delete worldTourView.dataset.activeScreen;
   phoneShell.classList.remove('is-world-tour-view');
 }
 
@@ -490,7 +587,13 @@ function setActiveFriend(index, scroll = false) {
   });
   friendDots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === activeFriendIndex));
   if (friendDescription) friendDescription.innerHTML = friendCharacters[activeFriendIndex].description;
-  if (scroll) friendCards[activeFriendIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  if (scroll && friendCarousel) {
+    const card = friendCards[activeFriendIndex];
+    if (card) {
+      const left = card.offsetLeft - ((friendCarousel.clientWidth - card.offsetWidth) / 2);
+      friendCarousel.scrollTo({ left, behavior: 'smooth' });
+    }
+  }
 }
 
 function renderFriendSelect() {
@@ -513,7 +616,10 @@ function renderFriendSelect() {
   phoneShell.className = 'phone-shell is-friend-select-view';
   setActiveFriend(activeFriendIndex);
   friendSelectView.scrollTo({ top: 0, behavior: 'auto' });
-  window.requestAnimationFrame(() => friendCards[activeFriendIndex]?.scrollIntoView({ block: 'nearest', inline: 'center' }));
+  window.requestAnimationFrame(() => {
+    setActiveFriend(activeFriendIndex, true);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  });
 }
 
 function renderFriendMileage() {
@@ -1290,6 +1396,7 @@ function renderKyoboEvent(screen) {
   hideGiftFlow();
   hideCellarmate();
   kyoboEventView.hidden = false;
+  updateStandaloneChrome(kyoboChrome, kyoboChromeRules[screen], 'kyobo');
   kyoboScreens.forEach((element) => { element.hidden = element.dataset.kyoboScreen !== screen; });
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view');
   phoneShell.classList.add('is-kyobo-view');
@@ -1327,6 +1434,7 @@ function renderFindIt(screen) {
   hideCellarmate();
   hideKyoboEvent();
   findItView.hidden = false;
+  updateStandaloneChrome(findItChrome, findItChromeRules[screen], 'find-it');
   findItScreens.forEach((element) => { element.hidden = element.dataset.findItScreen !== screen; });
   findItCompleteModal.hidden = true;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view', 'is-kyobo-view');
@@ -1339,6 +1447,8 @@ function renderFindIt(screen) {
 
 function renderWorldTour(screen) {
   clearTimeout(analysisTimer);
+  window.clearTimeout(worldTourLoadingTimer);
+  worldTourLoadingTimer = 0;
   homeView.hidden = true;
   catalogView.hidden = true;
   detailView.hidden = true;
@@ -1352,12 +1462,23 @@ function renderWorldTour(screen) {
   hideKyoboEvent();
   hideFindIt();
   worldTourView.hidden = false;
+  worldTourView.dataset.activeScreen = screen;
+  updateStandaloneChrome(worldTourChrome, worldTourChromeRules[screen], 'world-tour');
   worldTourScreens.forEach((element) => { element.hidden = element.dataset.worldTourScreen !== screen; });
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view', 'is-kyobo-view', 'is-find-it-view');
   phoneShell.classList.add('is-world-tour-view');
   closePairingModal();
   worldTourView.scrollTo({ top: 0, behavior: 'auto' });
   window.scrollTo({ top: 0, behavior: 'auto' });
+  window.requestAnimationFrame(() => {
+    worldTourView.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  });
+  if (screen === 'modetour-loading') {
+    worldTourLoadingTimer = window.setTimeout(() => {
+      window.location.hash = '#world-tour/modetour-detail';
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 1300);
+  }
 }
 
 function syncViewFromHash() {
@@ -1383,7 +1504,7 @@ function syncViewFromHash() {
     return;
   }
   hideTastePlus();
-  const worldTourMatch = window.location.hash.match(/^#world-tour\/(world|japan|niigata|product|reserve|coupon|travel-all|travel-wine|travel-sake|travel-detail)$/);
+  const worldTourMatch = window.location.hash.match(/^#world-tour\/(world|japan|niigata|product|reserve|coupon|travel-all|travel-wine|travel-sake|modetour-loading|modetour-detail)$/);
   if (worldTourMatch) {
     renderWorldTour(worldTourMatch[1]);
     return;
@@ -1529,7 +1650,10 @@ document.querySelectorAll('[data-kyobo-back]').forEach((button) => {
 });
 
 document.querySelectorAll('[data-world-tour-go]').forEach((button) => {
-  button.addEventListener('click', () => { window.location.hash = `#world-tour/${button.dataset.worldTourGo}`; });
+  button.addEventListener('click', () => {
+    button.blur();
+    window.location.hash = `#world-tour/${button.dataset.worldTourGo}`;
+  });
 });
 
 document.querySelectorAll('[data-world-tour-back]').forEach((button) => {
