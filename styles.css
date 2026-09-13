@@ -5943,6 +5943,7 @@ button.cellarmate-list-card {
 }
 
 .world-tour-screen {
+  container-type:inline-size;
   overflow: visible;
 }
 
@@ -5952,6 +5953,16 @@ button.cellarmate-list-card {
   height: auto;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+/* A one-pixel export edge was visible as a long black rule on these two
+   artwork screens. Overscan only the bitmap; interactive coordinates stay on
+   the 402px screen grid. */
+[data-world-tour-screen="japan"] > img,
+[data-world-tour-screen="travel-sake"] > img {
+  width: calc(100% + 4px);
+  max-width: none;
+  margin-left: -2px;
 }
 
 .world-tour-screen--world {
@@ -6087,17 +6098,19 @@ img.world-tour-recommendation-card {
 /* Updated journey assets are taller than one viewport. Keep the screen as the
    scroll content itself instead of constraining it to the old 874px export. */
 [data-world-tour-screen="reserve"] .world-tour-coupon-open {
-  top: 43.5%;
-  left: 5%;
-  width: 90%;
-  height: 7%;
+  z-index: 12;
+  top: 47.6%;
+  left: 3.5%;
+  width: 93%;
+  height: 6.2%;
 }
 
 [data-world-tour-screen="reserve"] .world-tour-travel-open {
-  top: 50.5%;
-  left: 3%;
-  width: 94%;
-  height: 12%;
+  z-index: 12;
+  top: 55%;
+  left: 76%;
+  width: 22%;
+  height: 4.5%;
 }
 
 [data-world-tour-screen="travel-all"] .world-tour-tab-wine {
@@ -6150,6 +6163,97 @@ img.world-tour-recommendation-card {
   object-fit: cover;
   object-position: top center;
 }
+
+.world-product-gauges {
+  position:absolute;
+  z-index:10;
+  top:64.68cqw;
+  left:46.77cqw;
+  display:grid;
+  width:34.08cqw;
+  grid-template-rows:repeat(3,1.25cqw);
+  row-gap:11.69cqw;
+  pointer-events:none;
+}
+.world-product-gauges > i {
+  position:relative;
+  display:block;
+  overflow:hidden;
+  background:#e4e5eb;
+}
+.world-product-gauges > i::after {
+  position:absolute;
+  inset:0 auto 0 0;
+  width:0;
+  background:#1e2430;
+  content:"";
+  transition:width 820ms cubic-bezier(.2,.82,.2,1);
+}
+.world-product-gauges.is-animated > i::after { width:var(--world-gauge); }
+.world-product-gauges.is-animated > i:nth-child(2)::after { transition-delay:100ms; }
+.world-product-gauges.is-animated > i:nth-child(3)::after { transition-delay:200ms; }
+
+[data-world-tour-screen="reserve"] { padding-bottom:0; }
+.world-reserve-media,
+.world-reserve-media-slice {
+  display:block;
+  width:100%;
+}
+.world-reserve-media-slice {
+  position:relative;
+  overflow:hidden;
+}
+.world-reserve-media-slice--top { aspect-ratio:402 / 777; }
+.world-reserve-media-slice--bottom { aspect-ratio:402 / 381; }
+.world-reserve-media-slice > img {
+  position:absolute;
+  top:0;
+  left:0;
+  display:block;
+  width:100%;
+  max-width:none;
+  height:auto;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.world-reserve-media-slice--bottom > img {
+  top:calc(-876 / 402 * 100cqw);
+}
+.world-reserve-fixed-actions {
+  position:fixed;
+  z-index:45;
+  right:50%;
+  bottom:0;
+  display:grid;
+  width:min(100%,390px);
+  height:100px;
+  padding:18px 24px 20px;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  background:#fff;
+  border-radius:30px 30px 0 0;
+  box-shadow:0 -1px 14px rgba(21,25,36,.08);
+  transform:translateX(50%);
+}
+.world-reserve-fixed-actions button {
+  height:46px;
+  border:1px solid #d4d8e1;
+  border-radius:5px;
+  background:#fff;
+  color:#1e2430;
+  font-size:15px;
+  font-weight:650;
+  cursor:pointer;
+}
+.world-reserve-fixed-actions button:last-child { border-color:#1e2430; background:#1e2430; color:#fff; }
+.world-modetour-menu {
+  z-index:30;
+  top:60px;
+  left:0;
+  width:62px;
+  height:52px;
+}
+
 
 [data-world-tour-screen="travel-sake"] .world-tour-niigata-trip {
   top: 22.5%;
@@ -6752,7 +6856,6 @@ img.world-tour-recommendation-card {
 
 /* These Figma exports end almost exactly at the device viewport. Preserve a
    small safe area so wheel/touch scrolling remains available in every host. */
-[data-world-tour-screen="reserve"],
 [data-world-tour-screen="travel-all"],
 [data-world-tour-screen="travel-wine"],
 [data-world-tour-screen="travel-detail"] {
@@ -7967,8 +8070,9 @@ img.world-tour-recommendation-card {
 
 .friend-points { margin-top: 6px; }
 .friend-points > span { display:block; margin-bottom:9px; color:#434343; text-align:center; font-size:13px; }
+.friend-points > span strong { margin-left:4px; color:#fd8c08; font-size:14px; }
 .friend-points-track { position:relative; height:20px; border-radius:20px; background:#eae8e4; }
-.friend-points-track i { position:absolute; inset:0 auto 0 0; width:65%; border-radius:20px; background:#fd8c08; }
+.friend-points-track i { position:absolute; inset:0 auto 0 0; width:var(--friend-points-progress,60%); border-radius:20px; background:#fd8c08; transition:width 620ms cubic-bezier(.2,.8,.2,1); }
 .friend-points-track b { position:relative; z-index:2; display:inline-block; width:10px; height:10px; margin-top:5px; margin-left:32px; border-radius:50%; background:#fff; }
 .friend-points-track b:nth-of-type(4), .friend-points-track b:nth-of-type(5) { background:#ddd; }
 .friend-points-labels { display:flex; justify-content:space-around; margin-top:5px; color:#a4a5aa; }
@@ -7977,13 +8081,98 @@ img.world-tour-recommendation-card {
 
 .friend-missions { margin-top:27px; }
 .friend-missions > h2 { margin:0 0 8px; color:#434343; font-size:16px; font-weight:500; }
-.friend-mission { position:relative; min-height:80px; margin-bottom:9px; padding:14px 12px; border:1px solid #f1f1f1; border-radius:10px; background:#fff; }
-.friend-mission p { margin:0 0 20px; font-size:13px; }
+.friend-mission { position:relative; display:block; width:100%; min-height:80px; margin-bottom:9px; padding:14px 12px; border:1px solid #f1f1f1; border-radius:10px; background:#fff; color:#11131a; font:inherit; text-align:left; cursor:pointer; transition:color 260ms ease, background-color 360ms ease, transform 220ms ease; }
+.friend-mission > span { display:block; margin:0 0 20px; padding-right:52px; font-size:13px; }
 .friend-mission > small { position:absolute; right:12px; top:39px; font-size:12px; }
 .friend-mission > i { display:block; height:8px; overflow:hidden; border-radius:12px; background:#d9d9d9; }
-.friend-mission > i b { display:block; width:var(--mission-progress,100%); height:100%; border-radius:12px; background:#fd8c08; }
+.friend-mission > i b { display:block; width:var(--mission-progress,0%); height:100%; border-radius:12px; background:#fd8c08; transition:width 520ms cubic-bezier(.18,.82,.22,1), background-color 240ms ease; }
+.friend-mission.is-completing { transform:scale(.985); }
 .friend-mission.is-complete { background:#ffa300; color:#fff; }
 .friend-mission.is-complete > i b { background:#fff; }
+.friend-mission:focus-visible { outline:3px solid rgba(253,140,8,.42); outline-offset:2px; }
+
+.friend-gift-modal[hidden] { display:none !important; }
+.friend-gift-modal {
+  position:fixed;
+  z-index:100;
+  inset:0;
+  display:grid;
+  place-items:center;
+  width:min(100%,390px);
+  margin:auto;
+}
+.friend-gift-backdrop {
+  position:absolute;
+  inset:0;
+  border:0;
+  background:rgba(18,22,34,.58);
+  opacity:0;
+  transition:opacity 240ms ease;
+}
+.friend-gift-card {
+  position:relative;
+  z-index:1;
+  display:flex;
+  width:302px;
+  height:462px;
+  padding:28px 28px 24px;
+  overflow:hidden;
+  align-items:stretch;
+  flex-direction:column;
+  justify-content:space-between;
+  border:1px solid #e0e0e0;
+  border-radius:29px;
+  background:#fff;
+  color:#1e2430;
+  box-shadow:0 22px 60px rgba(0,0,0,.25);
+  cursor:pointer;
+  opacity:0;
+  transform:scale(.96);
+  transition:opacity 180ms ease, transform 240ms ease;
+}
+.friend-gift-reveal {
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+  clip-path:inset(50% 0 50% 0 round 18px);
+  opacity:0;
+}
+.friend-gift-reveal > strong {
+  align-self:flex-start;
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:-.6px;
+  white-space:nowrap;
+}
+.friend-gift-reveal > img { width:242px; height:242px; margin-top:14px; object-fit:cover; }
+.friend-gift-message { margin-top:3px; font-size:16px; font-weight:500; line-height:1.45; text-align:center; }
+.friend-gift-action {
+  display:grid;
+  width:100%;
+  height:36px;
+  place-items:center;
+  border-radius:999px;
+  background:#1e2430;
+  color:#fff;
+  font-size:16px;
+}
+.friend-gift-action > span { opacity:0; transform:scale(.9); }
+.friend-gift-modal.is-open .friend-gift-backdrop { opacity:1; }
+.friend-gift-modal.is-open .friend-gift-card { opacity:1; transform:scale(1); }
+.friend-gift-modal.is-open .friend-gift-reveal { animation:friend-gift-spread 560ms cubic-bezier(.18,.82,.22,1) 170ms forwards; }
+.friend-gift-modal.is-open .friend-gift-action > span { animation:friend-gift-copy 360ms ease 590ms forwards; }
+@keyframes friend-gift-spread {
+  0% { clip-path:inset(50% 0 50% 0 round 18px); opacity:0; transform:scaleX(.92); }
+  100% { clip-path:inset(0 0 0 0 round 0); opacity:1; transform:scaleX(1); }
+}
+@keyframes friend-gift-copy {
+  to { opacity:1; transform:scale(1); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .friend-mission > i b, .friend-points-track i { transition-duration:80ms; }
+  .friend-gift-modal.is-open .friend-gift-reveal,
+  .friend-gift-modal.is-open .friend-gift-action > span { animation-duration:1ms; animation-delay:0ms; }
+}
 
 /* Taste-pairing event flow. Figma artwork supplies content only; the app bar
    stays code-native and shared with the rest of the prototype. */
