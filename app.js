@@ -166,6 +166,9 @@ const kyoboScreens = Array.from(document.querySelectorAll('[data-kyobo-screen]')
 const kyoboProductCarousel = document.querySelector('.kyobo-product-carousel');
 const worldTourView = document.querySelector('.world-tour-page');
 const worldTourScreens = Array.from(document.querySelectorAll('[data-world-tour-screen]'));
+const partyQuestView = document.querySelector('.party-quest-page');
+const partyQuestScreens = Array.from(document.querySelectorAll('[data-party-screen]'));
+const partyQuestModals = Array.from(document.querySelectorAll('[data-party-modal]'));
 const findItView = document.querySelector('.find-it-page');
 const findItScreens = Array.from(document.querySelectorAll('[data-find-it-screen]'));
 const findItGameImage = document.querySelector('.find-it-game-image');
@@ -191,6 +194,7 @@ const pairingFinderScreens = Array.from(document.querySelectorAll('[data-pairing
 let tastePlusLoadingTimer = 0;
 let tastePlusResultTimer = 0;
 let worldTourLoadingTimer = 0;
+let partyQuestLoadingTimer = 0;
 let activeFriendIndex = 0;
 const completedFriendMissions = new Set();
 let friendGiftShown = false;
@@ -258,6 +262,7 @@ function createStandaloneStatus(page) {
 }
 
 const worldTourChrome = createStandaloneChrome(worldTourView, 'world-tour');
+const partyQuestChrome = createStandaloneChrome(partyQuestView, 'party-quest');
 const kyoboChrome = createStandaloneChrome(kyoboEventView, 'kyobo');
 const findItChrome = createStandaloneChrome(findItView, 'find-it');
 createStandaloneStatus(tastePlusView);
@@ -274,6 +279,12 @@ const worldTourChromeRules = {
   'travel-sake': ['세계 주류 여행', 'travel-all', false],
   'modetour-loading': ['', 'travel-sake', false],
   'modetour-detail': ['', 'travel-sake', false],
+};
+const partyQuestChromeRules = {
+  home: ['', 'home', false], calendar: ['', 'home', false], theme: ['', 'calendar', false],
+  loading: ['', 'theme', false], card: ['', 'theme', false], quest: ['파티 플러스', 'home', false],
+  cart: ['우리끼리 주문서 만들기', 'quest', false], pickup: ['파티 플러스', 'cart', false],
+  camera: ['픽업 인증', 'pickup', false], shot: ['픽업 인증', 'camera', false], complete: ['파티 플러스', 'quest', false],
 };
 const kyoboChromeRules = {
   event: ['이벤트 상세', 'home', true],
@@ -533,6 +544,19 @@ function hideWorldTour() {
   worldTourView.hidden = true;
   delete worldTourView.dataset.activeScreen;
   phoneShell.classList.remove('is-world-tour-view');
+}
+
+function closePartyQuestModals() {
+  partyQuestModals.forEach((modal) => { modal.hidden = true; });
+}
+
+function hidePartyQuest() {
+  if (!partyQuestView) return;
+  window.clearTimeout(partyQuestLoadingTimer);
+  partyQuestLoadingTimer = 0;
+  closePartyQuestModals();
+  partyQuestView.hidden = true;
+  phoneShell.classList.remove('is-party-quest-view');
 }
 
 function hideFindIt() {
@@ -1536,7 +1560,52 @@ function renderWorldTour(screen) {
   }
 }
 
+function renderPartyQuest(screen) {
+  window.clearTimeout(partyQuestLoadingTimer);
+  partyQuestLoadingTimer = 0;
+  homeView.hidden = true;
+  catalogView.hidden = true;
+  detailView.hidden = true;
+  wineryView.hidden = true;
+  cellarView.hidden = true;
+  drinkIdView.hidden = true;
+  hideSharedCart();
+  hideCardPick();
+  hideGiftFlow();
+  hideCellarmate();
+  hideKyoboEvent();
+  hideFindIt();
+  hideWorldTour();
+  closePartyQuestModals();
+  partyQuestView.hidden = false;
+  partyQuestView.classList.toggle('is-exact-figma-screen', ['quest', 'cart', 'pickup', 'camera', 'shot', 'complete'].includes(screen));
+  partyQuestScreens.forEach((element) => { element.hidden = element.dataset.partyScreen !== screen; });
+  updateStandaloneChrome(partyQuestChrome, partyQuestChromeRules[screen], 'party-quest');
+  phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view', 'is-kyobo-view', 'is-find-it-view', 'is-world-tour-view');
+  phoneShell.classList.add('is-party-quest-view');
+  partyQuestView.scrollTop = 0;
+  window.scrollTo({ top:0, behavior:'auto' });
+  if (screen === 'loading') {
+    partyQuestLoadingTimer = window.setTimeout(() => {
+      window.location.hash = '#party-quest/card';
+    }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 1350);
+  }
+  if (screen === 'pickup') {
+    partyQuestView.querySelectorAll('.party-bubbles p').forEach((bubble) => {
+      bubble.style.animation = 'none';
+      bubble.offsetHeight;
+      bubble.style.animation = '';
+    });
+  }
+}
+
 function syncViewFromHash() {
+  const partyQuestMatch = window.location.hash.match(/^#party-quest\/(home|calendar|theme|loading|card|quest|cart|pickup|camera|shot|complete)$/);
+  if (partyQuestMatch) {
+    renderPartyQuest(partyQuestMatch[1]);
+    return;
+  }
+  hidePartyQuest();
   const pairingFinderMatch = window.location.hash.match(/^#pairing-finder\/(list|detail)$/);
   if (pairingFinderMatch) {
     renderPairingFinder(pairingFinderMatch[1]);
@@ -2793,6 +2862,76 @@ window.addEventListener('message', (event) => {
   window.location.hash = window.location.hash.startsWith('#taste-plus/') ? '#top' : '#taste-plus/home';
 });
 
+const partyDays = document.querySelector('[data-party-days]');
+if (partyDays) {
+  const leading = 2;
+  for (let index = 0; index < leading; index += 1) partyDays.append(document.createElement('span'));
+  for (let day = 1; day <= 30; day += 1) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = String(day);
+    button.classList.toggle('is-today', day === 9);
+    button.setAttribute('aria-label', `9월 ${day}일 선택`);
+    button.addEventListener('click', () => {
+      partyDays.querySelectorAll('button').forEach((item) => item.classList.toggle('is-selected', item === button));
+      window.setTimeout(() => { window.location.hash = '#party-quest/theme'; }, 180);
+    });
+    partyDays.append(button);
+  }
+}
+
+document.querySelectorAll('[data-party-go]').forEach((button) => button.addEventListener('click', () => {
+  window.location.hash = `#party-quest/${button.dataset.partyGo}`;
+}));
+
+document.querySelectorAll('.party-theme-options button').forEach((button) => button.addEventListener('click', () => {
+  button.classList.toggle('is-selected');
+  button.setAttribute('aria-pressed', String(button.classList.contains('is-selected')));
+  const selected = document.querySelectorAll('.party-theme-options button.is-selected');
+  if (selected.length > 2) {
+    selected[0].classList.remove('is-selected');
+    selected[0].setAttribute('aria-pressed', 'false');
+  }
+  if (document.querySelectorAll('.party-theme-options button.is-selected').length === 2) {
+    window.setTimeout(() => { window.location.hash = '#party-quest/loading'; }, 320);
+  }
+}));
+
+function openPartyModal(name) {
+  closePartyQuestModals();
+  const modal = partyQuestView?.querySelector(`[data-party-modal="${name}"]`);
+  if (!modal) return;
+  modal.hidden = false;
+  modal.querySelector('button:not(.party-modal-backdrop)')?.focus();
+}
+
+document.querySelector('[data-party-share]')?.addEventListener('click', () => openPartyModal('share'));
+document.querySelectorAll('[data-party-share-complete]').forEach((button) => button.addEventListener('click', () => {
+  window.location.hash = '#party-quest/quest';
+}));
+document.querySelector('[data-party-qr]')?.addEventListener('click', () => openPartyModal('qr'));
+document.querySelector('[data-party-qr-complete]')?.addEventListener('click', () => openPartyModal('pickup'));
+document.querySelector('[data-party-shutter]')?.addEventListener('click', () => {
+  window.location.hash = '#party-quest/shot';
+  window.setTimeout(() => openPartyModal('capture'), 420);
+});
+document.querySelector('[data-party-capture-complete]')?.addEventListener('click', () => { window.location.hash = '#party-quest/complete'; });
+document.querySelectorAll('[data-party-modal-close]').forEach((button) => button.addEventListener('click', closePartyQuestModals));
+document.querySelectorAll('[data-party-memory]').forEach((button) => button.addEventListener('click', () => {
+  const isMovie = button.dataset.partyMemory === 'movie';
+  const modal = partyQuestView.querySelector('[data-party-modal="memory"]');
+  modal.querySelector('[data-party-memory-icon]').textContent = isMovie ? '🎬' : '📚';
+  modal.querySelector('[data-party-memory-title]').textContent = isMovie ? '영이' : '민지';
+  modal.querySelector('[data-party-memory-status]').textContent = isMovie ? '대기중' : '픽업 완료';
+  modal.querySelector('[data-party-memory-copy]').innerHTML = isMovie
+    ? 'GS 망원점<br>프레시넷 꼬든 네그로 브뤼 픽업'
+    : 'GS 효창점<br>파티 글라스 4개입 기획 세트 픽업';
+  modal.querySelector('[data-party-memory-time]').textContent = isMovie ? '미완료' : '18:04';
+  modal.querySelector('[data-party-memory-note]').textContent = isMovie ? '...' : '꽤 무게가 나감! --,, 들고오는데 좀 힘들었어 ~';
+  modal.querySelector('.party-memory-dialog').classList.toggle('is-book', !isMovie);
+  openPartyModal('memory');
+}));
+
 document.addEventListener('click', (event) => {
   const trigger = event.target.closest('[data-action]');
   if (!trigger) return;
@@ -2817,6 +2956,10 @@ document.addEventListener('click', (event) => {
   }
   if (action === 'pairing-finder') {
     window.location.hash = '#pairing-finder/list';
+    return;
+  }
+  if (action === 'party-quest') {
+    window.location.hash = '#party-quest/home';
     return;
   }
   if (action === 'cellar-mate') {

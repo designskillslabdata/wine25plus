@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>WINE25+ PLUS App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260913h" />
+    <link rel="stylesheet" href="./styles.css?v=20260914e" />
   </head>
   <body>
     <main class="phone-shell" aria-label="WINE25+ PLUS 모바일 홈">
@@ -501,6 +501,82 @@
           <img src="./assets/world-tour/modetour-detail.png" alt="사케의 고장 니가타에 취하다 모두투어 여행 상품 상세" />
           <button class="world-tour-hotspot world-modetour-menu" type="button" data-world-tour-back="home" aria-label="와인25플러스 메인으로 돌아가기"></button>
         </article>
+      </section>
+
+      <section id="party-quest-view" class="party-quest-page" aria-label="파티 플러스 퀘스트" hidden>
+        <article class="party-quest-screen party-quest-home" data-party-screen="home">
+          <h2>진아님의 파티 플러스</h2>
+          <div class="party-empty-card"><span>🎉</span><strong>아직 진행 중인 파티가 없어요</strong><small>우리만의 파티 퀘스트를 만들어보세요!</small></div>
+          <button class="party-primary" type="button" data-party-go="calendar">+ 새로운 파티 시작하기</button>
+        </article>
+
+        <article class="party-quest-screen party-calendar-screen" data-party-screen="calendar" hidden>
+          <div class="party-screen-intro"><span>🗓️</span><h2>파티 날짜를 선택해주세요</h2></div>
+          <section class="party-calendar" aria-label="2026년 9월 달력">
+            <h3>2026 9월 <b>›</b></h3>
+            <div class="party-weekdays"><span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span></div>
+            <div class="party-days" data-party-days></div>
+            <div class="party-time"><span>시간</span><button type="button">7:00 PM</button></div>
+          </section>
+        </article>
+
+        <article class="party-quest-screen party-theme-screen" data-party-screen="theme" hidden>
+          <div class="party-screen-intro"><span>🎉</span><h2>파티 테마를 고르면<br />맞춤 초대장이 만들어져요!</h2></div>
+          <div class="party-theme-options" aria-label="파티 테마 선택">
+            <button type="button">스파클링한 축하</button><button type="button">시끌벅적한 하루</button>
+            <button type="button">즐기자, 불금!</button><button type="button">저녁 견습</button><button type="button">힙한 레이브</button>
+            <button type="button">칠앤 무드</button><button type="button">오늘은 진지하게</button>
+            <button type="button">서프라이즈 생일파티</button><button type="button">감성 글램핑</button>
+            <button type="button">인생 이벤트</button><button type="button">디저트와 함께</button>
+          </div>
+          <p class="party-theme-help">어떤 버튼이든 2개를 선택하면 초대장을 만들어요.</p>
+        </article>
+
+        <article class="party-quest-screen party-loading-screen" data-party-screen="loading" hidden>
+          <div class="party-loader"><span>🎉</span><h2>우리의 테마에 맞는<br />파티 카드를 생성할게요!</h2><div class="party-loading-card"><i></i></div><p>파티 카드 생성중 ...</p></div>
+        </article>
+
+        <article class="party-quest-screen party-card-screen" data-party-screen="card" hidden>
+          <div class="party-screen-intro"><span>🎉</span><h2>파티 카드를 완성하고<br />파티원을 초대하세요!</h2></div>
+          <div class="party-invite-card"><span class="party-confetti">🎊</span><div class="party-card-edit">✎</div><strong>9월 12일 (토), 오후 7시</strong><p>잠실 씨사이드 바, 서울</p><small>스파클링한 축하 · 즐기자, 불금!</small></div>
+          <button class="party-primary" type="button" data-party-share>⎆ 파티원 초대하기</button>
+        </article>
+
+        <article class="party-quest-screen party-exact-screen party-current-screen" data-party-screen="quest" hidden>
+          <img src="./assets/party-quest/quest-main.png" alt="영이 입사 파티 맞춤 장바구니와 파티 퀘스트" />
+          <button class="party-exact-hotspot party-exact-cart" type="button" data-party-go="cart" aria-label="장바구니 바로가기"></button>
+        </article>
+
+        <article class="party-quest-screen party-exact-screen party-cart-screen" data-party-screen="cart" hidden>
+          <img src="./assets/party-quest/cart.png" alt="파티 맞춤 장바구니" />
+          <button class="party-exact-hotspot party-cart-plus" type="button" data-party-qr aria-label="픽업 QR 확인"></button>
+        </article>
+
+        <article class="party-quest-screen party-exact-screen party-pickup-screen" data-party-screen="pickup" hidden>
+          <img src="./assets/party-quest/pickup-popup.png" alt="픽업 완료 팝업" />
+          <button class="party-exact-hotspot party-pickup-auth" type="button" data-party-go="camera" aria-label="픽업 인증하기"></button>
+        </article>
+
+        <article class="party-quest-screen party-exact-screen party-camera-screen" data-party-screen="camera" hidden>
+          <img src="./assets/party-quest/camera.png" alt="픽업 인증 촬영 화면" />
+          <button class="party-exact-hotspot party-camera-shutter" type="button" data-party-shutter aria-label="인증 사진 촬영"></button>
+        </article>
+
+        <article class="party-quest-screen party-exact-screen party-shot-screen" data-party-screen="shot" hidden>
+          <img src="./assets/party-quest/camera-shot.png" alt="픽업 인증 촬영 완료 화면" />
+        </article>
+
+        <article class="party-quest-screen party-exact-screen party-complete-screen" data-party-screen="complete" hidden>
+          <img src="./assets/party-quest/quest-complete.png" alt="파티 퀘스트 진행 현황" />
+          <button class="party-exact-hotspot party-exact-movie" type="button" data-party-memory="movie" aria-label="영이 무비 기록 보기"></button>
+          <button class="party-exact-hotspot party-exact-book" type="button" data-party-memory="book" aria-label="민지 책 기록 보기"></button>
+        </article>
+
+        <div class="party-modal" data-party-modal="share" hidden><button class="party-modal-backdrop" type="button" data-party-modal-close aria-label="닫기"></button><section class="party-share-sheet"><span class="party-sheet-handle"></span><h2>공유하기</h2><button type="button" data-party-share-complete><i>💬</i>카카오톡</button><button type="button" data-party-share-complete><i>🔗</i>URL 복사</button><button type="button" data-party-share-complete><i>•••</i>다른 앱으로 공유하기</button><button class="party-share-cancel" type="button" data-party-modal-close>취소</button></section></div>
+        <div class="party-modal party-exact-modal" data-party-modal="qr" hidden><button class="party-exact-modal-screen" type="button" data-party-qr-complete><img src="./assets/party-quest/qr-popup.png" alt="픽업 QR 팝업" /></button></div>
+        <div class="party-modal party-exact-modal" data-party-modal="pickup" hidden><img src="./assets/party-quest/pickup-popup.png" alt="픽업 완료 팝업" /><button class="party-exact-hotspot party-pickup-auth" type="button" data-party-go="camera" aria-label="픽업 인증하기"></button></div>
+        <div class="party-modal party-exact-modal" data-party-modal="capture" hidden><img src="./assets/party-quest/quest-popup.png" alt="퀘스트 완료 팝업" /><button class="party-exact-hotspot party-capture-complete" type="button" data-party-capture-complete aria-label="파티 퀘스트 바로가기"></button></div>
+        <div class="party-modal" data-party-modal="memory" hidden><button class="party-modal-backdrop" type="button" data-party-modal-close aria-label="닫기"></button><button class="party-memory-dialog" type="button" data-party-modal-close><div class="party-memory-card"><span data-party-memory-icon>🎬</span><strong data-party-memory-title>영이</strong><em data-party-memory-status>대기중</em><p data-party-memory-copy>GS 망원점<br />프레시넷 꼬든 네그로 브뤼 픽업</p><b data-party-memory-time>미완료</b></div><small data-party-memory-note>...</small></button></div>
       </section>
 
       <section id="taste-plus-view" class="taste-plus-page" aria-label="취향 플러스 맞춤 홈 체험" hidden>
@@ -1253,6 +1329,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260913h"></script>
+    <script src="./app.js?v=20260914e"></script>
   </body>
 </html>
