@@ -265,6 +265,7 @@ const worldTourChrome = createStandaloneChrome(worldTourView, 'world-tour');
 const partyQuestChrome = createStandaloneChrome(partyQuestView, 'party-quest');
 const kyoboChrome = createStandaloneChrome(kyoboEventView, 'kyobo');
 const findItChrome = createStandaloneChrome(findItView, 'find-it');
+const pairingFinderChrome = createStandaloneChrome(pairingFinderView, 'pairing-finder');
 createStandaloneStatus(tastePlusView);
 
 const worldTourChromeRules = {
@@ -295,6 +296,11 @@ const findItChromeRules = {
   game: ['보물찾기', 'home', false],
   coupon: ['쿠폰', 'game', false],
 };
+const sharedCartChromeRules = {
+  result: ['', 'summary', false],
+  product: ['상품 안내', 'result', false],
+  cart: ['장바구니', 'result', false],
+};
 
 function updateStandaloneChrome(record, rule, routePrefix) {
   if (!record || !rule) return;
@@ -321,6 +327,8 @@ const friendGrid = document.querySelector('.friend-grid');
 const aiChatQuestion = document.querySelector('[data-ai-chat-question]');
 const aiChatMessages = document.querySelector('.ai-chat-messages');
 const sharedCartView = document.querySelector('.shared-cart-page');
+const sharedCartChrome = createStandaloneChrome(sharedCartView, 'shared-cart');
+const drinkBrowseChrome = createStandaloneChrome(drinkIdView, 'drink-browse');
 const sharedCartScreens = Array.from(document.querySelectorAll('[data-shared-cart-screen]'));
 const sharedCartForm = document.querySelector('[data-shared-cart-form]');
 const meetingInput = sharedCartForm?.elements.meeting;
@@ -357,6 +365,7 @@ let activeDetail = null;
 let surveyIndex = 0;
 let surveyAnswers = [];
 let analysisTimer = null;
+let sharedCartTimer = null;
 let activeDrinkType = 'curious-beginner';
 let activeAiQuestion = '달달하고 맛있는 와인을 추천해줘';
 const sharedCartChoices = {};
@@ -502,8 +511,9 @@ function createProductCard(product, category, index) {
 }
 
 function hideSharedCart() {
+  clearTimeout(sharedCartTimer);
   sharedCartView.hidden = true;
-  phoneShell.classList.remove('is-shared-cart-view');
+  phoneShell.classList.remove('is-shared-cart-view', 'is-shared-cart-figma', 'is-shared-cart-common-chrome');
 }
 
 function hideCardPick() {
@@ -734,6 +744,8 @@ function renderPairingFinder(screen = 'list') {
   hideCardPick();
   hideGiftFlow();
   pairingFinderView.hidden = false;
+  pairingFinderView.classList.toggle('is-detail-screen', screen === 'detail');
+  updateStandaloneChrome(pairingFinderChrome, ['맛잘알 조합찾기', 'list', false], 'pairing-finder');
   pairingFinderScreens.forEach((element) => { element.hidden = element.dataset.pairingFinderScreen !== screen; });
   phoneShell.className = 'phone-shell is-pairing-finder-view';
   pairingFinderView.scrollTo({ top: 0, behavior: 'auto' });
@@ -1390,6 +1402,9 @@ function renderDrinkScreen(screen) {
   drinkIdView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view');
   phoneShell.classList.add('is-drink-view');
+  phoneShell.classList.toggle('is-drink-figma-screenshot', ['analyzing', 'browse', 'friend-product'].includes(screen));
+  phoneShell.classList.toggle('is-drink-browse', screen === 'browse');
+  if (screen === 'browse') updateStandaloneChrome(drinkBrowseChrome, ['유형 둘러보기', 'result', false], 'drink-id');
   closePairingModal();
 
   drinkScreens.forEach((element) => { element.hidden = element.dataset.drinkScreen !== screen; });
@@ -1413,6 +1428,7 @@ function renderSharedCartScreen(screen) {
   hideKyoboEvent();
   hideFindIt();
   clearTimeout(analysisTimer);
+  clearTimeout(sharedCartTimer);
   homeView.hidden = true;
   catalogView.hidden = true;
   detailView.hidden = true;
@@ -1424,8 +1440,13 @@ function renderSharedCartScreen(screen) {
   sharedCartView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view');
   phoneShell.classList.add('is-shared-cart-view');
+  phoneShell.classList.toggle('is-shared-cart-figma', ['chat', 'entry-loading', 'result-loading', 'result', 'product', 'cart'].includes(screen));
+  phoneShell.classList.toggle('is-shared-cart-common-chrome', ['result', 'product', 'cart'].includes(screen));
+  if (sharedCartChromeRules[screen]) updateStandaloneChrome(sharedCartChrome, sharedCartChromeRules[screen], 'shared-cart');
   closePairingModal();
   sharedCartScreens.forEach((element) => { element.hidden = element.dataset.sharedCartScreen !== screen; });
+  if (screen === 'entry-loading') sharedCartTimer = window.setTimeout(() => { window.location.hash = '#shared-cart/survey'; }, 1050);
+  if (screen === 'result-loading') sharedCartTimer = window.setTimeout(() => { window.location.hash = '#shared-cart/summary'; }, 1450);
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
@@ -1576,12 +1597,13 @@ function renderPartyQuest(screen) {
   hideKyoboEvent();
   hideFindIt();
   hideWorldTour();
+  hidePairingFinder();
   closePartyQuestModals();
   partyQuestView.hidden = false;
   partyQuestView.classList.toggle('is-exact-figma-screen', ['quest', 'cart', 'pickup', 'camera', 'shot', 'complete'].includes(screen));
   partyQuestScreens.forEach((element) => { element.hidden = element.dataset.partyScreen !== screen; });
   updateStandaloneChrome(partyQuestChrome, partyQuestChromeRules[screen], 'party-quest');
-  phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view', 'is-kyobo-view', 'is-find-it-view', 'is-world-tour-view');
+  phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view', 'is-cellarmate-view', 'is-kyobo-view', 'is-find-it-view', 'is-world-tour-view', 'is-pairing-finder-view');
   phoneShell.classList.add('is-party-quest-view');
   partyQuestView.scrollTop = 0;
   window.scrollTo({ top:0, behavior:'auto' });
@@ -1668,12 +1690,12 @@ function syncViewFromHash() {
     renderCardPickScreen(cardPickMatch[1]);
     return;
   }
-  const sharedCartMatch = window.location.hash.match(/^#shared-cart\/(create|survey|summary)$/);
+  const sharedCartMatch = window.location.hash.match(/^#shared-cart\/(create|chat|entry-loading|survey|result-loading|summary|result|product|cart)$/);
   if (sharedCartMatch) {
     renderSharedCartScreen(sharedCartMatch[1]);
     return;
   }
-  const drinkMatch = window.location.hash.match(/^#drink-id\/(start|survey|analyzing|issued|result|friends|browse|ai|ai-chat)$/);
+  const drinkMatch = window.location.hash.match(/^#drink-id\/(start|survey|analyzing|issued|result|friends|friend-product|browse|ai|ai-chat)$/);
   if (drinkMatch) {
     renderDrinkScreen(drinkMatch[1]);
     return;
@@ -2180,7 +2202,7 @@ document.querySelectorAll('[data-drink-retake]').forEach((button) => button.addE
 
 document.querySelectorAll('[data-drink-back]').forEach((button) => {
   button.addEventListener('click', () => {
-    window.location.hash = button.dataset.drinkBack === 'home' ? '#top' : '#drink-id/result';
+    window.location.hash = button.dataset.drinkBack === 'home' ? '#top' : `#drink-id/${button.dataset.drinkBack}`;
   });
 });
 
@@ -2194,7 +2216,7 @@ document.querySelectorAll('[data-shared-cart-go]').forEach((button) => {
         return;
       }
     }
-    window.location.hash = `#shared-cart/${destination}`;
+    window.location.hash = destination === 'summary' ? '#shared-cart/result-loading' : `#shared-cart/${destination}`;
   });
 });
 
@@ -2690,6 +2712,11 @@ document.querySelector('[data-pairing-finder-home]')?.addEventListener('click', 
 document.querySelectorAll('[data-pairing-finder-go]').forEach((button) => button.addEventListener('click', () => {
   window.location.hash = `#pairing-finder/${button.dataset.pairingFinderGo}`;
 }));
+document.querySelectorAll('.pairing-vote-controls button').forEach((button) => button.addEventListener('click', () => {
+  const nextPressed = button.getAttribute('aria-pressed') !== 'true';
+  document.querySelectorAll('.pairing-vote-controls button').forEach((option) => option.setAttribute('aria-pressed', 'false'));
+  button.setAttribute('aria-pressed', String(nextPressed));
+}));
 document.querySelector('[data-friend-confirm]')?.addEventListener('click', () => {
   applySelectedFriend();
   window.location.hash = '#top';
@@ -2883,6 +2910,15 @@ if (partyDays) {
 document.querySelectorAll('[data-party-go]').forEach((button) => button.addEventListener('click', () => {
   window.location.hash = `#party-quest/${button.dataset.partyGo}`;
 }));
+
+partyQuestScreens.filter((screen) => screen.classList.contains('party-exact-screen')).forEach((screen) => {
+  const homeButton = document.createElement('button');
+  homeButton.className = 'party-brand-home';
+  homeButton.type = 'button';
+  homeButton.setAttribute('aria-label', 'WINE25 PLUS 홈으로 이동');
+  homeButton.addEventListener('click', () => { window.location.hash = '#top'; });
+  screen.append(homeButton);
+});
 
 document.querySelectorAll('.party-theme-options button').forEach((button) => button.addEventListener('click', () => {
   button.classList.toggle('is-selected');
