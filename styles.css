@@ -6203,7 +6203,7 @@ img.world-tour-recommendation-card {
   position:relative;
   overflow:hidden;
 }
-.world-reserve-media-slice--top { aspect-ratio:402 / 777; }
+.world-reserve-media-slice--top { aspect-ratio:402 / 620; }
 .world-reserve-media-slice--bottom { aspect-ratio:402 / 381; }
 .world-reserve-media-slice > img {
   position:absolute;
@@ -7803,11 +7803,73 @@ img.world-tour-recommendation-card {
 .party-cart-plus { top:200px; left:20%; width:60%; height:280px; }
 .party-pickup-auth { top:480px; left:14%; width:72%; height:58px; }
 .party-camera-shutter { top:750px; left:38%; width:24%; height:90px; border-radius:50%; }
+.party-camera-video { position:absolute; z-index:2; top:47.8cqw; left:1cqw; width:98cqw; height:135.8cqw; border-radius:20px; background:#111; object-fit:cover; }
+.party-brand-home { position:absolute; z-index:5; top:48px; left:0; width:150px; height:66px; border:0; background:transparent; cursor:pointer; }
 .party-exact-modal { z-index:100; display:block; background:rgba(8,9,12,.68); }
 .party-exact-modal-screen { position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:pointer; }
 .party-exact-modal img, .party-exact-modal-screen img { display:block; width:100%; height:100%; object-fit:cover; }
 .party-capture-complete { top:570px; left:14%; width:72%; height:62px; }
 .party-exact-screen.party-pickup-screen { background:transparent; }
+
+/* Consolidated Figma revisions — September 14 */
+.world-reserve-media-slice--bottom { aspect-ratio:372 / 614; }
+.world-reserve-media-slice--bottom > img { top:0; width:100%; height:100%; object-fit:cover; }
+[data-world-tour-screen="reserve"] { padding-bottom:0 !important; }
+[data-world-tour-screen="reserve"] .world-tour-coupon-open { top:42%; }
+[data-world-tour-screen="reserve"] .world-tour-travel-open { top:50%; }
+
+.drink-analyzing { height:100dvh; overflow:hidden !important; background:#17215e; scrollbar-width:none; }
+.drink-analyzing::-webkit-scrollbar { display:none; }
+.phone-shell.is-drink-view.is-drink-figma-screenshot .app-header { display:none !important; height:0 !important; }
+.drink-id-page > .standalone-chrome,
+.shared-cart-page > .standalone-chrome,
+.pairing-finder-page > .standalone-chrome { display:none; }
+.phone-shell.is-drink-view.is-drink-browse .drink-id-page > .standalone-chrome,
+.phone-shell.is-shared-cart-common-chrome .shared-cart-page > .standalone-chrome,
+.pairing-finder-page.is-detail-screen > .standalone-chrome { display:block; }
+.phone-shell.is-drink-view.is-drink-browse .drink-id-page > .standalone-chrome,
+.phone-shell.is-shared-cart-common-chrome .shared-cart-page > .standalone-chrome,
+.pairing-finder-page.is-detail-screen > .standalone-chrome { position:fixed; top:0; left:50%; width:min(100%,390px); transform:translateX(-50%); }
+.drink-analyzing > img { position:absolute; inset:0; width:100%; height:100%; object-fit:fill; opacity:1; animation:none; }
+.drink-browse-figma { height:100dvh; padding:0; overflow-x:hidden; overflow-y:auto; background:#fff; scrollbar-width:none; }
+.drink-browse-figma::-webkit-scrollbar, .drink-browse-row::-webkit-scrollbar { display:none; }
+.drink-browse-slice, .drink-browse-row { position:relative; width:100%; overflow:hidden; }
+.drink-browse-slice img, .drink-browse-row img { position:absolute; top:0; left:0; display:block; width:726px; max-width:none; height:1564px; }
+.drink-browse-head { height:310px; }
+.drink-browse-row { height:266px; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; touch-action:pan-x; -webkit-overflow-scrolling:touch; }
+.drink-browse-row > span { display:block; position:relative; width:726px; height:266px; }
+.drink-browse-row img { top:-310px; }
+.drink-browse-row--weekly { height:270px; }
+.drink-browse-row--weekly img { top:-576px; }
+.drink-browse-community { height:724px; }
+.drink-browse-community img { top:-840px; }
+.drink-friend-product { position:relative; height:100dvh; overflow:hidden; background:#f4f5fb; }
+.drink-friend-product > img { display:block; width:100%; height:100%; object-fit:cover; }
+.drink-friend-product > button { position:absolute; top:72px; left:4px; width:46px; height:46px; border:0; background:transparent; }
+.friend-activity article > div button { margin-top:7px; padding:5px 10px; border:1px solid #cfd2d8; border-radius:13px; background:#fff; font-size:10px; }
+
+.pairing-finder-page.is-detail-screen { height:100dvh; }
+.pairing-finder-page.is-detail-screen > .pairing-finder-status,
+.pairing-finder-page.is-detail-screen > .pairing-finder-header { display:none; }
+.pairing-finder-page.is-detail-screen .pairing-finder-art--detail { height:auto; min-height:100dvh; overflow:visible; }
+.pairing-finder-page.is-detail-screen .pairing-finder-art--detail > img { width:126.6%; max-width:none; height:auto; margin-left:-14.7%; transform:none; }
+.pairing-vote-controls { position:absolute; z-index:4; top:545px; left:23px; display:grid; width:344px; grid-template-columns:repeat(3,1fr); gap:8px; }
+.pairing-vote-controls button { display:flex; height:74px; padding:8px 3px; flex-direction:column; align-items:center; justify-content:center; gap:5px; border:1px solid transparent; border-radius:9px; background:transparent; color:transparent; cursor:pointer; }
+.pairing-vote-controls button span { font-size:12px; opacity:0; }
+.pairing-vote-controls button[aria-pressed="true"] { border-color:#d81962; background:#fff5f8; color:#d81962; box-shadow:0 0 0 2px #d8196220; }
+.pairing-comment-composer { position:fixed; z-index:65; right:50%; bottom:0; width:min(100%,390px); height:82px; padding:0 34px; border:0; border-top:1px solid #ececf0; background:linear-gradient(#fff,#fff); color:#333; font-size:15px; text-align:left; transform:translateX(50%); cursor:text; }
+.pairing-comment-composer::after { position:absolute; top:13px; right:18px; bottom:17px; left:18px; z-index:-1; border-radius:30px; background:#dedee1; content:""; }
+.pairing-finder-page.is-detail-screen .pairing-finder-art--detail { padding-bottom:82px; }
+
+.phone-shell.is-shared-cart-figma .app-header { display:none !important; height:0 !important; }
+.shared-cart-figma { position:relative; height:100dvh; min-height:0; padding:0; overflow-x:hidden; overflow-y:auto; background:#fff; scrollbar-width:none; }
+.shared-cart-figma::-webkit-scrollbar { display:none; }
+.shared-cart-figma > img { display:block; width:100%; height:auto; object-fit:initial; }
+.shared-cart-hotspot { position:absolute; z-index:3; border:0; background:transparent; cursor:pointer; }
+.shared-chat-write { top:445px; left:18%; width:64%; height:55px; }
+.shared-result-product { top:440px; left:27%; width:46%; height:58px; }
+.shared-result-cart { top:700px; left:5%; width:90%; height:62px; }
+.shared-product-back, .shared-cart-back-result { top:65px; left:1%; width:50px; height:52px; }
 
 .standalone-status-only {
   position: fixed;

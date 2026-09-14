@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>WINE25+ PLUS App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260914e" />
+    <link rel="stylesheet" href="./styles.css?v=20260914g" />
   </head>
   <body>
     <main class="phone-shell" aria-label="WINE25+ PLUS 모바일 홈">
@@ -447,17 +447,13 @@
               <img src="./assets/world-tour/reserve-v2-crop.png" alt="키쿠스이 준마이 주문 완료와 세계 주류 여행 기록" />
             </span>
             <span class="world-reserve-media-slice world-reserve-media-slice--bottom" aria-hidden="true">
-              <img src="./assets/world-tour/reserve-v2-crop.png" alt="" />
+              <img src="./assets/revisions-169/world-reserve-bottom.png" alt="제휴 여행사와 함께하는 주류 테마 여행" />
             </span>
           </div>
           <button class="world-tour-hotspot world-tour-back" type="button" data-world-tour-back="product" aria-label="상품 상세로 돌아가기"></button>
           <button class="world-tour-hotspot world-tour-home" type="button" data-world-tour-back="home" aria-label="홈으로 나가기"></button>
           <button class="world-tour-hotspot world-tour-coupon-open" type="button" data-world-tour-go="coupon" aria-label="니가타 여행 완료 쿠폰 다운로드"></button>
           <button class="world-tour-hotspot world-tour-travel-open" type="button" data-world-tour-go="travel-all" aria-label="제휴 여행사 주류 테마 여행 전체 보기"></button>
-          <nav class="world-reserve-fixed-actions" aria-label="주문 완료 기능">
-            <button type="button" data-action="world-order-detail">주문 상세 보기</button>
-            <button type="button" data-action="world-open-fridge">나만의 냉장고 보기</button>
-          </nav>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="coupon" data-world-tour-title="쿠폰" hidden>
@@ -559,6 +555,7 @@
 
         <article class="party-quest-screen party-exact-screen party-camera-screen" data-party-screen="camera" hidden>
           <img src="./assets/party-quest/camera.png" alt="픽업 인증 촬영 화면" />
+          <video class="party-camera-video" src="./assets/party-quest/party-quest.mp4" autoplay muted loop playsinline aria-label="파티퀘스트 인증 영상"></video>
           <button class="party-exact-hotspot party-camera-shutter" type="button" data-party-shutter aria-label="인증 사진 촬영"></button>
         </article>
 
@@ -720,7 +717,13 @@
           <div class="pairing-finder-art"><img src="./assets/pairing-finder/list.png" alt="맛잘알 조합찾기 이벤트와 대상상품 8개" /><button class="pairing-chicken-open" type="button" data-pairing-finder-go="detail" aria-label="고기반찬 닭볶음탕 자세히보기"></button></div>
         </article>
         <article class="pairing-finder-screen" data-pairing-finder-screen="detail" hidden>
-          <div class="pairing-finder-art pairing-finder-art--detail"><img src="./assets/pairing-finder/detail.png" alt="고기반찬 닭볶음탕과 수수마니엘로 와인의 맛잘알 조합 상세" /></div>
+          <div class="pairing-finder-art pairing-finder-art--detail"><img src="./assets/revisions-169/pairing-detail.png" alt="고기반찬 닭볶음탕과 수수마니엘로 와인의 맛잘알 조합 상세" /></div>
+          <div class="pairing-vote-controls" aria-label="조합 평가">
+            <button type="button" aria-pressed="false">😍<span>최고의 조합</span></button>
+            <button type="button" aria-pressed="false">🤔<span>논란의 여지 있음</span></button>
+            <button type="button" aria-pressed="false">🥝<span>최악의 조합</span></button>
+          </div>
+          <button class="pairing-comment-composer" type="button">댓글 올리기...</button>
         </article>
       </section>
 
@@ -860,8 +863,7 @@
         </div>
 
         <div class="drink-screen drink-analyzing" data-drink-screen="analyzing" hidden>
-          <img src="./assets/drink-id/analysis-shapes.svg" alt="" />
-          <div><h1>빈빈님의 취향 ID 카드를<br />발급 중이에요</h1><p>잠시만 기다려주세요!</p></div>
+          <img src="./assets/revisions-169/drink-loading.png" alt="빈빈님의 유형 카드를 발급 중이에요" />
         </div>
 
         <div class="drink-screen drink-issued" data-drink-screen="issued" hidden>
@@ -904,23 +906,19 @@
           <div class="friend-stats"><span>친구<strong>4</strong></span><span>수집한 유형<strong>4<small>/8</small></strong></span><span>공통 취향<strong>1</strong></span></div>
           <button class="friend-coupon-event" type="button" data-action="friend-coupon-event"><span>할인 쿠폰 이벤트 &gt;</span><strong>친구 추가 하고<br />상품 할인 받기!</strong><img src="./assets/drink-id/result-types.svg" alt="" /></button>
           <section class="friend-list" aria-labelledby="friend-title"><h2 id="friend-title">친구 4</h2><div class="friend-grid"></div></section>
-          <section class="friend-activity"><h2>최근 활동</h2><article><span class="mini-type-shape"><img src="./assets/drink-id/type-green.svg" alt="" /></span><p><strong>수빈님이 새로운 상품을 찜했어요</strong><small>2시간전</small></p><img src="./assets/drink-id/friend-product.png" alt="베이롯 버블리 핑크 모스카토" /><div><strong>베이롯 버블리 핑크 모스카토</strong><span>스파클링 와인(미국)</span><small>★ 4.3(238)</small></div></article></section>
+          <section class="friend-activity"><h2>최근 활동</h2><article><span class="mini-type-shape"><img src="./assets/drink-id/type-green.svg" alt="" /></span><p><strong>수빈님이 새로운 상품을 찜했어요</strong><small>2시간전</small></p><img src="./assets/drink-id/friend-product.png" alt="베어풋 버블리 핑크 모스카토" /><div><strong>베어풋 버블리 핑크 모스카토</strong><span>스파클링 와인(미국)</span><small>★ 4.3(238)</small><button type="button" data-drink-go="friend-product">상품 페이지로 가기</button></div></article><article><span class="mini-type-shape"><img src="./assets/drink-id/type-yellow.svg" alt="" /></span><p><strong>보연님이 별점 4.5점을 남겼어요</strong><small>1일전</small></p><img src="./assets/catalog/wine-raw-06.png" alt="레이다 피노누아" /><div><strong>레이다 피노누아</strong><span>피노누아 와인(칠레)</span><small>★ 4.3(238)</small><button type="button" data-drink-go="friend-product">상품 페이지로 가기</button></div></article></section>
         </div>
 
-        <div class="drink-screen drink-browse" data-drink-screen="browse" hidden>
-          <header class="drink-subheader"><button type="button" data-drink-back="result" aria-label="이전 화면"><img src="./assets/account/back-winery.svg" alt="" /></button><h1>유형 둘러보기</h1><span class="drink-bell" aria-hidden="true">♧</span></header>
-          <div class="drink-type-summary"><p>MY DRINK ID <time>2026.08.18</time></p><img class="summary-shape" alt="" /><h2 class="summary-title">호기심 입문형</h2><span class="summary-tagline">취향을 찾아가는 탐험가</span></div>
-          <section class="type-top-products"><h2>내 유형 인기 주류 TOP 5</h2><div class="type-product-scroller">
-            <article><i>1</i><img src="./assets/drink-id/browse-product-01.png" alt="다이아티 모스카토 다스티" /><strong>다이아티 모스카토 다스티</strong><small>5,231명이 주문했어요</small></article>
-            <article><i>2</i><img src="./assets/drink-id/browse-product-02.png" alt="또스띠 핑크 모스카토" /><strong>또스띠 핑크 모스카토</strong><small>3,821명이 주문했어요</small></article>
-            <article><i>3</i><img src="./assets/drink-id/browse-product-03.png" alt="벨레벨벳 베르미르" /><strong>벨레벨벳 베르미르</strong><small>2,945명이 주문했어요</small></article>
-          </div></section>
-          <section class="type-top-products"><h2>주간 전체 픽 BEST</h2><div class="type-product-scroller">
-            <article><i>1</i><img src="./assets/drink-id/browse-product-01.png" alt="후버 캄프스" /><strong>후버 캄프스</strong><small>5,231명이 주문했어요</small></article>
-            <article><i>2</i><img src="./assets/catalog/wine-raw-04.png" alt="디 스테파니" /><strong>디 스테파니</strong><small>3,821명이 주문했어요</small></article>
-            <article><i>3</i><img src="./assets/catalog/wine-raw-06.png" alt="레이다 피노누아" /><strong>레이다 피노누아</strong><small>2,945명이 주문했어요</small></article>
-          </div></section>
-          <section class="type-community"><div class="community-heading"><h2>커뮤니티</h2><button type="button" data-action="write-post">글쓰기⌕</button></div><div class="community-tabs"><button class="is-active">전체</button><button>나와 같은 유형</button><button>다른 유형</button><button>Q&amp;A</button></div><article><img class="community-type-icon" src="./assets/drink-id/type-blue.svg" alt="" /><p><small>호기심 입문형</small><strong>술찾아저멀리</strong></p><em>나와 같은 유형</em><h3>편의점 야매 레시피 공유해요</h3><span>투명한 컵에 얼음을 담고 논데종으로 소주 반컵..</span></article><article><img class="community-type-icon" src="./assets/drink-id/type-blue.svg" alt="" /><p><small>편안한 찻잔형</small><strong>유진</strong></p><em>Q&amp;A</em><h3>드라이 와인 추천</h3><span>입문자가 가볍게 마시기 좋은 드라이 와인 추천해주세요</span></article></section>
+        <div class="drink-screen drink-browse drink-browse-figma" data-drink-screen="browse" hidden>
+          <div class="drink-browse-slice drink-browse-head"><img src="./assets/revisions-169/drink-browse.png" alt="유형 둘러보기와 호기심 입문형" /></div>
+          <div class="drink-browse-row" tabindex="0" aria-label="내 유형 인기 주류 TOP 5 가로 스크롤"><span><img src="./assets/revisions-169/drink-browse.png" alt="내 유형 인기 주류 TOP 5" /></span></div>
+          <div class="drink-browse-row drink-browse-row--weekly" tabindex="0" aria-label="주간 전체 픽 BEST 가로 스크롤"><span><img src="./assets/revisions-169/drink-browse.png" alt="주간 전체 픽 BEST" /></span></div>
+          <div class="drink-browse-slice drink-browse-community"><img src="./assets/revisions-169/drink-browse.png" alt="유형별 커뮤니티" /></div>
+        </div>
+
+        <div class="drink-screen drink-friend-product" data-drink-screen="friend-product" hidden>
+          <img src="./assets/revisions-169/friend-product.png" alt="베어풋 버블리 핑크 모스카토 상품 상세" />
+          <button type="button" data-drink-back="friends" aria-label="친구 플러스로 돌아가기"></button>
         </div>
 
         <div class="drink-screen drink-ai" data-drink-screen="ai" hidden>
@@ -975,7 +973,7 @@
             <img src="./assets/shared-cart/invite-mascot.png" alt="초대장을 건네는 와인25플러스 캐릭터" />
           </section>
 
-          <button class="shared-cart-primary" type="button" data-shared-cart-go="survey">링크 공유하고 시작하기 <img src="./assets/shared-cart/icon-link.svg" alt="" /></button>
+          <button class="shared-cart-primary" type="button" data-shared-cart-go="chat">링크 공유하고 시작하기 <img src="./assets/shared-cart/icon-link.svg" alt="" /></button>
         </div>
 
         <div class="shared-cart-screen shared-cart-survey" data-shared-cart-screen="survey" hidden>
@@ -1075,8 +1073,15 @@
             </article>
           </section>
 
-          <button class="shared-cart-primary" type="button" data-action="shared-cart-next">다음으로</button>
+          <button class="shared-cart-primary" type="button" data-shared-cart-go="result">다음으로</button>
         </div>
+
+        <div class="shared-cart-screen shared-cart-figma" data-shared-cart-screen="chat" hidden><img src="./assets/revisions-169/shared-chat.png" alt="카카오톡으로 공유받은 우리끼리 주문서" /><button class="shared-cart-hotspot shared-chat-write" type="button" data-shared-cart-go="entry-loading" aria-label="주문서 작성하기"></button></div>
+        <div class="shared-cart-screen shared-cart-figma shared-cart-loading" data-shared-cart-screen="entry-loading" hidden><img src="./assets/revisions-169/shared-entry-loading.png" alt="주문서 입장 로딩" /></div>
+        <div class="shared-cart-screen shared-cart-figma shared-cart-loading" data-shared-cart-screen="result-loading" hidden><img src="./assets/revisions-169/shared-result-loading.png" alt="공동 취향 분석 중" /></div>
+        <div class="shared-cart-screen shared-cart-figma" data-shared-cart-screen="result" hidden><img src="./assets/revisions-169/shared-result.png" alt="우리끼리 픽 추천 결과" /><button class="shared-cart-hotspot shared-result-product" type="button" data-shared-cart-go="product" aria-label="상품 안내로 이동하기"></button><button class="shared-cart-hotspot shared-result-cart" type="button" data-shared-cart-go="cart" aria-label="장바구니 바로가기"></button></div>
+        <div class="shared-cart-screen shared-cart-figma" data-shared-cart-screen="product" hidden><img src="./assets/revisions-169/shared-product.png" alt="프레시넷 모스카토 다스티 상품 안내" /><button class="shared-cart-hotspot shared-product-back" type="button" data-shared-cart-go="result" aria-label="추천 결과로 돌아가기"></button></div>
+        <div class="shared-cart-screen shared-cart-figma" data-shared-cart-screen="cart" hidden><img src="./assets/revisions-169/shared-cart.png" alt="우리끼리 주문서 장바구니" /><button class="shared-cart-hotspot shared-cart-back-result" type="button" data-shared-cart-go="result" aria-label="추천 결과로 돌아가기"></button></div>
       </section>
 
       <section class="card-pick-page" aria-label="카드 한 장으로 오늘의 술 뽑기" hidden>
@@ -1329,6 +1334,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260914e"></script>
+    <script src="./app.js?v=20260914g"></script>
   </body>
 </html>
