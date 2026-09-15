@@ -3,6 +3,7 @@
   if (!presentation || window.matchMedia('(max-width: 767px)').matches) return;
 
   const introPanel = presentation.querySelector('[data-presentation-panel="intro"]');
+  const personalizePanel = presentation.querySelector('[data-presentation-panel="personalize"]');
   const flowPanel = presentation.querySelector('[data-presentation-panel="flow"]');
   const introPhone = presentation.querySelector('.w25-present-phone');
   const introScreen = presentation.querySelector('.w25-present-screen');
@@ -23,6 +24,7 @@
   const connectorPath = presentation.querySelector('[data-flow-path]');
   const result = presentation.querySelector('[data-flow-result]');
   const resultImage = presentation.querySelector('[data-flow-result-image]');
+  const personalizeApp = presentation.querySelector('[data-personalize-app]');
 
   const appUrl = new URL('./app.html?v=20260903c', window.location.href);
   appUrl.searchParams.set('display', 'pc');
@@ -49,48 +51,27 @@
     },
     {
       step: '04', label: 'NEW HOME', kicker: '04 · NEW HOME',
-      title: '<span class="w25-intro-title-line">7개의 아이디어가</span><span class="w25-intro-title-line">하나의 홈에 연결됩니다</span>',
-      description: '이제 실제 홈 화면의 버튼과 배너가<br />어떤 학생 아이디어로 이어지는지 살펴봅니다.',
-      button: '아이디어 연결 보기', image: '', alt: '새롭게 구성한 WINE25+PLUS 홈 화면', className: 'is-app',
+      title: '<span class="w25-intro-title-line">취향에 따라 달라지는</span><span class="w25-intro-title-line">새로운 홈을 만납니다</span>',
+      description: '기존 WINE25+PLUS 홈에서 시작해<br />컬러 유형 테스트와 맞춤 화면으로 이어집니다.',
+      button: '컬러 유형 테스트 보기', image: '', alt: '새롭게 구성한 WINE25+PLUS 홈 화면', className: 'is-app',
     },
   ];
 
   const ideas = {
+    friends: { number:'1-1', title:'나의 술친구 무무씨와 친구들', group:'explore', image:'./assets/flow/drink-id.png', target:'drink-friends', point:[0.5,0.78] },
+    world: { number:'1-2', title:'세계 주류 여행', group:'explore', image:'./assets/flow/explore.png', target:'world-trip', point:[0.5,0.36], carouselIndex:1 },
+    card: { number:'1-3', title:'카드 한 장으로 뽑는 오늘의 술', group:'explore', image:'./assets/flow/liquor-card.png', target:'liquor-card', point:[0.5,0.36], carouselIndex:3 },
+    'drink-id': { number:'1-4', title:'니술내술+', group:'explore', image:'./assets/flow/drink-id.png', target:'drink-id', point:[0.5,0.78] },
+    catalog: { number:'2-1', title:'주류 구매 화면', group:'purchase', image:'./assets/flow/explore.png', target:'explore', point:[0.963,0.740], fixedPoint:true },
+    pairing: { number:'2-2', title:'맛잘알 조합찾기', group:'purchase', image:'./assets/flow/pairing.png', target:'pairing', point:[0.5,0.36], carouselIndex:4 },
+    'shared-cart': { number:'3-1', title:'주류 공동 구매', group:'together', image:'./assets/flow/shared-cart.png', target:'shared-cart', point:[0.805,0.105] },
+    'first-drink': { number:'4-1', title:'인생첫술 기프트 세트', group:'gift', image:'./assets/flow/first-drink.png', target:'first-drink', point:[0.5,0.78] },
     cellar: {
-      number: '01', title: '나만의 술장', group: 'utility', image: './assets/flow/cellar.png',
+      number: '5-1', title: '나만의 술장', group: 'archive', image: './assets/flow/cellar.png', target:'cellar',
       description: '상단 프로필 아이콘에서 보유 주류와 취향 기록을 관리하는 나만의 술장으로 이동합니다.',
       point: [0.91, 0.105],
     },
-    'shared-cart': {
-      number: '02', title: '공동 장바구니', group: 'utility', image: './assets/flow/shared-cart.png',
-      description: '상단 공동 장바구니 아이콘에서 함께 마실 사람들의 취향을 선택하는 화면으로 이동합니다.',
-      point: [0.805, 0.105],
-    },
-    explore: {
-      number: '03', title: '주류 탐색', group: 'discovery', image: './assets/flow/explore.png',
-      description: '와인·맥주·양주·하이볼·기타주류 카테고리를 눌러 상품 탐색 화면으로 이동합니다.',
-      point: [0.963, 0.740], fixedPoint: true,
-    },
-    'drink-id': {
-      number: '04', title: 'MY DRINK ID', group: 'discovery', image: './assets/flow/drink-id.png',
-      description: 'MY DRINK ID 배너에서 나의 취향 유형과 개인화 탐색을 확인하는 화면으로 이동합니다.',
-      point: [0.932, 0.503], fixedPoint: true,
-    },
-    'first-drink': {
-      number: '05', title: '인생 첫 술', group: 'campaign', image: './assets/flow/first-drink.png',
-      description: '메인 캐러셀 두 번째 배너에서 소중한 사람을 위한 커스텀 주류 선물 이벤트로 이동합니다.',
-      point: [0.50, 0.36], carouselIndex: 1,
-    },
-    'liquor-card': {
-      number: '06', title: '주류 카드', group: 'campaign', image: './assets/flow/liquor-card.png',
-      description: '메인 캐러셀 세 번째 배너에서 카드를 넘기며 오늘의 술을 고르는 경험으로 이동합니다.',
-      point: [0.50, 0.36], carouselIndex: 2,
-    },
-    pairing: {
-      number: '07', title: '조합 찾기', group: 'campaign', image: './assets/flow/pairing.png',
-      description: '메인 캐러셀 네 번째 배너에서 와인과 음식의 조합을 찾는 이벤트로 이동합니다.',
-      point: [0.50, 0.36], carouselIndex: 3,
-    },
+    cellarmate: { number:'5-2', title:'셀러메이트', group:'archive', image:'./assets/flow/cellar.png', target:'cellar', point:[0.91,0.105] },
   };
 
   let introIndex = 0;
@@ -130,6 +111,8 @@
     const flowScale = fitAppFrame(flowApp, flowPhone, 8);
     flowApp.style.borderRadius = `${flowInnerRadius / flowScale}px`;
     result.style.borderRadius = `${flowInnerRadius}px`;
+    const personalizePhone = presentation.querySelector('.w25-personalize-phone');
+    if (personalizePhone) fitAppFrame(personalizeApp, personalizePhone, 8);
   }
 
   function loadAppFrame(frame) {
@@ -162,15 +145,24 @@
   function advanceIntro() {
     if (!introPanel.classList.contains('is-active')) return;
     if (introIndex === introSteps.length - 1) {
-      showFlow();
+      showPersonalize();
       return;
     }
     renderIntro(introIndex + 1);
   }
 
+  function showPersonalize() {
+    clearTimeout(splashTimer);
+    introPanel.classList.remove('is-active');
+    flowPanel.classList.remove('is-active');
+    personalizePanel.classList.add('is-active');
+    if (!personalizeApp.src) personalizeApp.src = `${appUrl.href.split('#')[0]}#taste-plus/home`;
+  }
+
   function showFlow() {
     clearTimeout(splashTimer);
     introPanel.classList.remove('is-active');
+    personalizePanel.classList.remove('is-active');
     flowPanel.classList.add('is-active');
     loadAppFrame(flowApp);
     window.setTimeout(() => {
@@ -182,6 +174,7 @@
   function restart() {
     presentation.classList.remove('is-dismissed');
     result.hidden = true;
+    personalizePanel.classList.remove('is-active');
     flowPanel.classList.remove('is-active');
     introPanel.classList.add('is-active');
     clearSelection(true);
@@ -201,7 +194,7 @@
     const idea = ideas[id];
     flowApp.contentWindow?.postMessage({
       type: 'w25-flow-focus',
-      target: id,
+      target: idea?.target || id,
       carouselIndex: idea?.carouselIndex,
     }, '*');
   }
@@ -227,7 +220,7 @@
       try {
         const sourceSelector = Number.isInteger(idea.carouselIndex)
           ? '[data-flow-dynamic="carousel"]'
-          : `[data-flow-target="${selectedId}"]`;
+          : `[data-flow-target="${idea.target || selectedId}"]`;
         const sourceElement = flowApp.contentDocument?.querySelector(sourceSelector);
         if (sourceElement) {
           const sourceRect = sourceElement.getBoundingClientRect();
@@ -287,6 +280,7 @@
 
   introNext.addEventListener('click', advanceIntro);
   introHotspot.addEventListener('click', advanceIntro);
+  presentation.querySelector('[data-personalize-next]').addEventListener('click', showFlow);
   presentation.querySelector('[data-presentation-restart]').addEventListener('click', restart);
   presentation.querySelector('[data-presentation-live]').addEventListener('click', dismissPresentation);
   presentation.querySelector('[data-flow-result-close]').addEventListener('click', () => {
@@ -325,6 +319,7 @@
   });
 
   introApp.addEventListener('load', updateAppFrameScales);
+  personalizeApp.addEventListener('load', updateAppFrameScales);
   flowApp.addEventListener('load', updateAppFrameScales);
   window.addEventListener('resize', () => window.requestAnimationFrame(() => {
     updateAppFrameScales();
@@ -340,8 +335,9 @@
       advanceIntro();
       return;
     }
-    if (/^[1-7]$/.test(event.key) && flowPanel.classList.contains('is-active')) {
-      const id = Object.keys(ideas)[Number(event.key) - 1];
+    if (/^[0-9]$/.test(event.key) && flowPanel.classList.contains('is-active')) {
+      const shortcutIndex = event.key === '0' ? 9 : Number(event.key) - 1;
+      const id = Object.keys(ideas)[shortcutIndex];
       applySelection(id, { pin: true, notifyApp: true });
       return;
     }
