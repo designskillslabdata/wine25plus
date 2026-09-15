@@ -2729,6 +2729,8 @@ const flowTargets = {
   'shared-cart': document.querySelector('[data-flow-target="shared-cart"]'),
   explore: document.querySelector('[data-flow-target="explore"]'),
   'drink-id': document.querySelector('[data-flow-target="drink-id"]'),
+  'drink-friends': document.querySelector('[data-flow-target="drink-friends"]'),
+  'world-trip': carousel,
   'first-drink': carousel,
   'liquor-card': carousel,
   pairing: carousel,
