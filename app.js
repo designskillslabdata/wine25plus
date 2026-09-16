@@ -1769,6 +1769,7 @@ document.querySelectorAll('[data-cellarmate-go]').forEach((button) => {
     if (!button.disabled) window.location.hash = `#cellarmate/${button.dataset.cellarmateGo}`;
   });
 });
+document.querySelectorAll('[data-cellarmate-save]').forEach((button) => button.addEventListener('click', () => showToast('셀러를 임시저장했어요.')));
 
 document.querySelectorAll('[data-cellarmate-friend]').forEach((button) => {
   button.addEventListener('click', () => {
