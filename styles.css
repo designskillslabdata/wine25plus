@@ -8943,7 +8943,9 @@ img.world-tour-recommendation-card {
   .cellarmate-preview-stage .cellarmate-fixed-actions button:last-child { background:#0d0a4b; color:#fff; }
   .cellarmate-preview-stage > button[data-cellarmate-go] { display:none; }
 }
-.w25-real-mobile .cellarmate-sent-flow .cellarmate-friend-stage > img { clip-path:inset(0 0 220px 0); }
+/* The friend-picker export already contains the complete card and next button.
+   Do not clip its lower half: clipping left a large blank panel in mobile. */
+.w25-real-mobile .cellarmate-sent-flow .cellarmate-friend-stage > img { clip-path:none; }
 .cellarmate-fixed-actions { display:none; }
 .w25-real-mobile .cellarmate-preview-stage .cellarmate-fixed-actions {
   position:fixed;
