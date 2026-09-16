@@ -5476,7 +5476,7 @@ button.cellarmate-list-card {
 .cellarmate-figma-stage { position: relative; width: 100%; overflow: hidden; background: #fff; }
 .cellarmate-figma-stage > img { display: block; width: 100%; height: auto; }
 .cellarmate-friend-stage > img, .cellarmate-product-stage > img, .cellarmate-complete-stage > img { width: 115%; margin-right: -7.5%; margin-bottom: -143px; margin-left: -7.5%; transform: translateY(-143px); }
-.cellarmate-friend-stage > img { clip-path: inset(0 0 300px 0); }
+.cellarmate-friend-stage > img { clip-path: none; }
 .cellarmate-preview-stage > img { width: 115%; margin-right: -7.5%; margin-left: -7.5%; }
 .cellarmate-friend-stage button, .cellarmate-product-stage button, .cellarmate-preview-stage button, .cellarmate-complete-stage button { position: absolute; z-index: 2; border: 0; background: transparent; cursor: pointer; }
 .cellarmate-friend-choice { width: 154px; height: 184px; }
