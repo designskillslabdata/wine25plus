@@ -1,3 +1,58 @@
+# Design QA — 셀러 보내기 흐름 재정리 (2026-09-17)
+
+## Comparison Target
+
+- Source visual truth: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-a8772018-aae3-49eb-a767-97405493da16.png`
+- Supporting source assets: `assets/cellarmate-sent/friend-empty.png`, `friend-selected.png`, `product-empty.png`, `product-selected.png`, `preview.png`, `complete.png`.
+- Browser-rendered implementation: in-app Browser tabs for `#cellarmate/sent-friends`, `#cellarmate/sent-products`, `#cellarmate/sent-preview`, and `#cellarmate/sent-complete` at a centered 390 px app shell.
+- Viewport: 888 × 888 CSS px, density 1; app content width 390 CSS px.
+
+## Findings And Comparison History
+
+### Pass 1
+
+- P1: exported status bars and app bars appeared together with the live common app bar.
+- P1: viewport-width crop units were evaluated against the desktop canvas instead of the 390 px app shell, producing missing content and large blank tails.
+- P1: the transparent next control was visibly restyled, duplicating the button already drawn in the source asset.
+- P1: the fixed save/send actions were attached only to the preview stage instead of the product-selection stage.
+- P2: changing from the long empty product asset to the shorter selected asset displaced the scroll position and hid the common app bar.
+
+Fixes:
+
+- Replaced the layered viewport-unit overrides with one 390 px-shell crop and a sticky shared app bar.
+- Collapsed the cropped image height so no blank tail remains.
+- Kept the friend-picker controls as invisible hit targets and retained only the source artwork's visible controls.
+- Added the live fixed action bar to product selection and preview, with disabled/enabled send state.
+- Reset the active Cellarmate scroll container during route and product-state changes.
+- Removed black source gutters by fitting the 441 px exports at 110% width inside the 390 px shell.
+
+### Pass 2
+
+- Browser checks passed for friend empty/selected, friend-to-product navigation, product empty/selected, fixed action enablement, preview, send action, and completion.
+- Common status/app bars remain singular and sticky. The bottom action bar remains fixed while product content scrolls.
+- No remaining actionable P0/P1/P2 mismatch was observed in the requested flow.
+
+## Required Fidelity Surfaces
+
+- Typography and copy: source raster typography and button labels are preserved; live action labels match the source.
+- Spacing and layout: source content fills the shell without black side gutters, duplicated bars, clipped sections, or blank tails.
+- Colors: navy, white, gray disabled state, and pink selection state match the supplied assets.
+- Images: supplied Cellarmate raster assets are used directly without generated or placeholder imagery.
+- Interaction: friend choice, next, product choice, temporary save, send, back, home, and completion routes were exercised.
+
+## Runtime Checks
+
+- Primary interaction flow: passed.
+- JavaScript syntax: passed.
+- Whitespace validation: passed.
+- Browser-rendered console/runtime failure: none observed during the verified flow.
+
+## Final Result
+
+final result: passed
+
+---
+
 # Design QA — WINE25PLUS 발표 플로우
 
 ## Comparison Target

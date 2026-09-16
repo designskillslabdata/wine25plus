@@ -8888,79 +8888,85 @@ img.world-tour-recommendation-card {
 .w25-real-mobile .cellar-friends-page > button[data-cellar-friend="lee"] { top:47%; height:10%; }
 .w25-real-mobile .cellar-overlay:not(.is-sort) { place-items:center; padding-top:0; }
 
-/* Sent-cellar artwork contains a status bar and its own header. Keep the
-   shared header, crop the exported chrome, and use one live bottom action bar. */
-.w25-real-mobile .cellarmate-sent-flow .cellarmate-header { top:0 !important; }
-.w25-real-mobile .cellarmate-sent-flow .cellarmate-figma-stage { padding-top:var(--top-appbar-height); }
-.w25-real-mobile .cellarmate-sent-flow .cellarmate-figma-stage > img {
+/* Sent-cellar exports include their own 130px status/header chrome. The live
+   header replaces it, so crop that height once and collapse the image flow by
+   the same amount. This keeps every stage continuous without a blank tail. */
+.cellarmate-sent-flow .cellarmate-header {
+  position:sticky;
+  z-index:30;
+  top:0 !important;
+  right:auto;
+  left:auto;
   width:100%;
-  margin-top:-29.4cqw !important;
-  margin-right:0;
-  margin-bottom:0;
-  margin-left:0;
+  transform:none;
+}
+.cellarmate-sent-flow {
+  height:calc(100dvh - var(--app-statusbar-height));
+  min-height:0;
+  overflow-y:auto;
+  overflow-anchor:none;
+  overscroll-behavior-y:contain;
+}
+.w25-real-mobile .cellarmate-sent-flow { height:100dvh; }
+.cellarmate-sent-flow .cellarmate-figma-stage {
+  padding-top:0;
+}
+.cellarmate-sent-flow .cellarmate-figma-stage > img {
+  position:relative;
+  top:-126px;
+  width:110%;
+  margin:0 -5% -126px !important;
+  clip-path:none;
   transform:none !important;
 }
-.w25-real-mobile .cellarmate-preview-stage > img {
-  clip-path:inset(0 0 105px 0);
-  margin-bottom:-105px;
+
+/* The exported friend picker already draws all button states. Live controls
+   are transparent hit targets only, preventing duplicated outlines/labels. */
+.cellarmate-friend-stage [data-cellarmate-next-friend] {
+  top:auto;
+  right:4.5%;
+  bottom:8%;
+  left:4.5%;
+  height:8%;
+  appearance:none;
+  border:0 !important;
+  border-radius:0;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:transparent !important;
+  font-size:0;
+  opacity:0 !important;
 }
-@media (max-width:767px) {
-  .cellarmate-sent-flow .cellarmate-figma-stage > img {
-    width:100%;
-    position:relative;
-    top:-29.4cqw;
-    margin-top:0 !important;
-    margin-right:0;
-    margin-bottom:0;
-    margin-left:0;
-    transform:none !important;
-  }
-  .cellarmate-preview-stage > img { clip-path:inset(0 0 105px 0); margin-bottom:-105px !important; }
-  .cellarmate-preview-stage .cellarmate-fixed-actions {
-    position:fixed;
-    z-index:35;
-    right:0;
-    bottom:0;
-    left:0;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:26px;
-    padding:14px 24px;
-    background:#fff;
-    box-shadow:0 -2px 10px rgb(10 17 58 / 10%);
-  }
-  .cellarmate-preview-stage .cellarmate-fixed-actions button {
-    position:static;
-    width:auto;
-    height:56px;
-    border:1px solid #0d0a4b;
-    border-radius:8px;
-    background:#fff;
-    color:#0d0a4b;
-    font-size:18px;
-    font-weight:700;
-  }
-  .cellarmate-preview-stage .cellarmate-fixed-actions button:last-child { background:#0d0a4b; color:#fff; }
-  .cellarmate-preview-stage > button[data-cellarmate-go] { display:none; }
+.cellarmate-friend-stage [data-cellarmate-next-friend]:disabled {
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:transparent !important;
+  opacity:0 !important;
 }
-/* The friend-picker export already contains the complete card and next button.
-   Do not clip its lower half: clipping left a large blank panel in mobile. */
-.w25-real-mobile .cellarmate-sent-flow .cellarmate-friend-stage > img { clip-path:none; }
+
 .cellarmate-fixed-actions { display:none; }
-.w25-real-mobile .cellarmate-preview-stage .cellarmate-fixed-actions {
+.cellarmate-preview-stage > img {
+  clip-path:inset(0 0 105px 0) !important;
+  margin-bottom:-231px !important;
+}
+.cellarmate-preview-stage > button[data-cellarmate-go] { display:none; }
+.cellarmate-product-stage > .cellarmate-product-next { display:none; }
+:is(.cellarmate-product-stage,.cellarmate-preview-stage) .cellarmate-fixed-actions {
   position:fixed;
   z-index:35;
-  right:0;
   bottom:0;
-  left:0;
+  left:50%;
   display:grid;
+  width:min(100%,390px);
   grid-template-columns:1fr 1fr;
   gap:26px;
-  padding:14px 24px calc(14px + env(safe-area-inset-bottom, 0px));
+  padding:14px 24px calc(14px + env(safe-area-inset-bottom,0px));
   background:#fff;
   box-shadow:0 -2px 10px rgb(10 17 58 / 10%);
+  transform:translateX(-50%);
 }
-.w25-real-mobile .cellarmate-preview-stage .cellarmate-fixed-actions button {
+:is(.cellarmate-product-stage,.cellarmate-preview-stage) .cellarmate-fixed-actions button {
   position:static;
   width:auto;
   height:56px;
@@ -8971,8 +8977,8 @@ img.world-tour-recommendation-card {
   font-size:18px;
   font-weight:700;
 }
-.w25-real-mobile .cellarmate-preview-stage .cellarmate-fixed-actions button:last-child { background:#0d0a4b; color:#fff; }
-.w25-real-mobile .cellarmate-preview-stage > button[data-cellarmate-go] { display:none; }
+:is(.cellarmate-product-stage,.cellarmate-preview-stage) .cellarmate-fixed-actions button:last-child { background:#0d0a4b; color:#fff; }
+:is(.cellarmate-product-stage,.cellarmate-preview-stage) .cellarmate-fixed-actions button:disabled { opacity:.42; cursor:default; }
 
 /* Remove the baked bottom controls before layering the one live fixed copy. */
 .world-tour-page[data-active-screen="japan"] [data-world-tour-screen="japan"] > img {

@@ -1502,6 +1502,12 @@ function renderCellarmate(screen) {
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view');
   phoneShell.classList.add('is-cellarmate-view');
   closePairingModal();
+  cellarmateView.scrollTop = 0;
+  phoneShell.scrollTop = 0;
+  const activeCellarmateScreen = cellarmateScreens.find((element) => !element.hidden);
+  if (activeCellarmateScreen) activeCellarmateScreen.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
@@ -1790,7 +1796,15 @@ document.querySelector('.cellarmate-friend-stage')?.addEventListener('click', (e
 
 document.querySelector('[data-cellarmate-product]')?.addEventListener('click', () => {
   document.querySelector('[data-cellarmate-product-image]').src = './assets/cellarmate-sent/product-selected.png';
+  document.querySelector('.cellarmate-product-stage')?.classList.add('is-selected');
   document.querySelector('.cellarmate-product-next').disabled = false;
+  document.querySelectorAll('[data-cellarmate-product-send]').forEach((button) => { button.disabled = false; });
+  requestAnimationFrame(() => {
+    document.querySelector('[data-cellarmate-screen="sent-products"]')?.scrollTo({ top: 0, behavior: 'auto' });
+    cellarmateView.scrollTop = 0;
+    phoneShell.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  });
 });
 
 document.querySelector('[data-cellarmate-open="detail"]')?.addEventListener('click', () => {
