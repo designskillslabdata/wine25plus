@@ -58,14 +58,15 @@
   ];
 
   const ideas = {
-    friends: { number:'1-1', title:'나의 술친구 무무씨와 친구들', group:'explore', image:'./assets/flow/drink-id.png', target:'drink-friends', point:[0.5,0.78] },
+    friends: { number:'1-1', title:'나의 술친구 무무씨와 친구들', group:'explore', image:'./assets/flow/drink-id.png', target:'drink-friends', point:[0.5,0.78], storyIndex:0 },
     world: { number:'1-2', title:'세계 주류 여행', group:'explore', image:'./assets/flow/explore.png', target:'world-trip', point:[0.5,0.36], carouselIndex:1 },
     card: { number:'1-3', title:'카드 한 장으로 뽑는 오늘의 술', group:'explore', image:'./assets/flow/liquor-card.png', target:'liquor-card', point:[0.5,0.36], carouselIndex:3 },
-    'drink-id': { number:'1-4', title:'니술내술+', group:'explore', image:'./assets/flow/drink-id.png', target:'drink-id', point:[0.5,0.78] },
+    'drink-id': { number:'1-4', title:'니술내술+', group:'explore', image:'./assets/flow/drink-id.png', target:'drink-id', point:[0.5,0.78], storyIndex:1 },
     catalog: { number:'2-1', title:'주류 구매 화면', group:'purchase', image:'./assets/flow/explore.png', target:'explore', point:[0.963,0.740], fixedPoint:true },
     pairing: { number:'2-2', title:'맛잘알 조합찾기', group:'purchase', image:'./assets/flow/pairing.png', target:'pairing', point:[0.5,0.36], carouselIndex:4 },
     'shared-cart': { number:'3-1', title:'주류 공동 구매', group:'together', image:'./assets/flow/shared-cart.png', target:'shared-cart', point:[0.805,0.105] },
-    'first-drink': { number:'4-1', title:'인생첫술 기프트 세트', group:'gift', image:'./assets/flow/first-drink.png', target:'first-drink', point:[0.5,0.78] },
+    party: { number:'3-2', title:'파티+ 퀘스트 시작하기', group:'together', image:'./assets/party-quest/home.png', target:'party-quest', point:[0.5,0.78], storyIndex:3 },
+    'first-drink': { number:'4-1', title:'인생첫술 기프트 세트', group:'gift', image:'./assets/flow/first-drink.png', target:'first-drink', point:[0.5,0.78], storyIndex:2 },
     cellar: {
       number: '5-1', title: '나만의 술장', group: 'archive', image: './assets/flow/cellar.png', target:'cellar',
       description: '상단 프로필 아이콘에서 보유 주류와 취향 기록을 관리하는 나만의 술장으로 이동합니다.',
@@ -196,6 +197,7 @@
       type: 'w25-flow-focus',
       target: idea?.target || id,
       carouselIndex: idea?.carouselIndex,
+      storyIndex: idea?.storyIndex,
     }, '*');
   }
 
@@ -220,7 +222,9 @@
       try {
         const sourceSelector = Number.isInteger(idea.carouselIndex)
           ? '[data-flow-dynamic="carousel"]'
-          : `[data-flow-target="${idea.target || selectedId}"]`;
+          : Number.isInteger(idea.storyIndex)
+            ? '[data-flow-target="drink-friends"]'
+            : `[data-flow-target="${idea.target || selectedId}"]`;
         const sourceElement = flowApp.contentDocument?.querySelector(sourceSelector);
         if (sourceElement) {
           const sourceRect = sourceElement.getBoundingClientRect();

@@ -416,10 +416,10 @@ a {
 
 .category-art {
   position: relative;
-  width: 66px;
-  height: 104px;
+  width: 71px;
+  height: 106px;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: 14px;
   background: var(--navy);
 }
 
@@ -447,6 +447,10 @@ a {
   font-style: normal;
   line-height: 1.3;
 }
+
+.categories { gap: 4px; padding-inline: 13px; }
+.category-art img { object-fit: contain; object-position: right bottom; }
+.category-art em { top: 7px; left: 6px; font-size: 14px; }
 
 .category-art--other {
   background: transparent;
@@ -6904,6 +6908,63 @@ img.world-tour-recommendation-card {
   -webkit-user-drag: none;
 }
 
+.taste-plus-fixed-nav {
+  position: fixed;
+  z-index: 20;
+  left: 50%;
+  bottom: 0;
+  width: min(100vw, 390px);
+  height: 112px;
+  background-color: #fff;
+  background-image: url('./assets/taste-plus/home-custom-long.png');
+  background-repeat: no-repeat;
+  background-position: center -738px;
+  background-size: 100% auto;
+  box-shadow: 0 -1px 8px rgba(10,17,58,.08);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* Figma-accurate cellar renewal. The shared status/top bars remain the only chrome. */
+.cellar-renewal { position:relative; display:block; height:calc(100dvh - var(--top-appbar-height)); overflow:auto; scrollbar-width:none; background:#fff; }
+.cellar-renewal::-webkit-scrollbar { display:none; }
+.cellar-renewal > img { display:block; width:100%; height:auto; margin-top:calc(-1 * (var(--app-statusbar-height) + var(--top-appbar-height))); }
+.cellar-page > :where(.cellar-content,.cellar-bottom-actions) { display:none !important; }
+.cellar-renewal-hit { position:absolute; z-index:5; margin:0; padding:0; border:0; background:transparent; cursor:pointer; }
+.cellar-renewal-sort { top:18.2%; right:4%; width:27%; height:6%; }
+.cellar-renewal-item { width:22%; height:19%; }
+.cellar-renewal-item--normal { top:40%; left:6%; }
+.cellar-renewal-item--favorite { top:40%; left:29%; }
+
+.cellar-figma-page[hidden], .cellar-overlay[hidden] { display:none !important; }
+.cellar-figma-page { position:relative; width:100%; height:calc(100dvh - var(--app-statusbar-height)); overflow-x:hidden; overflow-y:auto; background:#fff; scrollbar-width:none; }
+.cellar-figma-page::-webkit-scrollbar { display:none; }
+.cellar-figma-page > img { display:block; width:100%; height:auto; margin-top:calc(-1 * (var(--app-statusbar-height) + var(--top-appbar-height))); }
+.cellar-figma-page .account-subheader { position:sticky; z-index:10; top:0; }
+.phone-shell:has(.cellar-figma-page:not([hidden])) .floating-actions { display:none !important; }
+.cellar-filter-apply { position:absolute; right:14px; border:0; background:transparent; color:#1977f3; font-weight:700; }
+.cellar-filter-toggle { position:absolute; z-index:12; width:21%; height:5%; border:0; border-radius:20px; background:transparent; }
+.cellar-filter-toggle.filter-one { top:32%; left:8%; }
+.cellar-filter-toggle.filter-two { top:32%; left:31%; }
+.cellar-filter-toggle.is-selected { outline:3px solid rgba(26,119,243,.42); background:rgba(26,119,243,.08); }
+.cellar-friends-page > button { position:absolute; z-index:12; left:5%; width:90%; height:12%; border:0; background:transparent; }
+.cellar-friends-page > button[data-cellar-friend="kim"] { top:24%; }
+.cellar-friends-page > button[data-cellar-friend="park"] { top:38%; }
+.cellar-friends-page > button[data-cellar-friend="lee"] { top:52%; }
+
+.cellar-overlay { position:absolute; z-index:1000; inset:0; display:grid; place-items:end center; background:rgba(8,12,28,.55); }
+.cellar-overlay-backdrop { position:absolute; inset:0; width:100%; border:0; background:transparent; }
+.cellar-overlay-card { position:relative; z-index:2; width:calc(100% - 34px); max-width:355px; }
+.cellar-overlay.is-sort .cellar-overlay-card { width:100%; max-width:402px; }
+.cellar-overlay-card > img { display:block; width:100%; height:auto; }
+.cellar-sort-options { position:absolute; inset:0; display:grid; grid-template-rows:repeat(3,1fr); padding:70px 24px 22px; }
+.cellar-sort-options[hidden] { display:none !important; }
+.cellar-sort-options button { border:0; background:transparent; color:transparent; cursor:pointer; }
+
+@media (max-width:767px) {
+  .cellar-renewal > img, .cellar-figma-page > img { margin-top:calc(-1 * var(--top-appbar-height)); }
+}
+
 .taste-plus-hotspot {
   position: absolute;
   z-index: 8;
@@ -7948,8 +8009,9 @@ img.world-tour-recommendation-card {
   }
 
   .category-art {
-    width: 60px;
-    height: 94px;
+    width: clamp(60px, 17.7vw, 71px);
+    height: clamp(94px, 26.5vw, 106px);
+    border-radius: 14px;
   }
 
   .category {
@@ -8648,6 +8710,18 @@ img.world-tour-recommendation-card {
 }
 .w25-real-mobile .cellarmate-header { top: 0; }
 .w25-real-mobile .cellarmate-tabs { top: var(--top-appbar-height); }
+
+/* Full-screen Figma artwork includes a 60px simulated iOS status bar. On a
+   real phone the shared app bar is only 52px tall, so move the complete
+   artwork (including its hit areas) upward by that exported status-bar band.
+   This prevents the artwork's second app bar from appearing below ours. */
+.w25-real-mobile .world-tour-screen:not(.world-tour-modetour-loading):not(.world-tour-modetour-detail),
+.w25-real-mobile .kyobo-screen {
+  --artwork-chrome-shift: calc(var(--top-appbar-height) - 28.7179cqw);
+  container-type: inline-size;
+  margin-bottom: var(--artwork-chrome-shift);
+  transform: translateY(var(--artwork-chrome-shift));
+}
 
 @media (prefers-reduced-motion: reduce) {
   html {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>WINE25+ PLUS App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260915a" />
+    <link rel="stylesheet" href="./styles.css?v=20260916d" />
   </head>
   <body>
     <main class="phone-shell" aria-label="WINE25+ PLUS 모바일 홈">
@@ -83,15 +83,15 @@
 
         <section class="categories" data-flow-target="explore" aria-label="주류 카테고리">
           <a href="#catalog/wine" class="category" data-category="wine">
-            <span class="category-art"><img src="./assets/category-beer.svg" alt="" /><em>Wine</em></span>
+            <span class="category-art"><img src="./assets/home-refresh/category/wine.svg" alt="" /><em>Wine</em></span>
             <span>와인</span>
           </a>
           <a href="#catalog/beer" class="category" data-category="beer">
-            <span class="category-art"><img src="./assets/wine-mask.svg" alt="" /><em>Beer</em></span>
+            <span class="category-art"><img src="./assets/home-refresh/category/beer.svg" alt="" /><em>Beer</em></span>
             <span>맥주</span>
           </a>
           <a href="#catalog/liquor" class="category" data-category="liquor">
-            <span class="category-art"><img src="./assets/category-liquor.svg" alt="" /><em>Liquor</em></span>
+            <span class="category-art"><img src="./assets/home-refresh/category/liquor.svg" alt="" /><em>Liquor</em></span>
             <span>양주</span>
           </a>
           <a href="#catalog/highball" class="category" data-category="highball">
@@ -170,15 +170,15 @@
       <section id="catalog" class="catalog-page" aria-label="주류 탐색" hidden>
         <nav class="catalog-categories" aria-label="주류 카테고리 선택">
           <a href="#catalog/wine" class="catalog-category" data-category="wine">
-            <span class="catalog-category-art"><img src="./assets/category-beer.svg" alt="" /><em>Wine</em></span>
+            <span class="catalog-category-art"><img src="./assets/home-refresh/category/wine.svg" alt="" /><em>Wine</em></span>
             <span>와인</span>
           </a>
           <a href="#catalog/beer" class="catalog-category" data-category="beer">
-            <span class="catalog-category-art"><img src="./assets/wine-mask.svg" alt="" /><em>Beer</em></span>
+            <span class="catalog-category-art"><img src="./assets/home-refresh/category/beer.svg" alt="" /><em>Beer</em></span>
             <span>맥주</span>
           </a>
           <a href="#catalog/liquor" class="catalog-category" data-category="liquor">
-            <span class="catalog-category-art"><img src="./assets/category-liquor.svg" alt="" /><em>Liquor</em></span>
+            <span class="catalog-category-art"><img src="./assets/home-refresh/category/liquor.svg" alt="" /><em>Liquor</em></span>
             <span>양주</span>
           </a>
           <a href="#catalog/highball" class="catalog-category" data-category="highball">
@@ -609,6 +609,7 @@
 
         <article class="taste-plus-screen" data-taste-plus-screen="custom-home" hidden>
           <img src="./assets/taste-plus/home-custom-long.png" alt="주류 탐험가 취향과 추천 콘텐츠가 등록된 GS25 맞춤 홈" />
+          <div class="taste-plus-fixed-nav" aria-hidden="true"></div>
         </article>
       </section>
 
@@ -838,7 +839,21 @@
           <button type="button" data-action="friends-cellar">친구 술장 구경하기</button>
           <button type="button" data-action="recommended">주류 추천 받으러 가기 <img src="./assets/account/cellar-arrow.svg" alt="" /></button>
         </nav>
+
+        <div class="cellar-renewal" aria-label="피그마 기준 나만의 술장">
+          <img src="./assets/cellar-renewal/cellar-main.png" alt="김무무네 나만의 술장" />
+          <button class="cellar-renewal-hit cellar-renewal-sort" type="button" data-cellar-overlay="sort" aria-label="정렬 방식 선택"></button>
+          <button class="cellar-renewal-hit cellar-renewal-item cellar-renewal-item--normal" type="button" data-cellar-overlay="item" aria-label="보관 주류 상세"></button>
+          <button class="cellar-renewal-hit cellar-renewal-item cellar-renewal-item--favorite" type="button" data-cellar-overlay="favorite" aria-label="찜술 상세"></button>
+        </div>
       </section>
+
+      <section class="cellar-figma-page" data-cellar-page="grade" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>등급 안내</h1><span></span></header><img src="./assets/cellar-renewal/grade-guide.png" alt="와인25플러스 등급 안내" /></section>
+      <section class="cellar-figma-page" data-cellar-page="filter" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>필터</h1><button class="cellar-filter-apply" type="button" data-cellar-close-page>완료</button></header><img src="./assets/cellar-renewal/filter.png" alt="술장 필터 설정" /><button class="cellar-filter-toggle filter-one" type="button" aria-label="첫 번째 필터"></button><button class="cellar-filter-toggle filter-two" type="button" aria-label="두 번째 필터"></button></section>
+      <section class="cellar-figma-page cellar-friends-page" data-cellar-page="friends" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>친구의 술장</h1><span></span></header><img src="./assets/cellar-renewal/friends.png" alt="친구의 술장 목록" /><button data-cellar-friend="kim" aria-label="김머용 술장"></button><button data-cellar-friend="park" aria-label="박안즈레 술장"></button><button data-cellar-friend="lee" aria-label="이순남 술장"></button></section>
+      <section class="cellar-figma-page cellar-friend-detail" data-cellar-page="friend-detail" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-back-friends aria-label="친구의 술장 목록"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>친구의 술장</h1><span></span></header><img data-cellar-friend-image src="./assets/cellar-renewal/friend-kim.png" alt="친구의 술장" /></section>
+
+      <div class="cellar-overlay" data-cellar-modal hidden><button class="cellar-overlay-backdrop" type="button" data-cellar-modal-close aria-label="팝업 닫기"></button><div class="cellar-overlay-card"><img data-cellar-modal-image alt="술장 팝업" /><div class="cellar-sort-options" hidden><button type="button" data-sort-value="직접 설정순">직접 설정순</button><button type="button" data-sort-value="최신 등록순">최신 등록순</button><button type="button" data-sort-value="평점 높은순">평점 높은순</button></div></div></div>
 
       <section id="drink-id-view" class="drink-id-page" aria-label="MY DRINK ID" hidden>
         <div class="drink-screen drink-start" data-drink-screen="start">
@@ -1334,6 +1349,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260914g"></script>
+    <script src="./app.js?v=20260916b"></script>
   </body>
 </html>

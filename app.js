@@ -33,6 +33,7 @@ window.addEventListener('message', (event) => {
 
 const isPresentationEmbed = new URLSearchParams(window.location.search).get('presentation') === '1';
 let carouselController = null;
+let storyCarouselController = null;
 const carousel = document.querySelector('.hero-carousel');
 
 const catalogData = {
@@ -154,8 +155,14 @@ const detailPickup = document.querySelector('.detail-pickup strong');
 const pairingTrigger = document.querySelector('.pairing-trigger');
 const pairingModal = document.querySelector('.pairing-modal');
 const pairingRecommendations = document.querySelector('.pairing-recommendations');
+const pairingDialogIcons = Array.from(document.querySelectorAll('.pairing-dialog-icons img'));
 const wineryView = document.querySelector('.winery-page');
 const cellarView = document.querySelector('.cellar-page');
+const cellarFigmaPages = Array.from(document.querySelectorAll('[data-cellar-page]'));
+const cellarModal = document.querySelector('[data-cellar-modal]');
+const cellarModalImage = document.querySelector('[data-cellar-modal-image]');
+const cellarSortOptions = document.querySelector('.cellar-sort-options');
+const cellarRenewalSort = document.querySelector('.cellar-renewal-sort');
 const cellarmateView = document.querySelector('.cellarmate-page');
 const cellarmateScreens = Array.from(document.querySelectorAll('[data-cellarmate-screen]'));
 const cellarmateTabs = Array.from(document.querySelectorAll('[data-cellarmate-tab]'));
@@ -1158,7 +1165,24 @@ function renderPairings(profile) {
   });
 }
 
+function syncPairingIcons(category) {
+  const orders = {
+    wine: [3, 4, 2, 1],
+    beer: [2, 1, 4, 3],
+    liquor: [4, 2, 1, 3],
+    highball: [1, 3, 2, 4],
+  };
+  (orders[category] || orders.wine).forEach((assetIndex, index) => {
+    if (pairingDialogIcons[index]) pairingDialogIcons[index].src = `./assets/catalog/pairing-popup-0${assetIndex}.svg`;
+  });
+  document.querySelectorAll('.pairing-tiles img').forEach((image, index) => {
+    const assetIndex = (orders[category] || orders.wine)[index];
+    image.src = `./assets/catalog/pairing-popup-0${assetIndex}.svg`;
+  });
+}
+
 function renderProductDetail(category, index) {
+  closeCellarPages();
   hideCellarmate();
   hideKyoboEvent();
   hideFindIt();
@@ -1212,6 +1236,7 @@ function renderProductDetail(category, index) {
   });
 
   renderPairings(profile);
+  syncPairingIcons(category);
   window.scrollTo({ top: 0, behavior: 'auto' });
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -1221,6 +1246,7 @@ function renderProductDetail(category, index) {
 }
 
 function renderHome() {
+  closeCellarPages();
   hideTastePlus();
   hideFriendSelect();
   hideFriendMileage();
@@ -1257,6 +1283,7 @@ function applyMembershipTier(index) {
 }
 
 function renderWinery() {
+  closeCellarPages();
   hideCellarmate();
   hideKyoboEvent();
   hideFindIt();
@@ -1299,6 +1326,7 @@ function renderCellarSlots(category = 'all') {
 }
 
 function renderCellar() {
+  closeCellarPages();
   hideCellarmate();
   hideKyoboEvent();
   hideFindIt();
@@ -2558,6 +2586,21 @@ if (storyCarousel) {
     fallback = window.setTimeout(finishStoryMove, 520);
   }
 
+  function goToStory(nextIndex, animate = true) {
+    const normalizedIndex = Math.max(0, Math.min(Number(nextIndex) || 0, count - 1));
+    clearTimeout(fallback);
+    index = normalizedIndex;
+    position = index + 1;
+    moving = false;
+    updateStoryState();
+    setPosition(position, animate);
+  }
+
+  storyCarouselController = {
+    goTo: goToStory,
+    current: () => index,
+  };
+
   storyTrack.addEventListener('transitionend', (event) => {
     if (event.target === storyTrack && event.propertyName === 'transform') finishStoryMove();
   });
@@ -2728,12 +2771,13 @@ const flowTargets = {
   cellar: document.querySelector('[data-flow-target="cellar"]'),
   'shared-cart': document.querySelector('[data-flow-target="shared-cart"]'),
   explore: document.querySelector('[data-flow-target="explore"]'),
-  'drink-id': document.querySelector('[data-flow-target="drink-id"]'),
-  'drink-friends': document.querySelector('[data-flow-target="drink-friends"]'),
+  'drink-id': storyCarousel,
+  'drink-friends': storyCarousel,
   'world-trip': carousel,
-  'first-drink': carousel,
+  'first-drink': storyCarousel,
   'liquor-card': carousel,
   pairing: carousel,
+  'party-quest': storyCarousel,
 };
 const carouselFlowTargets = [null, 'first-drink', 'liquor-card', 'pairing'];
 let focusedFlowElement = null;
@@ -2813,10 +2857,11 @@ window.addEventListener('message', (event) => {
   if (!target || !flowTargets[target]) return;
 
   if (Number.isInteger(event.data.carouselIndex)) carouselController?.goTo(event.data.carouselIndex, true);
+  if (Number.isInteger(event.data.storyIndex)) storyCarouselController?.goTo(event.data.storyIndex, true);
   focusedFlowElement = flowTargets[target];
   focusedFlowElement.classList.add('w25-flow-focus');
 
-  if (target === 'drink-id') {
+  if (focusedFlowElement === storyCarousel) {
     focusedFlowElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   } else {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2979,6 +3024,28 @@ document.addEventListener('click', (event) => {
     window.location.hash = '#winery';
     return;
   }
+  if (action === 'grade-info') {
+    wineryView.hidden = true;
+    const page = cellarFigmaPages.find((item) => item.dataset.cellarPage === 'grade');
+    if (page) page.hidden = false;
+    return;
+  }
+  if (action === 'cellar-filter') {
+    cellarView.hidden = true;
+    const page = cellarFigmaPages.find((item) => item.dataset.cellarPage === 'filter');
+    if (page) page.hidden = false;
+    return;
+  }
+  if (action === 'friends-cellar') {
+    cellarView.hidden = true;
+    const page = cellarFigmaPages.find((item) => item.dataset.cellarPage === 'friends');
+    if (page) page.hidden = false;
+    return;
+  }
+  if (action === 'cellar-sort') {
+    cellarRenewalSort?.click();
+    return;
+  }
   if (action === 'hero-find') {
     foundTreasures.clear();
     window.location.hash = '#find-it/game';
@@ -3066,4 +3133,55 @@ document.addEventListener('click', (event) => {
   }
 
   showToast(messages[action] ?? '준비 중인 기능입니다.');
+});
+
+function closeCellarPages() {
+  cellarFigmaPages.forEach((page) => { page.hidden = true; });
+  if (cellarModal) cellarModal.hidden = true;
+}
+
+function openCellarModal(kind) {
+  if (!cellarModal || !cellarModalImage) return;
+  const sources = {
+    sort: './assets/cellar-renewal/sort-sheet.png',
+    item: './assets/cellar-renewal/item.png',
+    favorite: './assets/cellar-renewal/item-favorite.png',
+  };
+  cellarModalImage.src = sources[kind];
+  cellarModal.classList.toggle('is-sort', kind === 'sort');
+  cellarModalImage.alt = kind === 'favorite' ? '찜술 상세' : kind === 'item' ? '보관 주류 상세' : '술장 정렬 방식';
+  cellarSortOptions.hidden = kind !== 'sort';
+  cellarModal.hidden = false;
+}
+
+document.querySelectorAll('[data-cellar-overlay]').forEach((button) => button.addEventListener('click', () => openCellarModal(button.dataset.cellarOverlay)));
+document.querySelectorAll('[data-cellar-modal-close]').forEach((button) => button.addEventListener('click', () => { cellarModal.hidden = true; }));
+document.querySelectorAll('[data-sort-value]').forEach((button) => button.addEventListener('click', () => {
+  document.querySelectorAll('.cellar-sort, .cellar-renewal-sort').forEach((sort) => sort.setAttribute('data-current-sort', button.dataset.sortValue));
+  const legacy = document.querySelector('.cellar-sort');
+  if (legacy) legacy.textContent = `${button.dataset.sortValue}⌄`;
+  cellarModal.hidden = true;
+  showToast(`${button.dataset.sortValue}으로 정렬했어요.`);
+}));
+document.querySelectorAll('[data-cellar-close-page]').forEach((button) => button.addEventListener('click', () => {
+  const page = button.closest('[data-cellar-page]');
+  const fromGrade = page?.dataset.cellarPage === 'grade';
+  closeCellarPages();
+  if (fromGrade) wineryView.hidden = false;
+  else cellarView.hidden = false;
+}));
+document.querySelectorAll('.cellar-filter-toggle').forEach((button) => button.addEventListener('click', () => button.classList.toggle('is-selected')));
+document.querySelectorAll('[data-cellar-friend]').forEach((button) => button.addEventListener('click', () => {
+  const sources = { kim:'friend-kim.png', park:'friend-park.png', lee:'friend-lee.png' };
+  const list = button.closest('[data-cellar-page]');
+  const detail = cellarFigmaPages.find((page) => page.dataset.cellarPage === 'friend-detail');
+  const image = detail?.querySelector('[data-cellar-friend-image]');
+  if (!detail || !image) return;
+  list.hidden = true;
+  image.src = `./assets/cellar-renewal/${sources[button.dataset.cellarFriend]}`;
+  detail.hidden = false;
+}));
+document.querySelector('[data-cellar-back-friends]')?.addEventListener('click', () => {
+  cellarFigmaPages.find((page) => page.dataset.cellarPage === 'friend-detail').hidden = true;
+  cellarFigmaPages.find((page) => page.dataset.cellarPage === 'friends').hidden = false;
 });
