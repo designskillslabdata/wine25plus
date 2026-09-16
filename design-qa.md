@@ -1,4 +1,4 @@
-# Design QA — WINE25+ PLUS 발표 플로우
+# Design QA — WINE25PLUS 발표 플로우
 
 ## Comparison Target
 

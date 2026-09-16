@@ -81,7 +81,7 @@ const catalogData = {
 
 const detailProfiles = {
   wine: {
-    eyebrow: 'WINE25+ PLUS WINE',
+    eyebrow: 'WINE25PLUS WINE',
     metrics: [
       { label: '당도', value: 25 },
       { label: '바디감', value: 80 },
@@ -95,7 +95,7 @@ const detailProfiles = {
     ],
   },
   beer: {
-    eyebrow: 'WINE25+ PLUS BEER',
+    eyebrow: 'WINE25PLUS BEER',
     metrics: [
       { label: '쓴맛', value: 38 },
       { label: '탄산감', value: 82 },
@@ -109,7 +109,7 @@ const detailProfiles = {
     ],
   },
   liquor: {
-    eyebrow: 'WINE25+ PLUS SPIRITS',
+    eyebrow: 'WINE25PLUS SPIRITS',
     metrics: [
       { label: '스모키', value: 68 },
       { label: '바디감', value: 88 },
@@ -123,7 +123,7 @@ const detailProfiles = {
     ],
   },
   highball: {
-    eyebrow: 'WINE25+ PLUS HIGHBALL',
+    eyebrow: 'WINE25PLUS HIGHBALL',
     metrics: [
       { label: '단맛', value: 62 },
       { label: '탄산감', value: 86 },
@@ -1113,7 +1113,7 @@ function getResultShareData() {
   shareUrl.searchParams.set('resultCard', String(cardIndex));
   shareUrl.hash = '#card-pick/reveal';
   return {
-    title: 'WINE25+ PLUS 오늘의 술',
+    title: 'WINE25PLUS 오늘의 술',
     text: `${card.title} 카드가 추천한 오늘의 술은 디아블로 까베르네 소비뇽이에요.`,
     url: shareUrl.href,
     card,

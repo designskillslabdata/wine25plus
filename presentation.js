@@ -33,7 +33,7 @@
   const introSteps = [
     {
       step: '01', label: 'APP ENTRY', kicker: '01 · APP ENTRY',
-      title: '<span class="w25-intro-title-line">우리동네GS에서</span><span class="w25-intro-title-line">WINE25+PLUS를 만납니다</span>',
+      title: '<span class="w25-intro-title-line">우리동네GS에서</span><span class="w25-intro-title-line">WINE25PLUS를 만납니다</span>',
       description: '실제 사용자가 앱을 실행하는 순서대로<br />새로운 홈 화면까지 이동합니다.',
       button: '우리동네GS 열기', image: './assets/flow/phone-entry.png', alt: '아이폰 홈 화면의 우리동네GS 앱', className: 'is-phone-home',
     },
@@ -45,15 +45,15 @@
     },
     {
       step: '03', label: 'OUR GS', kicker: '03 · OUR GS',
-      title: '<span class="w25-intro-title-line">우리동네GS 안에서</span><span class="w25-intro-title-line">WINE25+PLUS를 선택합니다</span>',
-      description: '기존 서비스 홈의 WINE25+PLUS 타일이<br />학생 아이디어를 반영한 앱으로 연결됩니다.',
-      button: 'WINE25+PLUS 들어가기', image: './assets/flow/our-gs.png', alt: '우리동네GS 홈의 WINE25+PLUS 타일', className: 'is-our-gs',
+      title: '<span class="w25-intro-title-line">우리동네GS 안에서</span><span class="w25-intro-title-line">WINE25PLUS를 선택합니다</span>',
+      description: '기존 서비스 홈의 WINE25PLUS 타일이<br />학생 아이디어를 반영한 앱으로 연결됩니다.',
+      button: 'WINE25PLUS 들어가기', image: './assets/flow/our-gs.png', alt: '우리동네GS 홈의 WINE25PLUS 타일', className: 'is-our-gs',
     },
     {
       step: '04', label: 'NEW HOME', kicker: '04 · NEW HOME',
       title: '<span class="w25-intro-title-line">취향에 따라 달라지는</span><span class="w25-intro-title-line">새로운 홈을 만납니다</span>',
-      description: '기존 WINE25+PLUS 홈에서 시작해<br />컬러 유형 테스트와 맞춤 화면으로 이어집니다.',
-      button: '컬러 유형 테스트 보기', image: '', alt: '새롭게 구성한 WINE25+PLUS 홈 화면', className: 'is-app',
+      description: '기존 WINE25PLUS 홈에서 시작해<br />컬러 유형 테스트와 맞춤 화면으로 이어집니다.',
+      button: '컬러 유형 테스트 보기', image: '', alt: '새롭게 구성한 WINE25PLUS 홈 화면', className: 'is-app',
     },
   ];
 
