@@ -7132,6 +7132,119 @@ img.world-tour-recommendation-card {
   }
 }
 
+/* Mobile fidelity pass — shared chrome, fixed controls and exact hit areas. */
+.categories {
+  grid-template-columns: repeat(5, minmax(0, 71.13px));
+  justify-content: center;
+}
+.category-art {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 71.13 / 106.37;
+}
+.category-art em {
+  font-family: "Pure Malone Demo", Georgia, serif;
+  font-size: 13.67px;
+  line-height: 1.05;
+}
+.category > span:last-child { font-size: 14.3px; line-height: 1.93; }
+
+.pairing-tiles > span { background: transparent !important; }
+.pairing-tiles img,
+.pairing-dialog-icons img { object-fit: contain; background: transparent !important; }
+
+/* The source artwork still contains the old comment field. Cover only that
+   band; the live composer remains the sole fixed control above it. */
+.pairing-finder-page.is-detail-screen .pairing-finder-art--detail::after {
+  position: absolute;
+  z-index: 3;
+  top: 78.4cqw;
+  right: 0;
+  left: 0;
+  height: 22cqw;
+  background: #fff;
+  content: "";
+  pointer-events: none;
+}
+
+.world-tour-global-nav,
+.world-tour-product-purchase { display: none; }
+.world-tour-page[data-active-screen="world"] .world-tour-global-nav,
+.world-tour-page[data-active-screen="japan"] .world-tour-global-nav {
+  display: block;
+  position: fixed;
+  z-index: 42;
+  bottom: 0;
+  left: 50%;
+  width: min(100vw, 390px);
+  height: 86px;
+  background: #fff url("./assets/world-tour/world.png") center bottom / 100% auto no-repeat;
+  box-shadow: 0 -1px 8px rgb(10 17 58 / 8%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.world-tour-bottom-nav { display: none; }
+.world-tour-page[data-active-screen="world"] .world-tour-screen--world,
+.world-tour-page[data-active-screen="japan"] [data-world-tour-screen="japan"] { padding-bottom: 86px; }
+.world-tour-page[data-active-screen="product"] .world-tour-product-purchase {
+  display: block;
+  position: fixed;
+  z-index: 44;
+  bottom: 0;
+  left: 50%;
+  width: min(100vw, 390px);
+  height: 88px;
+  background: #fff url("./assets/world-tour/product.png") center bottom / 100% auto no-repeat;
+  box-shadow: 0 -1px 8px rgb(10 17 58 / 8%);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.world-tour-page[data-active-screen="product"] .world-tour-reserve {
+  position: fixed;
+  z-index: 45;
+  top: auto;
+  right: max(calc((100vw - min(100vw, 390px)) / 2 + 2%), 2%);
+  bottom: 8px;
+  left: auto;
+  width: min(46%, 180px);
+  height: 68px;
+  pointer-events: auto;
+}
+
+.party-exact-hotspot { touch-action: manipulation; }
+.party-exact-cart { top: 53.3%; left: 22%; width: 56%; height: 6.2%; }
+.party-cart-plus { top: 13.5%; left: 16%; width: 68%; height: 38%; }
+.party-pickup-auth { top: 65.1%; left: 9%; width: 82%; height: 9%; }
+.party-camera-shutter { top: 84.7%; left: 34%; width: 32%; height: 12%; }
+.party-capture-complete { top: 65%; left: 8%; width: 84%; height: 10%; }
+
+.cellarmate-list-screen {
+  height: calc(100dvh - var(--app-statusbar-height));
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+}
+.cellarmate-list-screen .cellarmate-header { position: sticky !important; top: 0 !important; }
+.cellarmate-list-screen .cellarmate-tabs { position: sticky !important; top: var(--top-appbar-height) !important; }
+
+@media (max-width: 767px) {
+  .cellar-renewal > img,
+  .cellar-figma-page > img { margin-top: -25.37vw; }
+}
+
+.w25-real-mobile .party-quest-page > .standalone-chrome,
+.w25-real-mobile .world-tour-page[data-active-screen="modetour-loading"] > .standalone-chrome,
+.w25-real-mobile .world-tour-page[data-active-screen="modetour-detail"] > .standalone-chrome {
+  display: none !important;
+  height: 0 !important;
+}
+.w25-real-mobile .party-quest-page,
+.w25-real-mobile .party-quest-screen,
+.w25-real-mobile .world-tour-modetour-loading,
+.w25-real-mobile .world-tour-modetour-detail { min-height: 100dvh; }
+.w25-real-mobile .world-tour-global-nav,
+.w25-real-mobile .world-tour-product-purchase { bottom: 0; }
+.w25-real-mobile .cellarmate-list-screen { height: 100dvh; }
+
 .find-it-game .find-it-home {
   background: transparent url("./assets/ui/home.svg") center / 24px 24px no-repeat !important;
   box-shadow: none;
@@ -8733,4 +8846,66 @@ img.world-tour-recommendation-card {
   *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Final mobile precedence: keep these after all legacy responsive rules. */
+.categories { grid-template-columns:repeat(5,minmax(0,71.13px)); justify-content:center; gap:4px; padding-inline:13px; }
+.category-art { width:100%; height:auto; aspect-ratio:71.13/106.37; border-radius:14px; }
+.category-art em { top:7px; left:6px; font-family:"Pure Malone Demo",Georgia,serif; font-size:13.67px; line-height:1.05; }
+.category > span:last-child { font-size:14.3px; line-height:1.93; }
+
+.party-exact-cart { top:53.3%; left:22%; width:56%; height:6.2%; }
+.party-cart-plus { top:13.5%; left:16%; width:68%; height:38%; }
+.party-pickup-auth { top:65.1%; left:9%; width:82%; height:9%; }
+.party-camera-shutter { top:84.7%; left:34%; width:32%; height:12%; }
+.party-capture-complete { top:65%; left:8%; width:84%; height:10%; }
+
+.w25-real-mobile .party-quest-page > .standalone-chrome,
+.w25-real-mobile .world-tour-page[data-active-screen="modetour-loading"] > .standalone-chrome,
+.w25-real-mobile .world-tour-page[data-active-screen="modetour-detail"] > .standalone-chrome { display:none !important; height:0 !important; }
+.w25-real-mobile .cellar-renewal > img,
+.w25-real-mobile .cellar-figma-page > img { margin-top:-25.37vw !important; }
+.w25-real-mobile .cellarmate-list-screen { height:100dvh; overflow-y:auto; }
+.w25-real-mobile .cellarmate-list-screen .cellarmate-header { position:sticky !important; top:0 !important; }
+.w25-real-mobile .cellarmate-list-screen .cellarmate-tabs { position:sticky !important; top:var(--top-appbar-height) !important; }
+
+/* Remove the baked bottom controls before layering the one live fixed copy. */
+.world-tour-page[data-active-screen="japan"] [data-world-tour-screen="japan"] > img {
+  clip-path: inset(0 0 86px 0);
+  margin-bottom: -86px;
+}
+.world-tour-page[data-active-screen="product"] [data-world-tour-screen="product"] > img {
+  clip-path: inset(0 0 88px 0);
+  margin-bottom: -88px;
+}
+
+.w25-real-mobile :is(
+  .party-current-screen,
+  .party-cart-screen,
+  .party-camera-screen,
+  .party-shot-screen,
+  .party-complete-screen
+) > img { margin-top:-29.35cqw; }
+.w25-real-mobile .party-cart-plus { top:9%; }
+.w25-real-mobile .party-camera-video { top:18.45cqw; }
+.w25-real-mobile .party-camera-shutter { top:71%; }
+
+.pairing-tiles > span:nth-child(1), .pairing-dialog-icons img:nth-child(1) { background:#d99a42 !important; }
+.pairing-tiles > span:nth-child(2), .pairing-dialog-icons img:nth-child(2) { background:#c2673d !important; }
+.pairing-tiles > span:nth-child(3), .pairing-dialog-icons img:nth-child(3) { background:#6c4647 !important; }
+.pairing-dialog-icons img:nth-child(4) { background:#a51f2b !important; }
+
+.pairing-finder-page.is-detail-screen .pairing-finder-art--detail::before {
+  position:absolute;
+  z-index:4;
+  top:0;
+  left:0;
+  width:72px;
+  height:76px;
+  background:#fff;
+  content:"";
+  pointer-events:none;
+}
+.w25-real-mobile :is(.world-tour-modetour-loading,.world-tour-modetour-detail) > img {
+  margin-top:-14.93cqw;
 }
