@@ -1,3 +1,27 @@
+# Design QA — 좌표계·술장·여행·조합 좌표 통합 (2026-09-17)
+
+## Comparison Target
+
+- User references: category artwork, cellar/friends cellar, Japan sake map, payment completion, and pairing detail screenshots supplied on 2026-09-17.
+- Browser-rendered implementation: `#top`, `#cellar`, friend cellar subpage, `#world-tour/niigata`, `#world-tour/reserve`, `#world-tour/travel-all`, and `#pairing-finder/detail`.
+- Viewport: centered 390 px app shell in the in-app Browser.
+
+## Findings And Fixes
+
+- Replaced viewport-height percentage hit areas in both cellar views with coordinates tied to the 390 px artwork width, so visual cards and actual controls share one coordinate system.
+- Restored the other-liquor category SVG to the complete card bounds instead of scaling and clipping the mark independently.
+- Removed the COLOR TYPE TEST presentation panel and linked the final entry step directly to the full experience map.
+- Replaced visible presentation/app terminology with `와인25 플러스`.
+- Added a horizontal overscan to the Niigata artwork to eliminate the left seam.
+- Added separation above the partner-travel section and placed the live `전체보기` control directly on its visible label.
+- Matched the three pairing vote controls to the source cards, removed the baked duplicate comment composer, and retained one fixed live composer while comments scroll.
+
+## Verification
+
+- JavaScript syntax checks passed for `presentation.js` and `app.js`.
+- `git diff --check` passed.
+- Browser checks confirmed: no Niigata left seam; partner-travel `전체보기` opens the travel list; pairing comments scroll behind one fixed composer; vote state changes; friend/cellar controls use artwork-relative coordinates.
+
 # Design QA — 셀러 보내기 흐름 재정리 (2026-09-17)
 
 ## Comparison Target
