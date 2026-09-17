@@ -5476,7 +5476,7 @@ button.cellarmate-list-card {
 .cellarmate-figma-stage { position: relative; width: 100%; overflow: hidden; background: #fff; }
 .cellarmate-figma-stage > img { display: block; width: 100%; height: auto; }
 .cellarmate-friend-stage > img, .cellarmate-product-stage > img, .cellarmate-complete-stage > img { width: 115%; margin-right: -7.5%; margin-bottom: -143px; margin-left: -7.5%; transform: translateY(-143px); }
-.cellarmate-friend-stage > img { clip-path: inset(0 0 300px 0); }
+.cellarmate-friend-stage > img { clip-path: none; }
 .cellarmate-preview-stage > img { width: 115%; margin-right: -7.5%; margin-left: -7.5%; }
 .cellarmate-friend-stage button, .cellarmate-product-stage button, .cellarmate-preview-stage button, .cellarmate-complete-stage button { position: absolute; z-index: 2; border: 0; background: transparent; cursor: pointer; }
 .cellarmate-friend-choice { width: 154px; height: 184px; }
@@ -5963,6 +5963,7 @@ button.cellarmate-list-card {
    artwork screens. Overscan only the bitmap; interactive coordinates stay on
    the 402px screen grid. */
 [data-world-tour-screen="japan"] > img,
+[data-world-tour-screen="niigata"] > img,
 [data-world-tour-screen="travel-sake"] > img {
   width: calc(100% + 4px);
   max-width: none;
@@ -6926,20 +6927,20 @@ img.world-tour-recommendation-card {
 }
 
 /* Figma-accurate cellar renewal. The shared status/top bars remain the only chrome. */
-.cellar-renewal { position:relative; display:block; height:calc(100dvh - var(--top-appbar-height)); overflow:auto; scrollbar-width:none; background:#fff; }
+.cellar-renewal { position:relative; display:block; height:calc(100dvh - var(--top-appbar-height)); overflow:auto; scrollbar-width:none; background:#fff; container-type:inline-size; }
 .cellar-renewal::-webkit-scrollbar { display:none; }
-.cellar-renewal > img { display:block; width:100%; height:auto; margin-top:calc(-1 * (var(--app-statusbar-height) + var(--top-appbar-height))); }
+.cellar-renewal > img { display:block; width:100%; height:auto; margin:0; }
 .cellar-page > :where(.cellar-content,.cellar-bottom-actions) { display:none !important; }
 .cellar-renewal-hit { position:absolute; z-index:5; margin:0; padding:0; border:0; background:transparent; cursor:pointer; }
-.cellar-renewal-sort { top:18.2%; right:4%; width:27%; height:6%; }
-.cellar-renewal-item { width:22%; height:19%; }
-.cellar-renewal-item--normal { top:40%; left:6%; }
-.cellar-renewal-item--favorite { top:40%; left:29%; }
+.cellar-renewal-sort { top:38cqw; right:4%; width:27%; height:12cqw; }
+.cellar-renewal-item { width:22%; height:29cqw; }
+.cellar-renewal-item--normal { top:49cqw; left:6%; }
+.cellar-renewal-item--favorite { top:49cqw; left:29%; }
 
 .cellar-figma-page[hidden], .cellar-overlay[hidden] { display:none !important; }
-.cellar-figma-page { position:relative; width:100%; height:calc(100dvh - var(--app-statusbar-height)); overflow-x:hidden; overflow-y:auto; background:#fff; scrollbar-width:none; }
+.cellar-figma-page { position:relative; width:100%; height:calc(100dvh - var(--app-statusbar-height)); overflow-x:hidden; overflow-y:auto; background:#fff; scrollbar-width:none; container-type:inline-size; }
 .cellar-figma-page::-webkit-scrollbar { display:none; }
-.cellar-figma-page > img { display:block; width:100%; height:auto; margin-top:calc(-1 * (var(--app-statusbar-height) + var(--top-appbar-height))); }
+.cellar-figma-page > img { display:block; width:100%; height:auto; margin:0; }
 .cellar-figma-page .account-subheader { position:sticky; z-index:10; top:0; }
 .phone-shell:has(.cellar-figma-page:not([hidden])) .floating-actions { display:none !important; }
 .cellar-filter-apply { position:absolute; right:14px; border:0; background:transparent; color:#1977f3; font-weight:700; }
@@ -6947,10 +6948,10 @@ img.world-tour-recommendation-card {
 .cellar-filter-toggle.filter-one { top:32%; left:8%; }
 .cellar-filter-toggle.filter-two { top:32%; left:31%; }
 .cellar-filter-toggle.is-selected { outline:3px solid rgba(26,119,243,.42); background:rgba(26,119,243,.08); }
-.cellar-friends-page > button { position:absolute; z-index:12; left:5%; width:90%; height:12%; border:0; background:transparent; }
-.cellar-friends-page > button[data-cellar-friend="kim"] { top:24%; }
-.cellar-friends-page > button[data-cellar-friend="park"] { top:38%; }
-.cellar-friends-page > button[data-cellar-friend="lee"] { top:52%; }
+.cellar-friends-page > button { position:absolute; z-index:12; left:5%; width:90%; height:15cqw; border:0; background:transparent; }
+.cellar-friends-page > button[data-cellar-friend="kim"] { top:74cqw; }
+.cellar-friends-page > button[data-cellar-friend="park"] { top:92cqw; }
+.cellar-friends-page > button[data-cellar-friend="lee"] { top:110cqw; }
 
 .cellar-overlay { position:absolute; z-index:1000; inset:0; display:grid; place-items:end center; background:rgba(8,12,28,.55); }
 .cellar-overlay-backdrop { position:absolute; inset:0; width:100%; border:0; background:transparent; }
@@ -6960,10 +6961,6 @@ img.world-tour-recommendation-card {
 .cellar-sort-options { position:absolute; inset:0; display:grid; grid-template-rows:repeat(3,1fr); padding:70px 24px 22px; }
 .cellar-sort-options[hidden] { display:none !important; }
 .cellar-sort-options button { border:0; background:transparent; color:transparent; cursor:pointer; }
-
-@media (max-width:767px) {
-  .cellar-renewal > img, .cellar-figma-page > img { margin-top:calc(-1 * var(--top-appbar-height)); }
-}
 
 .taste-plus-hotspot {
   position: absolute;
@@ -7158,10 +7155,10 @@ img.world-tour-recommendation-card {
 .pairing-finder-page.is-detail-screen .pairing-finder-art--detail::after {
   position: absolute;
   z-index: 3;
-  top: 78.4cqw;
+  top: 198cqw;
   right: 0;
   left: 0;
-  height: 22cqw;
+  height: 32cqw;
   background: #fff;
   content: "";
   pointer-events: none;
@@ -7228,17 +7225,14 @@ img.world-tour-recommendation-card {
 
 @media (max-width: 767px) {
   .cellar-renewal > img,
-  .cellar-figma-page > img { margin-top: -25.37vw; }
+  .cellar-figma-page > img { margin-top:0; }
 }
 
-.w25-real-mobile .party-quest-page > .standalone-chrome,
 .w25-real-mobile .world-tour-page[data-active-screen="modetour-loading"] > .standalone-chrome,
 .w25-real-mobile .world-tour-page[data-active-screen="modetour-detail"] > .standalone-chrome {
   display: none !important;
   height: 0 !important;
 }
-.w25-real-mobile .party-quest-page,
-.w25-real-mobile .party-quest-screen,
 .w25-real-mobile .world-tour-modetour-loading,
 .w25-real-mobile .world-tour-modetour-detail { min-height: 100dvh; }
 .w25-real-mobile .world-tour-global-nav,
@@ -7965,8 +7959,8 @@ img.world-tour-recommendation-card {
 .party-memory-card > b { position:absolute; right:12px; bottom:12px; color:#fff; font-size:11px; }
 .party-memory-dialog > small { display:block; padding:9px 0 3px; color:#4a4a4a; }
 .party-memory-dialog.is-book .party-memory-card { background:linear-gradient(0deg,#0009,#0000 60%),url('./assets/party-quest/pickup-photo.png') center/cover; }
-.party-quest-page.is-exact-figma-screen > .standalone-chrome { display:none; }
-.party-exact-screen { display:block; height:100dvh; padding:0; overflow-y:auto; background:#fff; scrollbar-width:none; }
+.party-quest-page.is-exact-figma-screen > .standalone-chrome { display:block; }
+.party-exact-screen { display:block; height:calc(100dvh - var(--app-statusbar-height) - var(--top-appbar-height)); padding:0; overflow-y:auto; background:#fff; scrollbar-width:none; container-type:inline-size; }
 .party-exact-screen::-webkit-scrollbar { display:none; }
 .party-exact-screen > img { display:block; width:100%; height:auto; }
 .party-exact-hotspot { position:absolute; z-index:3; border:0; background:transparent; cursor:pointer; }
@@ -7978,7 +7972,6 @@ img.world-tour-recommendation-card {
 .party-pickup-auth { top:480px; left:14%; width:72%; height:58px; }
 .party-camera-shutter { top:750px; left:38%; width:24%; height:90px; border-radius:50%; }
 .party-camera-video { position:absolute; z-index:2; top:47.8cqw; left:1cqw; width:98cqw; height:135.8cqw; border-radius:20px; background:#111; object-fit:cover; }
-.party-brand-home { position:absolute; z-index:5; top:48px; left:0; width:150px; height:66px; border:0; background:transparent; cursor:pointer; }
 .party-exact-modal { z-index:100; display:block; background:rgba(8,9,12,.68); }
 .party-exact-modal-screen { position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:pointer; }
 .party-exact-modal img, .party-exact-modal-screen img { display:block; width:100%; height:100%; object-fit:cover; }
@@ -7986,11 +7979,11 @@ img.world-tour-recommendation-card {
 .party-exact-screen.party-pickup-screen { background:transparent; }
 
 /* Consolidated Figma revisions — September 14 */
-.world-reserve-media-slice--bottom { aspect-ratio:372 / 614; }
+.world-reserve-media-slice--bottom { margin-top:18px; aspect-ratio:372 / 614; }
 .world-reserve-media-slice--bottom > img { top:0; width:100%; height:100%; object-fit:cover; }
 [data-world-tour-screen="reserve"] { padding-bottom:0 !important; }
-[data-world-tour-screen="reserve"] .world-tour-coupon-open { top:42%; }
-[data-world-tour-screen="reserve"] .world-tour-travel-open { top:50%; }
+[data-world-tour-screen="reserve"] .world-tour-coupon-open { top:137cqw; left:3.5%; width:93%; height:17cqw; }
+[data-world-tour-screen="reserve"] .world-tour-travel-open { top:157cqw; left:80cqw; width:18cqw; height:12cqw; }
 
 .drink-analyzing { height:100dvh; overflow:hidden !important; background:#17215e; scrollbar-width:none; }
 .drink-analyzing::-webkit-scrollbar { display:none; }
@@ -8027,7 +8020,7 @@ img.world-tour-recommendation-card {
 .pairing-finder-page.is-detail-screen > .pairing-finder-header { display:none; }
 .pairing-finder-page.is-detail-screen .pairing-finder-art--detail { height:auto; min-height:100dvh; overflow:visible; }
 .pairing-finder-page.is-detail-screen .pairing-finder-art--detail > img { width:126.6%; max-width:none; height:auto; margin-left:-14.7%; transform:none; }
-.pairing-vote-controls { position:absolute; z-index:4; top:545px; left:23px; display:grid; width:344px; grid-template-columns:repeat(3,1fr); gap:8px; }
+.pairing-vote-controls { position:absolute; z-index:4; top:152cqw; left:23px; display:grid; width:344px; grid-template-columns:repeat(3,1fr); gap:8px; }
 .pairing-vote-controls button { display:flex; height:74px; padding:8px 3px; flex-direction:column; align-items:center; justify-content:center; gap:5px; border:1px solid transparent; border-radius:9px; background:transparent; color:transparent; cursor:pointer; }
 .pairing-vote-controls button span { font-size:12px; opacity:0; }
 .pairing-vote-controls button[aria-pressed="true"] { border-color:#d81962; background:#fff5f8; color:#d81962; box-shadow:0 0 0 2px #d8196220; }
@@ -8853,6 +8846,18 @@ img.world-tour-recommendation-card {
 .category-art { width:100%; height:auto; aspect-ratio:71.13/106.37; border-radius:14px; }
 .category-art em { top:7px; left:6px; font-family:"Pure Malone Demo",Georgia,serif; font-size:13.67px; line-height:1.05; }
 .category > span:last-child { font-size:14.3px; line-height:1.93; }
+.category-art:not(.category-art--highball) > img {
+  inset: auto 0 0 auto;
+  width: 39%;
+  height: auto;
+  object-fit: initial;
+  object-position: initial;
+}
+.category-art--highball em { white-space: nowrap; }
+.category-art--other,
+.catalog-category-art--other { overflow:hidden; background:#0c0c3e; }
+.category-art--other > img,
+.catalog-category-art--other > img { inset:0; width:100%; height:100%; object-fit:fill; object-position:center; }
 
 .party-exact-cart { top:53.3%; left:22%; width:56%; height:6.2%; }
 .party-cart-plus { top:13.5%; left:16%; width:68%; height:38%; }
@@ -8860,14 +8865,109 @@ img.world-tour-recommendation-card {
 .party-camera-shutter { top:84.7%; left:34%; width:32%; height:12%; }
 .party-capture-complete { top:65%; left:8%; width:84%; height:10%; }
 
-.w25-real-mobile .party-quest-page > .standalone-chrome,
 .w25-real-mobile .world-tour-page[data-active-screen="modetour-loading"] > .standalone-chrome,
 .w25-real-mobile .world-tour-page[data-active-screen="modetour-detail"] > .standalone-chrome { display:none !important; height:0 !important; }
 .w25-real-mobile .cellar-renewal > img,
-.w25-real-mobile .cellar-figma-page > img { margin-top:-25.37vw !important; }
+.w25-real-mobile .cellar-figma-page > img { margin-top:0 !important; }
 .w25-real-mobile .cellarmate-list-screen { height:100dvh; overflow-y:auto; }
 .w25-real-mobile .cellarmate-list-screen .cellarmate-header { position:sticky !important; top:0 !important; }
 .w25-real-mobile .cellarmate-list-screen .cellarmate-tabs { position:sticky !important; top:var(--top-appbar-height) !important; }
+
+/* Cellar exports use content-only images. Status and top app bars are owned
+   exclusively by the live shell, so artwork and hit areas share one origin. */
+.w25-real-mobile .cellar-overlay:not(.is-sort) { place-items:center; padding-top:0; }
+
+/* Sent-cellar exports include their own 130px status/header chrome. The live
+   header replaces it, so crop that height once and collapse the image flow by
+   the same amount. This keeps every stage continuous without a blank tail. */
+.cellarmate-sent-flow .cellarmate-header {
+  position:sticky;
+  z-index:30;
+  top:0 !important;
+  right:auto;
+  left:auto;
+  width:100%;
+  transform:none;
+}
+.cellarmate-sent-flow {
+  height:calc(100dvh - var(--app-statusbar-height));
+  min-height:0;
+  overflow-y:auto;
+  overflow-anchor:none;
+  overscroll-behavior-y:contain;
+}
+.w25-real-mobile .cellarmate-sent-flow { height:100dvh; }
+.cellarmate-sent-flow .cellarmate-figma-stage {
+  padding-top:0;
+}
+.cellarmate-sent-flow .cellarmate-figma-stage > img {
+  position:relative;
+  top:-126px;
+  width:110%;
+  margin:0 -5% -126px !important;
+  clip-path:none;
+  transform:none !important;
+}
+
+/* The exported friend picker already draws all button states. Live controls
+   are transparent hit targets only, preventing duplicated outlines/labels. */
+.cellarmate-friend-stage [data-cellarmate-next-friend] {
+  top:auto;
+  right:4.5%;
+  bottom:8%;
+  left:4.5%;
+  height:8%;
+  appearance:none;
+  border:0 !important;
+  border-radius:0;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:transparent !important;
+  font-size:0;
+  opacity:0 !important;
+}
+.cellarmate-friend-stage [data-cellarmate-next-friend]:disabled {
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:transparent !important;
+  opacity:0 !important;
+}
+
+.cellarmate-fixed-actions { display:none; }
+.cellarmate-preview-stage > img {
+  clip-path:inset(0 0 105px 0) !important;
+  margin-bottom:-231px !important;
+}
+.cellarmate-preview-stage > button[data-cellarmate-go] { display:none; }
+.cellarmate-product-stage > .cellarmate-product-next { display:none; }
+:is(.cellarmate-product-stage,.cellarmate-preview-stage) .cellarmate-fixed-actions {
+  position:fixed;
+  z-index:35;
+  bottom:0;
+  left:50%;
+  display:grid;
+  width:min(100%,390px);
+  grid-template-columns:1fr 1fr;
+  gap:26px;
+  padding:14px 24px calc(14px + env(safe-area-inset-bottom,0px));
+  background:#fff;
+  box-shadow:0 -2px 10px rgb(10 17 58 / 10%);
+  transform:translateX(-50%);
+}
+:is(.cellarmate-product-stage,.cellarmate-preview-stage) .cellarmate-fixed-actions button {
+  position:static;
+  width:auto;
+  height:56px;
+  border:1px solid #0d0a4b;
+  border-radius:8px;
+  background:#fff;
+  color:#0d0a4b;
+  font-size:18px;
+  font-weight:700;
+}
+:is(.cellarmate-product-stage,.cellarmate-preview-stage) .cellarmate-fixed-actions button:last-child { background:#0d0a4b; color:#fff; }
+:is(.cellarmate-product-stage,.cellarmate-preview-stage) .cellarmate-fixed-actions button:disabled { opacity:.42; cursor:default; }
 
 /* Remove the baked bottom controls before layering the one live fixed copy. */
 .world-tour-page[data-active-screen="japan"] [data-world-tour-screen="japan"] > img {
@@ -8879,13 +8979,6 @@ img.world-tour-recommendation-card {
   margin-bottom: -88px;
 }
 
-.w25-real-mobile :is(
-  .party-current-screen,
-  .party-cart-screen,
-  .party-camera-screen,
-  .party-shot-screen,
-  .party-complete-screen
-) > img { margin-top:-29.35cqw; }
 .w25-real-mobile .party-cart-plus { top:9%; }
 .w25-real-mobile .party-camera-video { top:18.45cqw; }
 .w25-real-mobile .party-camera-shutter { top:71%; }

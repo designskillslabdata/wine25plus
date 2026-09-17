@@ -81,7 +81,7 @@ const catalogData = {
 
 const detailProfiles = {
   wine: {
-    eyebrow: 'WINE25+ PLUS WINE',
+    eyebrow: '와인25 플러스 WINE',
     metrics: [
       { label: '당도', value: 25 },
       { label: '바디감', value: 80 },
@@ -95,7 +95,7 @@ const detailProfiles = {
     ],
   },
   beer: {
-    eyebrow: 'WINE25+ PLUS BEER',
+    eyebrow: '와인25 플러스 BEER',
     metrics: [
       { label: '쓴맛', value: 38 },
       { label: '탄산감', value: 82 },
@@ -109,7 +109,7 @@ const detailProfiles = {
     ],
   },
   liquor: {
-    eyebrow: 'WINE25+ PLUS SPIRITS',
+    eyebrow: '와인25 플러스 SPIRITS',
     metrics: [
       { label: '스모키', value: 68 },
       { label: '바디감', value: 88 },
@@ -123,7 +123,7 @@ const detailProfiles = {
     ],
   },
   highball: {
-    eyebrow: 'WINE25+ PLUS HIGHBALL',
+    eyebrow: '와인25 플러스 HIGHBALL',
     metrics: [
       { label: '단맛', value: 62 },
       { label: '탄산감', value: 86 },
@@ -1113,7 +1113,7 @@ function getResultShareData() {
   shareUrl.searchParams.set('resultCard', String(cardIndex));
   shareUrl.hash = '#card-pick/reveal';
   return {
-    title: 'WINE25+ PLUS 오늘의 술',
+    title: '와인25 플러스 오늘의 술',
     text: `${card.title} 카드가 추천한 오늘의 술은 디아블로 까베르네 소비뇽이에요.`,
     url: shareUrl.href,
     card,
@@ -1502,6 +1502,12 @@ function renderCellarmate(screen) {
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view', 'is-drink-view', 'is-shared-cart-view', 'is-card-pick-view', 'is-gift-view');
   phoneShell.classList.add('is-cellarmate-view');
   closePairingModal();
+  cellarmateView.scrollTop = 0;
+  phoneShell.scrollTop = 0;
+  const activeCellarmateScreen = cellarmateScreens.find((element) => !element.hidden);
+  if (activeCellarmateScreen) activeCellarmateScreen.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
@@ -1769,6 +1775,7 @@ document.querySelectorAll('[data-cellarmate-go]').forEach((button) => {
     if (!button.disabled) window.location.hash = `#cellarmate/${button.dataset.cellarmateGo}`;
   });
 });
+document.querySelectorAll('[data-cellarmate-save]').forEach((button) => button.addEventListener('click', () => showToast('셀러를 임시저장했어요.')));
 
 document.querySelectorAll('[data-cellarmate-friend]').forEach((button) => {
   button.addEventListener('click', () => {
@@ -1789,7 +1796,15 @@ document.querySelector('.cellarmate-friend-stage')?.addEventListener('click', (e
 
 document.querySelector('[data-cellarmate-product]')?.addEventListener('click', () => {
   document.querySelector('[data-cellarmate-product-image]').src = './assets/cellarmate-sent/product-selected.png';
+  document.querySelector('.cellarmate-product-stage')?.classList.add('is-selected');
   document.querySelector('.cellarmate-product-next').disabled = false;
+  document.querySelectorAll('[data-cellarmate-product-send]').forEach((button) => { button.disabled = false; });
+  requestAnimationFrame(() => {
+    document.querySelector('[data-cellarmate-screen="sent-products"]')?.scrollTo({ top: 0, behavior: 'auto' });
+    cellarmateView.scrollTop = 0;
+    phoneShell.scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  });
 });
 
 document.querySelector('[data-cellarmate-open="detail"]')?.addEventListener('click', () => {
@@ -2958,15 +2973,6 @@ document.querySelectorAll('[data-party-go]').forEach((button) => button.addEvent
   window.location.hash = `#party-quest/${button.dataset.partyGo}`;
 }));
 
-partyQuestScreens.filter((screen) => screen.classList.contains('party-exact-screen')).forEach((screen) => {
-  const homeButton = document.createElement('button');
-  homeButton.className = 'party-brand-home';
-  homeButton.type = 'button';
-  homeButton.setAttribute('aria-label', 'WINE25 PLUS 홈으로 이동');
-  homeButton.addEventListener('click', () => { window.location.hash = '#top'; });
-  screen.append(homeButton);
-});
-
 document.querySelectorAll('.party-theme-options button').forEach((button) => button.addEventListener('click', () => {
   button.classList.toggle('is-selected');
   button.setAttribute('aria-pressed', String(button.classList.contains('is-selected')));
@@ -3178,7 +3184,7 @@ document.querySelectorAll('[data-cellar-friend]').forEach((button) => button.add
   const image = detail?.querySelector('[data-cellar-friend-image]');
   if (!detail || !image) return;
   list.hidden = true;
-  image.src = `./assets/cellar-renewal/${sources[button.dataset.cellarFriend]}`;
+  image.src = `./assets/cellar-renewal/content/${sources[button.dataset.cellarFriend]}`;
   detail.hidden = false;
 }));
 document.querySelector('[data-cellar-back-friends]')?.addEventListener('click', () => {

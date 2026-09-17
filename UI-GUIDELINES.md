@@ -1,4 +1,4 @@
-# WINE25+ PLUS UI 규칙
+# WINE25PLUS UI 규칙
 
 ## 탑 앱바
 

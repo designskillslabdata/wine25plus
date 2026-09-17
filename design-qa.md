@@ -1,4 +1,109 @@
-# Design QA — WINE25+ PLUS 발표 플로우
+# Design QA — 피그마 크롬 실제 제거 (2026-09-17)
+
+## Comparison Target
+
+- User reference: duplicated live/Figma top app bars in the cellar screen.
+- Affected rendered families: cellar main/grade/filter/friends/friend detail and Party Quest exact screens.
+- Viewport: centered 390 px mobile app shell in the in-app Browser.
+
+## Structural Fix
+
+- Generated content-only raster assets by physically cropping 240 source pixels from the seven 804 px cellar exports.
+- Generated content-only raster assets by physically cropping 120 source pixels from the five Party Quest exact exports.
+- Replaced source references with the cropped files; originals remain untouched as archival inputs.
+- Removed the cellar negative-margin coordinate system and the Party Quest negative artwork shift.
+- Restored the live shared Party Quest status/top app bar and removed the obsolete invisible brand hotspot.
+- Rebased cellar item controls against the cropped artwork origin.
+
+## Verification
+
+- Cellar main, friend list, and friend detail each render exactly one live status/top app bar.
+- Cellar sort interaction opens from its visible button with the cropped artwork.
+- Party Quest shot renders exactly one live status/top app bar and no embedded Figma chrome.
+- JavaScript syntax checks and `git diff --check` pass.
+
+Final result: passed.
+
+# Design QA — 좌표계·술장·여행·조합 좌표 통합 (2026-09-17)
+
+## Comparison Target
+
+- User references: category artwork, cellar/friends cellar, Japan sake map, payment completion, and pairing detail screenshots supplied on 2026-09-17.
+- Browser-rendered implementation: `#top`, `#cellar`, friend cellar subpage, `#world-tour/niigata`, `#world-tour/reserve`, `#world-tour/travel-all`, and `#pairing-finder/detail`.
+- Viewport: centered 390 px app shell in the in-app Browser.
+
+## Findings And Fixes
+
+- Replaced viewport-height percentage hit areas in both cellar views with coordinates tied to the 390 px artwork width, so visual cards and actual controls share one coordinate system.
+- Restored the other-liquor category SVG to the complete card bounds instead of scaling and clipping the mark independently.
+- Removed the COLOR TYPE TEST presentation panel and linked the final entry step directly to the full experience map.
+- Replaced visible presentation/app terminology with `와인25 플러스`.
+- Added a horizontal overscan to the Niigata artwork to eliminate the left seam.
+- Added separation above the partner-travel section and placed the live `전체보기` control directly on its visible label.
+- Matched the three pairing vote controls to the source cards, removed the baked duplicate comment composer, and retained one fixed live composer while comments scroll.
+
+## Verification
+
+- JavaScript syntax checks passed for `presentation.js` and `app.js`.
+- `git diff --check` passed.
+- Browser checks confirmed: no Niigata left seam; partner-travel `전체보기` opens the travel list; pairing comments scroll behind one fixed composer; vote state changes; friend/cellar controls use artwork-relative coordinates.
+
+# Design QA — 셀러 보내기 흐름 재정리 (2026-09-17)
+
+## Comparison Target
+
+- Source visual truth: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-a8772018-aae3-49eb-a767-97405493da16.png`
+- Supporting source assets: `assets/cellarmate-sent/friend-empty.png`, `friend-selected.png`, `product-empty.png`, `product-selected.png`, `preview.png`, `complete.png`.
+- Browser-rendered implementation: in-app Browser tabs for `#cellarmate/sent-friends`, `#cellarmate/sent-products`, `#cellarmate/sent-preview`, and `#cellarmate/sent-complete` at a centered 390 px app shell.
+- Viewport: 888 × 888 CSS px, density 1; app content width 390 CSS px.
+
+## Findings And Comparison History
+
+### Pass 1
+
+- P1: exported status bars and app bars appeared together with the live common app bar.
+- P1: viewport-width crop units were evaluated against the desktop canvas instead of the 390 px app shell, producing missing content and large blank tails.
+- P1: the transparent next control was visibly restyled, duplicating the button already drawn in the source asset.
+- P1: the fixed save/send actions were attached only to the preview stage instead of the product-selection stage.
+- P2: changing from the long empty product asset to the shorter selected asset displaced the scroll position and hid the common app bar.
+
+Fixes:
+
+- Replaced the layered viewport-unit overrides with one 390 px-shell crop and a sticky shared app bar.
+- Collapsed the cropped image height so no blank tail remains.
+- Kept the friend-picker controls as invisible hit targets and retained only the source artwork's visible controls.
+- Added the live fixed action bar to product selection and preview, with disabled/enabled send state.
+- Reset the active Cellarmate scroll container during route and product-state changes.
+- Removed black source gutters by fitting the 441 px exports at 110% width inside the 390 px shell.
+
+### Pass 2
+
+- Browser checks passed for friend empty/selected, friend-to-product navigation, product empty/selected, fixed action enablement, preview, send action, and completion.
+- Common status/app bars remain singular and sticky. The bottom action bar remains fixed while product content scrolls.
+- No remaining actionable P0/P1/P2 mismatch was observed in the requested flow.
+
+## Required Fidelity Surfaces
+
+- Typography and copy: source raster typography and button labels are preserved; live action labels match the source.
+- Spacing and layout: source content fills the shell without black side gutters, duplicated bars, clipped sections, or blank tails.
+- Colors: navy, white, gray disabled state, and pink selection state match the supplied assets.
+- Images: supplied Cellarmate raster assets are used directly without generated or placeholder imagery.
+- Interaction: friend choice, next, product choice, temporary save, send, back, home, and completion routes were exercised.
+
+## Runtime Checks
+
+- Primary interaction flow: passed.
+- JavaScript syntax: passed.
+- Whitespace validation: passed.
+- Browser-rendered console/runtime failure: none observed during the verified flow.
+
+## Final Result
+
+final result: passed
+
+---
+
+# Design QA — WINE25PLUS 발표 플로우
 
 ## Comparison Target
 
