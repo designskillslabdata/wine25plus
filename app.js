@@ -45,6 +45,8 @@ const catalogData = {
       { name: '브랜드 앤 버터 피노누아', price: '29,300원', pickup: '08/05 부터 수령', image: './assets/catalog/wine-raw-04.png' },
       { name: '앙시앙땅 (카베쉬라)', price: '37,900원', pickup: '08/05 부터 수령', image: './assets/catalog/wine-raw-06.png', imageClass: 'product-image--wine-crop' },
       { name: '알타감마 까베르네소비뇽', price: '37,900원', pickup: '08/05 부터 수령', image: './assets/catalog/wine-raw-03.png' },
+      { name: '디코이 소비뇽 블랑', price: '42,000원', pickup: '08/05 부터 수령', image: './assets/account/mascot-cellar.png' },
+      { name: '나파 밸리 와인 셀렉션', price: '63,000원', pickup: '08/05 부터 수령', image: './assets/account/bottle-01.png' },
     ],
   },
   beer: {
@@ -55,6 +57,8 @@ const catalogData = {
       { name: '갓생산) 카스프레쉬', price: '32,900원', pickup: '08/14 부터 수령', image: './assets/catalog/beer-02.png' },
       { name: '써머스비', price: '37,900원', pickup: '08/05 부터 수령', image: './assets/catalog/beer-03.png' },
       { name: '카스 350ml', price: '37,900원', pickup: '08/05 부터 수령', image: './assets/catalog/beer-04.png' },
+      { name: '켈리 앰버 라거', price: '24,000원', pickup: '08/05 부터 수령', image: './assets/account/bottle-03.png' },
+      { name: '테라 라거', price: '23,500원', pickup: '08/05 부터 수령', image: './assets/account/bottle-04.png' },
     ],
   },
   liquor: {
@@ -65,6 +69,7 @@ const catalogData = {
       { name: '러셀 리저브 싱글배럴 라이', price: '79,800원', pickup: '08/05 부터 수령', image: './assets/catalog/liquor-02.png' },
       { name: '더 글렌그란트 15년', price: '37,900원', pickup: '08/05 부터 수령', image: './assets/catalog/liquor-03.png' },
       { name: '와일드터키 롱브랜치', price: '37,900원', pickup: '08/05 부터 수령', image: './assets/catalog/liquor-04.png' },
+      { name: '잭다니엘 허니', price: '39,900원', pickup: '08/05 부터 수령', image: './assets/account/bottle-02.png' },
     ],
   },
   highball: {
@@ -158,11 +163,16 @@ const pairingRecommendations = document.querySelector('.pairing-recommendations'
 const pairingDialogIcons = Array.from(document.querySelectorAll('.pairing-dialog-icons img'));
 const wineryView = document.querySelector('.winery-page');
 const cellarView = document.querySelector('.cellar-page');
+const drinkIdView = document.querySelector('.drink-id-page');
 const cellarFigmaPages = Array.from(document.querySelectorAll('[data-cellar-page]'));
 const cellarModal = document.querySelector('[data-cellar-modal]');
-const cellarModalImage = document.querySelector('[data-cellar-modal-image]');
 const cellarSortOptions = document.querySelector('.cellar-sort-options');
-const cellarRenewalSort = document.querySelector('.cellar-renewal-sort');
+const cellarItemDetail = document.querySelector('[data-cellar-item-detail]');
+const cellarItemImage = document.querySelector('[data-cellar-item-image]');
+const cellarItemTitle = document.querySelector('[data-cellar-item-title]');
+const cellarItemEyebrow = document.querySelector('[data-cellar-item-eyebrow]');
+const cellarItemBadge = document.querySelector('[data-cellar-item-badge]');
+const cellarPurchase = document.querySelector('[data-cellar-purchase]');
 const cellarmateView = document.querySelector('.cellarmate-page');
 const cellarmateScreens = Array.from(document.querySelectorAll('[data-cellarmate-screen]'));
 const cellarmateTabs = Array.from(document.querySelectorAll('[data-cellarmate-tab]'));
@@ -270,6 +280,7 @@ function createStandaloneStatus(page) {
 
 const worldTourChrome = createStandaloneChrome(worldTourView, 'world-tour');
 const partyQuestChrome = createStandaloneChrome(partyQuestView, 'party-quest');
+const drinkBrowseChrome = createStandaloneChrome(drinkIdView, 'drink-browse');
 const kyoboChrome = createStandaloneChrome(kyoboEventView, 'kyobo');
 const findItChrome = createStandaloneChrome(findItView, 'find-it');
 const pairingFinderChrome = createStandaloneChrome(pairingFinderView, 'pairing-finder');
@@ -324,7 +335,6 @@ const membershipMessage = document.querySelector('[data-membership-message]');
 const membershipLabels = Array.from(document.querySelectorAll('.membership-labels span'));
 const cellarGrid = document.querySelector('.cellar-grid');
 const cellarTabs = Array.from(document.querySelectorAll('[data-cellar-category]'));
-const drinkIdView = document.querySelector('.drink-id-page');
 const drinkScreens = Array.from(document.querySelectorAll('[data-drink-screen]'));
 const surveyQuestion = document.querySelector('.survey-question');
 const surveyCount = document.querySelector('.survey-count strong');
@@ -448,13 +458,13 @@ const membershipTiers = [
 ];
 
 const cellarBottles = [
-  { image: './assets/account/mascot-cellar.png', category: 'wine', label: '디코이 소비뇽 블랑' },
-  { image: './assets/account/bottle-01.png', category: 'wine', label: '화이트 와인' },
-  { image: './assets/account/bottle-02.png', category: 'wine', label: '레드 와인' },
-  { image: './assets/account/bottle-03.png', category: 'liquor', label: '위스키' },
-  { image: './assets/account/bottle-04.png', category: 'beer', label: '맥주' },
-  { image: './assets/account/bottle-05.png', category: 'liquor', label: '보드카' },
-  { image: './assets/account/bottle-06.png', category: 'beer', label: '라거 맥주' },
+  { image: './assets/account/mascot-cellar.png', category: 'wine', label: '디코이 소비뇽 블랑', productCategory: 'wine', productIndex: 4 },
+  { image: './assets/catalog/wine-raw-04.png', category: 'wine', label: '브랜드 앤 버터 피노누아', productCategory: 'wine', productIndex: 1 },
+  { image: './assets/account/bottle-02.png', category: 'liquor', label: '잭다니엘 허니', productCategory: 'liquor', productIndex: 4 },
+  { image: './assets/account/bottle-03.png', category: 'beer', label: '켈리 앰버 라거', productCategory: 'beer', productIndex: 4 },
+  { image: './assets/account/bottle-04.png', category: 'beer', label: '테라 라거', productCategory: 'beer', productIndex: 5 },
+  { image: './assets/account/bottle-05.png', category: 'wine', label: '디코이 소비뇽 블랑', productCategory: 'wine', productIndex: 4, favorite: true },
+  { image: './assets/account/bottle-01.png', category: 'wine', label: '나파 밸리 와인 셀렉션', productCategory: 'wine', productIndex: 5 },
 ];
 
 const drinkQuestions = [
@@ -1308,14 +1318,17 @@ function renderCellarSlots(category = 'all') {
   const totalSlots = 40;
 
   for (let index = 0; index < totalSlots; index += 1) {
-    const slot = document.createElement('div');
-    slot.className = 'cellar-slot';
     const bottle = visibleBottles[index];
+    const slot = document.createElement(bottle ? 'button' : 'div');
+    slot.className = 'cellar-slot';
     if (bottle) {
+      slot.type = 'button';
+      slot.setAttribute('aria-label', `${bottle.label} 상세 보기`);
       const image = document.createElement('img');
       image.src = bottle.image;
       image.alt = bottle.label;
       slot.append(image);
+      slot.addEventListener('click', () => openCellarModal(bottle.favorite ? 'favorite' : 'item', bottle));
     } else {
       slot.classList.add('cellar-slot--empty');
       slot.setAttribute('aria-label', '빈 술장 칸');
@@ -1414,6 +1427,7 @@ function renderFriendCards() {
 }
 
 function renderDrinkScreen(screen) {
+  closeCellarPages();
   hideCellarmate();
   hideKyoboEvent();
   hideFindIt();
@@ -1431,6 +1445,7 @@ function renderDrinkScreen(screen) {
   phoneShell.classList.add('is-drink-view');
   phoneShell.classList.toggle('is-drink-figma-screenshot', ['analyzing', 'friend-product'].includes(screen));
   phoneShell.classList.toggle('is-drink-browse', screen === 'browse');
+  updateStandaloneChrome(drinkBrowseChrome, ['유형 둘러보기', 'result', false], 'drink-id');
   closePairingModal();
 
   drinkScreens.forEach((element) => { element.hidden = element.dataset.drinkScreen !== screen; });
@@ -1614,6 +1629,7 @@ function renderWorldTour(screen) {
 }
 
 function renderPartyQuest(screen) {
+  closeCellarPages();
   window.clearTimeout(partyQuestLoadingTimer);
   partyQuestLoadingTimer = 0;
   homeView.hidden = true;
@@ -2250,6 +2266,51 @@ document.querySelectorAll('[data-drink-back]').forEach((button) => {
 document.querySelectorAll('[data-browse-product]').forEach((button) => {
   button.addEventListener('click', () => {
     showToast(`${button.dataset.browseProduct} 상품을 선택했어요.`);
+  });
+});
+
+document.querySelectorAll('.drink-browse-product-track').forEach((track) => {
+  let pointerId = null;
+  let startX = 0;
+  let startScrollLeft = 0;
+  let dragged = false;
+
+  track.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    pointerId = event.pointerId;
+    startX = event.clientX;
+    startScrollLeft = track.scrollLeft;
+    dragged = false;
+    track.classList.add('is-dragging');
+    track.setPointerCapture(pointerId);
+  });
+  track.addEventListener('pointermove', (event) => {
+    if (event.pointerId !== pointerId) return;
+    const distance = event.clientX - startX;
+    if (Math.abs(distance) > 4) dragged = true;
+    if (dragged) {
+      event.preventDefault();
+      track.scrollLeft = startScrollLeft - distance;
+    }
+  });
+  const finishDrag = (event) => {
+    if (event.pointerId !== pointerId) return;
+    if (track.hasPointerCapture(pointerId)) track.releasePointerCapture(pointerId);
+    pointerId = null;
+    track.classList.remove('is-dragging');
+  };
+  track.addEventListener('pointerup', finishDrag);
+  track.addEventListener('pointercancel', finishDrag);
+  track.addEventListener('click', (event) => {
+    if (!dragged) return;
+    event.preventDefault();
+    event.stopPropagation();
+    dragged = false;
+  }, true);
+  track.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    track.scrollBy({ left: event.key === 'ArrowRight' ? 150 : -150, behavior: 'smooth' });
   });
 });
 
@@ -3069,7 +3130,7 @@ document.addEventListener('click', (event) => {
     return;
   }
   if (action === 'cellar-sort') {
-    cellarRenewalSort?.click();
+    openCellarModal('sort');
     return;
   }
   if (action === 'hero-find') {
@@ -3164,29 +3225,53 @@ document.addEventListener('click', (event) => {
 function closeCellarPages() {
   cellarFigmaPages.forEach((page) => { page.hidden = true; });
   if (cellarModal) cellarModal.hidden = true;
+  document.body.classList.remove('has-cellar-modal');
 }
 
-function openCellarModal(kind) {
-  if (!cellarModal || !cellarModalImage) return;
-  const sources = {
-    sort: './assets/cellar-renewal/sort-sheet.png',
-    item: './assets/cellar-renewal/item.png',
-    favorite: './assets/cellar-renewal/item-favorite.png',
-  };
-  cellarModalImage.src = sources[kind];
-  cellarModal.classList.toggle('is-sort', kind === 'sort');
-  cellarModalImage.alt = kind === 'favorite' ? '찜술 상세' : kind === 'item' ? '보관 주류 상세' : '술장 정렬 방식';
-  cellarSortOptions.hidden = kind !== 'sort';
+function openCellarModal(kind, bottle = cellarBottles[0]) {
+  if (!cellarModal) return;
+  const isSort = kind === 'sort';
+  cellarModal.classList.toggle('is-sort', isSort);
+  cellarSortOptions.hidden = !isSort;
+  cellarItemDetail.hidden = isSort;
+
+  if (!isSort && bottle) {
+    cellarModal.dataset.productCategory = bottle.productCategory;
+    cellarModal.dataset.productIndex = String(bottle.productIndex);
+    cellarItemImage.src = bottle.image;
+    cellarItemImage.alt = bottle.label;
+    cellarItemTitle.textContent = bottle.label;
+    cellarItemEyebrow.textContent = detailProfiles[bottle.productCategory]?.eyebrow?.replace('와인25 플러스 ', '') || 'MY DRINK';
+    cellarItemBadge.textContent = kind === 'favorite' ? '찜술' : '내 술';
+    cellarModal.classList.toggle('is-favorite', kind === 'favorite');
+  }
+
   cellarModal.hidden = false;
+  document.body.classList.add('has-cellar-modal');
+  window.requestAnimationFrame(() => cellarModal.querySelector(isSort ? '[data-sort-value]' : '[data-cellar-modal-close]')?.focus());
 }
 
 document.querySelectorAll('[data-cellar-overlay]').forEach((button) => button.addEventListener('click', () => openCellarModal(button.dataset.cellarOverlay)));
-document.querySelectorAll('[data-cellar-modal-close]').forEach((button) => button.addEventListener('click', () => { cellarModal.hidden = true; }));
+function closeCellarModal() {
+  if (!cellarModal) return;
+  cellarModal.hidden = true;
+  document.body.classList.remove('has-cellar-modal');
+}
+document.querySelectorAll('[data-cellar-modal-close]').forEach((button) => button.addEventListener('click', closeCellarModal));
+cellarPurchase?.addEventListener('click', () => {
+  const category = cellarModal.dataset.productCategory;
+  const index = Number(cellarModal.dataset.productIndex);
+  closeCellarModal();
+  window.location.hash = `#product/${category}/${index}`;
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && cellarModal && !cellarModal.hidden) closeCellarModal();
+});
 document.querySelectorAll('[data-sort-value]').forEach((button) => button.addEventListener('click', () => {
-  document.querySelectorAll('.cellar-sort, .cellar-renewal-sort').forEach((sort) => sort.setAttribute('data-current-sort', button.dataset.sortValue));
+  document.querySelectorAll('.cellar-sort').forEach((sort) => sort.setAttribute('data-current-sort', button.dataset.sortValue));
   const legacy = document.querySelector('.cellar-sort');
   if (legacy) legacy.textContent = `${button.dataset.sortValue}⌄`;
-  cellarModal.hidden = true;
+  closeCellarModal();
   showToast(`${button.dataset.sortValue}으로 정렬했어요.`);
 }));
 document.querySelectorAll('[data-cellar-close-page]').forEach((button) => button.addEventListener('click', () => {

@@ -1,3 +1,26 @@
+# Design QA — 시연 핵심 3개 흐름 실제 UI 복원 (2026-09-17)
+
+## Comparison Target
+
+- 나만의 술장: Figma `173:10479`, 상품 팝업 `173:12154` / `173:12155`.
+- 니술내술+ 유형 둘러보기: Figma `185:14512`.
+- 파티퀘스트: 장바구니, QR, 픽업 인증, 촬영, 완료 흐름.
+- Rendered implementation: in-app Browser at desktop app width and a 390 × 844 mobile viewport.
+
+## Findings And Comparison History
+
+- P0: 술장 실제 그리드가 통이미지와 좌표 핫스팟으로 대체되어 카테고리, 상품 터치 영역, 팝업 위치가 화면별로 달라졌다.
+- Fix: 통이미지 레이어를 제거하고 기존 HTML 그리드를 복원했다. 각 술은 실제 버튼이며 카테고리별로 다시 렌더링되고, 팝업은 viewport 중앙의 네이티브 dialog로 열리며 X/배경으로 닫힌다.
+- Post-fix evidence: `전체 → 맥주` 변경 시 상품 버튼이 2개로 필터링되고, 상품 클릭·X 닫기·`구매하러 가기`의 `#product/...` 이동을 PC/모바일에서 확인했다.
+- P0: 유형 둘러보기에는 공통 탑앱바가 없고 PC 가로 목록은 휠/스크롤바 입력에 의존했다.
+- Fix: 공통 탑앱바의 뒤로가기와 홈을 추가하고, 포인터 캡처 기반 마우스 드래그와 키보드 화살표 스크롤을 추가했다.
+- Post-fix evidence: 첫 상품 줄의 `scrollLeft`가 실제 드래그로 `0 → 144`로 변했고, 모바일에서 탑앱바와 세로 스크롤이 겹치지 않았다.
+- P0: 파티퀘스트 일부 핫스팟이 고정 px/viewport 높이를 섞어 사용해 표시 버튼과 실제 클릭 영역이 어긋났다.
+- Fix: 모든 주요 핫스팟을 이미지 너비 기준 좌표로 통일했다.
+- Post-fix evidence: 모바일에서 `장바구니 바로가기 → 픽업 QR → 픽업 인증하기 → 촬영 → 파티 퀘스트 바로가기`가 표시된 버튼 중심에서 연속 동작했다.
+
+Final result: passed.
+
 # Design QA — 플로우 연결선·유형 둘러보기 실제 UI (2026-09-17)
 
 ## Comparison Target

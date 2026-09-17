@@ -6940,10 +6940,9 @@ img.world-tour-recommendation-card {
 }
 
 /* Figma-accurate cellar renewal. The shared status/top bars remain the only chrome. */
-.cellar-renewal { position:relative; display:block; height:calc(100dvh - var(--top-appbar-height)); overflow:auto; scrollbar-width:none; background:#fff; container-type:inline-size; }
+.cellar-renewal { display:none; }
 .cellar-renewal::-webkit-scrollbar { display:none; }
 .cellar-renewal > img { display:block; width:100%; height:auto; margin:0; }
-.cellar-page > :where(.cellar-content,.cellar-bottom-actions) { display:none !important; }
 .cellar-renewal-hit { position:absolute; z-index:5; margin:0; padding:0; border:0; background:transparent; cursor:pointer; }
 .cellar-renewal-sort { top:38cqw; right:4%; width:27%; height:12cqw; }
 .cellar-renewal-item { width:22%; height:29cqw; }
@@ -6966,14 +6965,46 @@ img.world-tour-recommendation-card {
 .cellar-friends-page > button[data-cellar-friend="park"] { top:92cqw; }
 .cellar-friends-page > button[data-cellar-friend="lee"] { top:110cqw; }
 
-.cellar-overlay { position:absolute; z-index:1000; inset:0; display:grid; place-items:end center; background:rgba(8,12,28,.55); }
+.cellar-overlay { position:fixed; z-index:1000; top:0; right:50%; bottom:0; display:grid; width:min(100%,390px); padding:16px; place-items:center; background:rgba(8,12,28,.58); transform:translateX(50%); }
 .cellar-overlay-backdrop { position:absolute; inset:0; width:100%; border:0; background:transparent; }
-.cellar-overlay-card { position:relative; z-index:2; width:calc(100% - 34px); max-width:355px;}
-.cellar-overlay.is-sort .cellar-overlay-card { width:100%; max-width:402px; }
-.cellar-overlay-card > img { display:block; width:100%; height:auto; }
-.cellar-sort-options { position:absolute; inset:0; display:grid; grid-template-rows:repeat(3,1fr); padding:70px 24px 22px; }
+.cellar-overlay-card { position:relative; z-index:2; width:min(100%,355px); max-height:min(690px,calc(100dvh - 32px)); overflow:auto; border-radius:18px; background:#fff; box-shadow:0 24px 60px rgba(0,0,0,.3); scrollbar-width:none; }
+.cellar-overlay-card::-webkit-scrollbar { display:none; }
+.cellar-overlay.is-sort { padding:0; place-items:end center; }
+.cellar-overlay.is-sort .cellar-overlay-card { width:min(100%,390px); max-width:390px; border-radius:22px 22px 0 0; }
+.cellar-overlay-close { position:absolute; z-index:5; top:10px; right:10px; display:grid; width:36px; height:36px; padding:0; place-items:center; border:0; border-radius:50%; color:#080b2f; background:#fff; font:300 34px/1 Arial,sans-serif; cursor:pointer; }
+.cellar-sort-options { display:grid; padding:20px 18px max(20px,env(safe-area-inset-bottom)); gap:5px; }
 .cellar-sort-options[hidden] { display:none !important; }
-.cellar-sort-options button { border:0; background:transparent; color:transparent; cursor:pointer; }
+.cellar-sort-options h2 { margin:0 0 8px; color:#101018; font-size:18px; }
+.cellar-sort-options button { height:48px; border:0; border-radius:12px; color:#101018; background:#f5f6fa; font-size:15px; text-align:left; padding:0 16px; cursor:pointer; }
+.cellar-sort-options button:hover { background:#eaf2ff; color:#087ff5; }
+
+.cellar-item-detail { color:#fff; background:#0c0c3e; }
+.cellar-item-detail[hidden] { display:none !important; }
+.cellar-item-badge { position:absolute; z-index:3; top:0; left:0; min-width:78px; padding:14px 12px 26px; color:#0c0c3e; background:linear-gradient(135deg,#fff 0 70%,transparent 71%); font-size:13px; font-weight:800; }
+.cellar-overlay.is-favorite .cellar-item-badge { color:#d81962; }
+.cellar-item-main { display:grid; min-height:390px; padding:42px 22px 18px; grid-template-columns:43% 57%; align-items:center; }
+.cellar-item-main > img { display:block; width:100%; height:270px; object-fit:contain; }
+.cellar-item-copy { min-width:0; padding-left:12px; }
+.cellar-item-copy > small { display:block; color:#d9dcff; font-size:10px; letter-spacing:.3px; }
+.cellar-item-copy h2 { margin:5px 0 20px; color:#fff; font-size:18px; line-height:1.25; word-break:keep-all; }
+.cellar-flavor-bars { display:grid; margin:0 0 20px; gap:12px; }
+.cellar-flavor-bars div { display:grid; gap:5px; }
+.cellar-flavor-bars dt { font-size:12px; }
+.cellar-flavor-bars dd { position:relative; height:4px; margin:0; background:#20205c; }
+.cellar-flavor-bars dd::after { position:absolute; inset:-3px 0; background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 1px),rgba(255,255,255,.18) calc(25% - 1px) 25%); content:""; }
+.cellar-flavor-bars i { display:block; width:var(--cellar-score); height:100%; background:#fff; }
+.cellar-item-copy > strong { display:block; margin-bottom:8px; font-size:12px; }
+.cellar-pairings { display:flex; gap:8px; }
+.cellar-pairings img { width:43px; height:43px; border-radius:7px; object-fit:cover; }
+.cellar-item-note { padding:18px 18px 12px; color:#28283d; background:#fff; }
+.cellar-item-note > strong { display:block; margin-bottom:8px; font-size:12px; }
+.cellar-item-note p { display:flex; margin:0 0 18px; gap:6px; }
+.cellar-item-note p span { padding:5px 11px; border:1px solid #0c0c3e; border-radius:16px; font-size:11px; }
+.cellar-item-note > small { display:block; color:#6f7180; font-size:11px; line-height:1.45; }
+.cellar-item-actions { display:grid; padding:10px 18px 18px; grid-template-columns:1fr 1.7fr; gap:10px; background:#fff; }
+.cellar-item-actions button { height:48px; border:0; border-radius:12px; color:#fff; background:#0c0c3e; font-weight:700; cursor:pointer; }
+.cellar-item-actions button:last-child { display:flex; align-items:center; justify-content:center; gap:10px; background:#a9d4ff; }
+.cellar-item-actions span { display:grid; width:25px; height:25px; place-items:center; border-radius:50%; color:#a9d4ff; background:#fff; }
 
 .taste-plus-hotspot {
   position: absolute;
@@ -7986,7 +8017,7 @@ img.world-tour-recommendation-card {
 .party-camera-shutter { top:750px; left:38%; width:24%; height:90px; border-radius:50%; }
 .party-camera-screen > img { position:relative; z-index:2; pointer-events:none; }
 .party-camera-video { position:absolute; z-index:1; top:18.15cqw; left:1cqw; width:98cqw; height:135.8cqw; border-radius:5cqw; background:#111; object-fit:cover; }
-.party-exact-modal { z-index:100; display:block; background:rgba(8,9,12,.68); }
+.party-exact-modal { z-index:100; display:block; background:rgba(8,9,12,.68); container-type:inline-size; }
 .party-exact-modal-screen { position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:pointer; }
 .party-exact-modal img, .party-exact-modal-screen img { display:block; width:100%; height:100%; object-fit:cover; }
 .party-capture-complete { top:570px; left:14%; width:72%; height:62px; }
@@ -9039,13 +9070,13 @@ img.world-tour-recommendation-card {
 
 /* 니술내술+ 유형 둘러보기 — Figma 캡처를 쓰지 않는 실제 스크롤 화면 */
 .phone-shell.is-drink-view.is-drink-browse .drink-id-page > .standalone-chrome {
-  display: none !important;
+  display: block !important;
 }
 
 .drink-browse-native {
   height: calc(100dvh - 60px);
   min-height: 0;
-  padding: 18px 0 34px;
+  padding: calc(var(--top-appbar-height) + 18px) 0 34px;
   overflow-x: hidden;
   overflow-y: auto;
   background: #fff;
@@ -9144,7 +9175,14 @@ img.world-tour-recommendation-card {
   scroll-snap-type: x proximity;
   scrollbar-width: none;
   touch-action: pan-x;
+  cursor: grab;
+  user-select: none;
   -webkit-overflow-scrolling: touch;
+}
+
+.drink-browse-product-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
 }
 
 .drink-browse-product {
@@ -9368,4 +9406,54 @@ img.world-tour-recommendation-card {
 
 .w25-real-mobile .drink-browse-native {
   height: 100dvh;
+}
+
+/* 시연 핵심 화면: 통이미지 좌표가 아니라 실제 술장 요소를 한 축에서 배치한다. */
+.cellar-content {
+  height: calc(100% - var(--top-appbar-height) - 93px);
+}
+
+.cellar-slot {
+  padding: 0;
+  border: 0;
+  appearance: none;
+}
+
+button.cellar-slot {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button.cellar-slot:hover,
+button.cellar-slot:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -5px;
+  box-shadow: inset 0 0 0 4px #087ff5;
+}
+
+.cellar-bottom-actions {
+  padding-bottom: max(18px, env(safe-area-inset-bottom));
+}
+
+.has-cellar-modal {
+  overflow: hidden;
+}
+
+/* Party Quest artwork keeps its illustration, while every action uses the
+   same responsive coordinate system as that artwork. */
+.party-exact-cart { top:175cqw; left:31cqw; width:38cqw; height:14cqw; }
+.party-cart-plus { top:25cqw; left:16cqw; width:68cqw; height:96cqw; }
+.party-pickup-auth { top:123.4cqw; left:14.8cqw; width:70.4cqw; height:10.7cqw; }
+.party-camera-shutter { top:160cqw; left:34cqw; width:32cqw; height:18.5cqw; }
+.party-capture-complete { top:66.9%; left:8%; width:84%; height:7.2%; }
+
+.party-exact-hotspot:focus-visible {
+  outline: 3px solid rgba(255,255,255,.92);
+  outline-offset: -3px;
+}
+
+@media (max-height: 700px) {
+  .cellar-overlay-card { max-height: calc(100dvh - 18px); }
+  .cellar-item-main { min-height: 330px; padding-top: 34px; }
+  .cellar-item-main > img { height: 225px; }
 }
