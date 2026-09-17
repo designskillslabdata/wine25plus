@@ -8860,7 +8860,7 @@ img.world-tour-recommendation-card {
 .category-art--other > img,
 .catalog-category-art--other > img { inset:0; width:100% !important; height:100%; object-fit:fill; object-position:center; }
 
-.party-exact-cart { top:53.3%; left:22%; width:56%; height:6.2%; }
+.party-exact-cart { top:175cqw; left:31%; width:38%; height:14cqw; }
 .party-cart-plus { top:13.5%; left:16%; width:68%; height:38%; }
 .party-pickup-auth { top:65.1%; left:9%; width:82%; height:9%; }
 .party-camera-shutter { top:84.7%; left:34%; width:32%; height:12%; }
@@ -8895,8 +8895,10 @@ img.world-tour-recommendation-card {
   overflow-y:auto;
   overflow-anchor:none;
   overscroll-behavior-y:contain;
+  scrollbar-width:none;
 }
-.w25-real-mobile .cellarmate-sent-flow { height:100dvh; }
+.cellarmate-sent-flow::-webkit-scrollbar { display:none; }
+.w25-real-mobile .cellarmate-sent-flow { height:calc(100dvh - var(--app-statusbar-height)); }
 .cellarmate-sent-flow .cellarmate-figma-stage {
   padding-top:0;
 }
@@ -8908,14 +8910,30 @@ img.world-tour-recommendation-card {
   transform:none !important;
 }
 
+/* The friend picker is one screen. Size the artwork to the live viewport so
+   the exported phone canvas cannot create its own scrollbar or blank tail. */
+.cellarmate-sent-flow[data-cellarmate-screen="sent-friends"] { overflow:hidden; }
+.cellarmate-friend-stage { height:calc(100% - var(--top-appbar-height)); }
+.cellarmate-sent-flow .cellarmate-friend-stage > img {
+  width:100%;
+  height:100%;
+  margin:0 !important;
+  object-fit:cover;
+  object-position:center top;
+}
+.cellarmate-friend-choice { width:36.3%; height:23.4%; }
+.cellarmate-friend-stage .choice-one { top:15.9%; left:6.7%; }
+.cellarmate-friend-stage .choice-two { top:15.9%; right:6.7%; }
+.cellarmate-friend-stage .choice-three { top:39.6%; left:6.7%; }
+
 /* The exported friend picker already draws all button states. Live controls
    are transparent hit targets only, preventing duplicated outlines/labels. */
 .cellarmate-friend-stage [data-cellarmate-next-friend] {
-  top:auto;
+  top:76.2%;
   right:4.5%;
-  bottom:8%;
+  bottom:auto;
   left:4.5%;
-  height:8%;
+  height:7.5%;
   appearance:none;
   border:0 !important;
   border-radius:0;

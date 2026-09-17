@@ -1,3 +1,37 @@
+# Design QA — 보낸 셀러·파티플러스 터치 좌표 (2026-09-17)
+
+## Comparison Target
+
+- Source visual truth: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-aff9886b-5363-4926-bfa5-7a6188dababb.png` (468 × 890 px).
+- Rendered implementation: in-app Browser capture of `#cellarmate/sent-friends` and `#party-quest/quest` at an 884 × 888 browser viewport, with the app content rendered at 390 × 844 CSS px and device scale 1.
+- State: Cellarmate friend selection before/after selection; Party Plus quest screen before and after tapping `장바구니 바로가기`.
+
+## Findings And Comparison History
+
+- Pass 1 — P1: the Cellarmate step used `100dvh` below an already-rendered status bar, producing a nested scrollbar and a blank bottom tail. The friend artwork also scaled independently from its hit targets.
+- Fix: the flow now subtracts the live status-bar height on every viewport, hides the one-screen friend step's overflow, fits its artwork below the live top bar, and expresses the friend/next controls in artwork-relative percentages.
+- Post-fix evidence: the friend screen renders one status bar and one top bar, with no visible scrollbar or blank tail. Tapping the first friend changes the exact visible avatar state and activates the visible next button; tapping next opens product selection.
+- Pass 1 — P0: Party Plus positioned the cart hotspot at 53.3% of the viewport-height screen while the visible button sits far down the 1,371 px artwork.
+- Fix: the cart hotspot is now positioned with container-width units tied to the artwork's intrinsic coordinate system.
+- Post-fix evidence: tapping the visible `장바구니 바로가기` button navigates directly to `#party-quest/cart`.
+
+## Required Fidelity Surfaces
+
+- Typography: unchanged source typography and weights; no new wrapping or truncation.
+- Spacing/layout: single-screen Cellarmate content now fills the app area without nested overflow; header and bottom curvature remain aligned.
+- Colors/tokens: unchanged.
+- Image quality/assets: existing source raster assets remain at native aspect and use a centered cover only for the one-screen friend step.
+- Copy/content: unchanged.
+- Focused comparison: friend avatar/next-button regions and the Party Plus cart CTA were inspected because interaction fidelity depends on their exact alignment.
+
+## Verification
+
+- Primary interactions tested: friend selection, next-step navigation, Party Plus cart navigation.
+- JavaScript behavior remained error-free during the tested flow; CSS and repository diff checks passed.
+- No actionable P0/P1/P2 difference remains in the requested regions.
+
+Final result: passed.
+
 # Design QA — 셀러 보내기·16:9 흐름 카드 (2026-09-17)
 
 ## Structural Fix
