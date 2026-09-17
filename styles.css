@@ -9538,11 +9538,11 @@ button.cellar-slot:focus-visible {
 
 /* September 17 interaction alignment pass */
 .cellar-item-badge {
-  top: 8px;
-  left: 8px;
-  width: 88px;
-  height: 54px;
-  padding: 12px 11px;
+  top: 0;
+  left: 0;
+  width: 96px;
+  height: 60px;
+  padding: 16px 18px;
   clip-path: polygon(0 0, 100% 0, 58% 100%, 0 100%);
 }
 
