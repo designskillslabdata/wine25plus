@@ -842,12 +842,6 @@
           <button type="button" data-action="recommended">주류 추천 받으러 가기 <img src="./assets/account/cellar-arrow.svg" alt="" /></button>
         </nav>
 
-        <div class="cellar-renewal" aria-label="피그마 기준 나만의 술장">
-          <img src="./assets/cellar-renewal/content/cellar-main.png" alt="김무무네 나만의 술장" />
-          <button class="cellar-renewal-hit cellar-renewal-sort" type="button" data-cellar-overlay="sort" aria-label="정렬 방식 선택"></button>
-          <button class="cellar-renewal-hit cellar-renewal-item cellar-renewal-item--normal" type="button" data-cellar-overlay="item" aria-label="보관 주류 상세"></button>
-          <button class="cellar-renewal-hit cellar-renewal-item cellar-renewal-item--favorite" type="button" data-cellar-overlay="favorite" aria-label="찜술 상세"></button>
-        </div>
       </section>
 
       <section class="cellar-figma-page" data-cellar-page="grade" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>등급 안내</h1><span></span></header><img src="./assets/cellar-renewal/content/grade-guide.png" alt="와인25 플러스 등급 안내" /></section>
@@ -855,7 +849,49 @@
       <section class="cellar-figma-page cellar-friends-page" data-cellar-page="friends" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>친구의 술장</h1><span></span></header><img src="./assets/cellar-renewal/content/friends.png" alt="친구의 술장 목록" /><button data-cellar-friend="kim" aria-label="김머용 술장"></button><button data-cellar-friend="park" aria-label="박안즈레 술장"></button><button data-cellar-friend="lee" aria-label="이순남 술장"></button></section>
       <section class="cellar-figma-page cellar-friend-detail" data-cellar-page="friend-detail" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-back-friends aria-label="친구의 술장 목록"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>친구의 술장</h1><span></span></header><img data-cellar-friend-image src="./assets/cellar-renewal/content/friend-kim.png" alt="친구의 술장" /></section>
 
-      <div class="cellar-overlay" data-cellar-modal hidden><button class="cellar-overlay-backdrop" type="button" data-cellar-modal-close aria-label="팝업 닫기"></button><div class="cellar-overlay-card"><img data-cellar-modal-image alt="술장 팝업" /><div class="cellar-sort-options" hidden><button type="button" data-sort-value="직접 설정순">직접 설정순</button><button type="button" data-sort-value="최신 등록순">최신 등록순</button><button type="button" data-sort-value="평점 높은순">평점 높은순</button></div></div></div>
+      <div class="cellar-overlay" data-cellar-modal hidden>
+        <button class="cellar-overlay-backdrop" type="button" data-cellar-modal-close aria-label="팝업 닫기"></button>
+        <section class="cellar-overlay-card" role="dialog" aria-modal="true" aria-labelledby="cellar-modal-title">
+          <button class="cellar-overlay-close" type="button" data-cellar-modal-close aria-label="팝업 닫기">×</button>
+          <div class="cellar-item-detail" data-cellar-item-detail>
+            <span class="cellar-item-badge" data-cellar-item-badge>내 술</span>
+            <div class="cellar-item-main">
+              <img data-cellar-item-image alt="" />
+              <div class="cellar-item-copy">
+                <small data-cellar-item-eyebrow>WINE</small>
+                <h2 id="cellar-modal-title" data-cellar-item-title></h2>
+                <dl class="cellar-flavor-bars">
+                  <div><dt>당도</dt><dd><i style="--cellar-score:28%"></i></dd></div>
+                  <div><dt>바디감</dt><dd><i style="--cellar-score:58%"></i></dd></div>
+                  <div><dt>산도</dt><dd><i style="--cellar-score:83%"></i></dd></div>
+                </dl>
+                <strong>페어링 안주</strong>
+                <div class="cellar-pairings" aria-label="추천 페어링 안주">
+                  <img src="./assets/catalog/pairing-popup-04.svg" alt="과일" />
+                  <img src="./assets/catalog/pairing-popup-01.svg" alt="치즈" />
+                  <img src="./assets/catalog/pairing-popup-03.svg" alt="육류" />
+                </div>
+              </div>
+            </div>
+            <div class="cellar-item-note">
+              <strong>키워드로 표현하기</strong>
+              <p><span>과일향</span><span>데일리용</span><span>+</span></p>
+              <strong>한줄 감상 남기기</strong>
+              <small>부드러워서 부담 없이 마시기 좋고, 음식과 함께 즐기기 좋아요.</small>
+            </div>
+            <div class="cellar-item-actions">
+              <button type="button" data-cellar-modal-close>다시 담기</button>
+              <button type="button" data-cellar-purchase>구매하러 가기 <span>→</span></button>
+            </div>
+          </div>
+          <div class="cellar-sort-options" hidden>
+            <h2 id="cellar-sort-title">정렬 방식</h2>
+            <button type="button" data-sort-value="직접 설정순">직접 설정순</button>
+            <button type="button" data-sort-value="최신 등록순">최신 등록순</button>
+            <button type="button" data-sort-value="평점 높은순">평점 높은순</button>
+          </div>
+        </section>
+      </div>
 
       <section id="drink-id-view" class="drink-id-page" aria-label="MY DRINK ID" hidden>
         <div class="drink-screen drink-start" data-drink-screen="start">
