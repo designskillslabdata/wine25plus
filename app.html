@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>와인25 플러스 App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260917h" />
+    <link rel="stylesheet" href="./styles.css?v=20260917i" />
   </head>
   <body>
     <main class="phone-shell" aria-label="와인25 플러스 모바일 홈">
@@ -541,12 +541,12 @@
         </article>
 
         <article class="party-quest-screen party-exact-screen party-current-screen" data-party-screen="quest" hidden>
-          <img src="./assets/party-quest/quest-main.png" alt="영이 입사 파티 맞춤 장바구니와 파티 퀘스트" />
+          <img src="./assets/party-quest/content/quest-main.png" alt="영이 입사 파티 맞춤 장바구니와 파티 퀘스트" />
           <button class="party-exact-hotspot party-exact-cart" type="button" data-party-go="cart" aria-label="장바구니 바로가기"></button>
         </article>
 
         <article class="party-quest-screen party-exact-screen party-cart-screen" data-party-screen="cart" hidden>
-          <img src="./assets/party-quest/cart.png" alt="파티 맞춤 장바구니" />
+          <img src="./assets/party-quest/content/cart.png" alt="파티 맞춤 장바구니" />
           <button class="party-exact-hotspot party-cart-plus" type="button" data-party-qr aria-label="픽업 QR 확인"></button>
         </article>
 
@@ -556,17 +556,17 @@
         </article>
 
         <article class="party-quest-screen party-exact-screen party-camera-screen" data-party-screen="camera" hidden>
-          <img src="./assets/party-quest/camera.png" alt="픽업 인증 촬영 화면" />
+          <img src="./assets/party-quest/content/camera.png" alt="픽업 인증 촬영 화면" />
           <video class="party-camera-video" src="./assets/party-quest/party-quest.mp4" autoplay muted loop playsinline aria-label="파티퀘스트 인증 영상"></video>
           <button class="party-exact-hotspot party-camera-shutter" type="button" data-party-shutter aria-label="인증 사진 촬영"></button>
         </article>
 
         <article class="party-quest-screen party-exact-screen party-shot-screen" data-party-screen="shot" hidden>
-          <img src="./assets/party-quest/camera-shot.png" alt="픽업 인증 촬영 완료 화면" />
+          <img src="./assets/party-quest/content/camera-shot.png" alt="픽업 인증 촬영 완료 화면" />
         </article>
 
         <article class="party-quest-screen party-exact-screen party-complete-screen" data-party-screen="complete" hidden>
-          <img src="./assets/party-quest/quest-complete.png" alt="파티 퀘스트 진행 현황" />
+          <img src="./assets/party-quest/content/quest-complete.png" alt="파티 퀘스트 진행 현황" />
           <button class="party-exact-hotspot party-exact-movie" type="button" data-party-memory="movie" aria-label="영이 무비 기록 보기"></button>
           <button class="party-exact-hotspot party-exact-book" type="button" data-party-memory="book" aria-label="민지 책 기록 보기"></button>
         </article>
@@ -843,17 +843,17 @@
         </nav>
 
         <div class="cellar-renewal" aria-label="피그마 기준 나만의 술장">
-          <img src="./assets/cellar-renewal/cellar-main.png" alt="김무무네 나만의 술장" />
+          <img src="./assets/cellar-renewal/content/cellar-main.png" alt="김무무네 나만의 술장" />
           <button class="cellar-renewal-hit cellar-renewal-sort" type="button" data-cellar-overlay="sort" aria-label="정렬 방식 선택"></button>
           <button class="cellar-renewal-hit cellar-renewal-item cellar-renewal-item--normal" type="button" data-cellar-overlay="item" aria-label="보관 주류 상세"></button>
           <button class="cellar-renewal-hit cellar-renewal-item cellar-renewal-item--favorite" type="button" data-cellar-overlay="favorite" aria-label="찜술 상세"></button>
         </div>
       </section>
 
-      <section class="cellar-figma-page" data-cellar-page="grade" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>등급 안내</h1><span></span></header><img src="./assets/cellar-renewal/grade-guide.png" alt="와인25 플러스 등급 안내" /></section>
-      <section class="cellar-figma-page" data-cellar-page="filter" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>필터</h1><button class="cellar-filter-apply" type="button" data-cellar-close-page>완료</button></header><img src="./assets/cellar-renewal/filter.png" alt="술장 필터 설정" /><button class="cellar-filter-toggle filter-one" type="button" aria-label="첫 번째 필터"></button><button class="cellar-filter-toggle filter-two" type="button" aria-label="두 번째 필터"></button></section>
-      <section class="cellar-figma-page cellar-friends-page" data-cellar-page="friends" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>친구의 술장</h1><span></span></header><img src="./assets/cellar-renewal/friends.png" alt="친구의 술장 목록" /><button data-cellar-friend="kim" aria-label="김머용 술장"></button><button data-cellar-friend="park" aria-label="박안즈레 술장"></button><button data-cellar-friend="lee" aria-label="이순남 술장"></button></section>
-      <section class="cellar-figma-page cellar-friend-detail" data-cellar-page="friend-detail" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-back-friends aria-label="친구의 술장 목록"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>친구의 술장</h1><span></span></header><img data-cellar-friend-image src="./assets/cellar-renewal/friend-kim.png" alt="친구의 술장" /></section>
+      <section class="cellar-figma-page" data-cellar-page="grade" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>등급 안내</h1><span></span></header><img src="./assets/cellar-renewal/content/grade-guide.png" alt="와인25 플러스 등급 안내" /></section>
+      <section class="cellar-figma-page" data-cellar-page="filter" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>필터</h1><button class="cellar-filter-apply" type="button" data-cellar-close-page>완료</button></header><img src="./assets/cellar-renewal/content/filter.png" alt="술장 필터 설정" /><button class="cellar-filter-toggle filter-one" type="button" aria-label="첫 번째 필터"></button><button class="cellar-filter-toggle filter-two" type="button" aria-label="두 번째 필터"></button></section>
+      <section class="cellar-figma-page cellar-friends-page" data-cellar-page="friends" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-close-page aria-label="이전 화면"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>친구의 술장</h1><span></span></header><img src="./assets/cellar-renewal/content/friends.png" alt="친구의 술장 목록" /><button data-cellar-friend="kim" aria-label="김머용 술장"></button><button data-cellar-friend="park" aria-label="박안즈레 술장"></button><button data-cellar-friend="lee" aria-label="이순남 술장"></button></section>
+      <section class="cellar-figma-page cellar-friend-detail" data-cellar-page="friend-detail" hidden><header class="account-subheader"><button class="account-back" type="button" data-cellar-back-friends aria-label="친구의 술장 목록"><img src="./assets/account/back-cellar.svg" alt="" /></button><h1>친구의 술장</h1><span></span></header><img data-cellar-friend-image src="./assets/cellar-renewal/content/friend-kim.png" alt="친구의 술장" /></section>
 
       <div class="cellar-overlay" data-cellar-modal hidden><button class="cellar-overlay-backdrop" type="button" data-cellar-modal-close aria-label="팝업 닫기"></button><div class="cellar-overlay-card"><img data-cellar-modal-image alt="술장 팝업" /><div class="cellar-sort-options" hidden><button type="button" data-sort-value="직접 설정순">직접 설정순</button><button type="button" data-sort-value="최신 등록순">최신 등록순</button><button type="button" data-sort-value="평점 높은순">평점 높은순</button></div></div></div>
 
@@ -1351,6 +1351,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260917b"></script>
+    <script src="./app.js?v=20260917c"></script>
   </body>
 </html>

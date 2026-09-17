@@ -1,3 +1,29 @@
+# Design QA — 피그마 크롬 실제 제거 (2026-09-17)
+
+## Comparison Target
+
+- User reference: duplicated live/Figma top app bars in the cellar screen.
+- Affected rendered families: cellar main/grade/filter/friends/friend detail and Party Quest exact screens.
+- Viewport: centered 390 px mobile app shell in the in-app Browser.
+
+## Structural Fix
+
+- Generated content-only raster assets by physically cropping 240 source pixels from the seven 804 px cellar exports.
+- Generated content-only raster assets by physically cropping 120 source pixels from the five Party Quest exact exports.
+- Replaced source references with the cropped files; originals remain untouched as archival inputs.
+- Removed the cellar negative-margin coordinate system and the Party Quest negative artwork shift.
+- Restored the live shared Party Quest status/top app bar and removed the obsolete invisible brand hotspot.
+- Rebased cellar item controls against the cropped artwork origin.
+
+## Verification
+
+- Cellar main, friend list, and friend detail each render exactly one live status/top app bar.
+- Cellar sort interaction opens from its visible button with the cropped artwork.
+- Party Quest shot renders exactly one live status/top app bar and no embedded Figma chrome.
+- JavaScript syntax checks and `git diff --check` pass.
+
+Final result: passed.
+
 # Design QA — 좌표계·술장·여행·조합 좌표 통합 (2026-09-17)
 
 ## Comparison Target

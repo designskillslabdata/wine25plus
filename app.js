@@ -2973,15 +2973,6 @@ document.querySelectorAll('[data-party-go]').forEach((button) => button.addEvent
   window.location.hash = `#party-quest/${button.dataset.partyGo}`;
 }));
 
-partyQuestScreens.filter((screen) => screen.classList.contains('party-exact-screen')).forEach((screen) => {
-  const homeButton = document.createElement('button');
-  homeButton.className = 'party-brand-home';
-  homeButton.type = 'button';
-  homeButton.setAttribute('aria-label', 'WINE25 PLUS 홈으로 이동');
-  homeButton.addEventListener('click', () => { window.location.hash = '#top'; });
-  screen.append(homeButton);
-});
-
 document.querySelectorAll('.party-theme-options button').forEach((button) => button.addEventListener('click', () => {
   button.classList.toggle('is-selected');
   button.setAttribute('aria-pressed', String(button.classList.contains('is-selected')));
@@ -3193,7 +3184,7 @@ document.querySelectorAll('[data-cellar-friend]').forEach((button) => button.add
   const image = detail?.querySelector('[data-cellar-friend-image]');
   if (!detail || !image) return;
   list.hidden = true;
-  image.src = `./assets/cellar-renewal/${sources[button.dataset.cellarFriend]}`;
+  image.src = `./assets/cellar-renewal/content/${sources[button.dataset.cellarFriend]}`;
   detail.hidden = false;
 }));
 document.querySelector('[data-cellar-back-friends]')?.addEventListener('click', () => {
