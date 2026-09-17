@@ -1,3 +1,25 @@
+# Design QA — 니술내술+ 추천 탐색 재배치 (2026-09-17)
+
+## Comparison Target
+
+- Source visual truth: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-e8f84470-10b8-476c-9afc-3b9ddf8301b3.png`.
+- Rendered implementation: in-app Browser capture of `#drink-id/result` at an 884 × 888 browser viewport, with 390 × 844 app content and device scale 1.
+- State: 호기심 입문형 결과의 `추천 탐색` 영역.
+
+## Findings And Comparison History
+
+- Pass 1 — P2: the two lower-card text groups were vertically centered instead of anchored near the top, and `친구 플러스` appeared before `유형 둘러보기`.
+- Fix: positioned lower-card headings and descriptions at 15 px and 45 px from the card top; reordered both the DOM and visual sequence to `유형 둘러보기 → 친구 플러스`.
+- Post-fix evidence: both text groups align to the reference's upper-left rhythm, and a physical click on the first lower card navigates to `#drink-id/browse`.
+
+## Required Fidelity Surfaces
+
+- Typography/copy, colors, imagery: unchanged source assets and tokens.
+- Spacing/layout: lower-card text is top-aligned and the card order matches the reference.
+- Focused comparison: the two lower cards were inspected because the requested differences were localized to order and vertical text placement.
+
+Final result: passed.
+
 # Design QA — 픽업 인증·촬영 영상 실제 대치 (2026-09-17)
 
 ## Comparison Target

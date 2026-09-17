@@ -2364,6 +2364,19 @@ a {
   line-height: 1.5;
 }
 
+.result-link:not(.result-link--ai) strong {
+  position:absolute;
+  top:15px;
+  left:12px;
+}
+
+.result-link:not(.result-link--ai) > span {
+  position:absolute;
+  top:45px;
+  left:12px;
+  margin-top:0;
+}
+
 .result-link--friends { background: #ff5b51; }
 .result-link--types { background: #ffc40e; }
 .result-link--ai {
