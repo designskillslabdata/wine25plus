@@ -6955,7 +6955,7 @@ img.world-tour-recommendation-card {
 
 .cellar-overlay { position:absolute; z-index:1000; inset:0; display:grid; place-items:end center; background:rgba(8,12,28,.55); }
 .cellar-overlay-backdrop { position:absolute; inset:0; width:100%; border:0; background:transparent; }
-.cellar-overlay-card { position:relative; z-index:2; width:calc(100% - 34px); max-width:355px; }
+.cellar-overlay-card { position:relative; z-index:2; width:calc(100% - 34px); max-width:355px; top:-70px; }
 .cellar-overlay.is-sort .cellar-overlay-card { width:100%; max-width:402px; }
 .cellar-overlay-card > img { display:block; width:100%; height:auto; }
 .cellar-sort-options { position:absolute; inset:0; display:grid; grid-template-rows:repeat(3,1fr); padding:70px 24px 22px; }
