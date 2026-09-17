@@ -9535,3 +9535,244 @@ button.cellar-slot:focus-visible {
   .cellar-item-main { min-height: 330px; padding-top: 34px; }
   .cellar-item-main > img { height: 225px; }
 }
+
+/* September 17 interaction alignment pass */
+.cellar-item-badge {
+  top: 8px;
+  left: 8px;
+  width: 88px;
+  height: 54px;
+  padding: 12px 11px;
+  clip-path: polygon(0 0, 100% 0, 58% 100%, 0 100%);
+}
+
+.cellar-sort {
+  display: inline-flex;
+  padding: 0 10px 0 11px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  line-height: 1;
+}
+
+.cellar-sort::after {
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.detail-product-image.product-image--bottle {
+  top: 0;
+  left: 50%;
+  width: 118px;
+  height: 312px;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: multiply;
+  transform: translateX(-50%);
+}
+
+/* pickup-popup.png is cover-cropped inside the shorter app viewport. Match
+   the live hit target to the rendered button, not to the uncropped bitmap. */
+.party-modal[data-party-modal="pickup"] .party-pickup-auth {
+  top: 110cqw;
+  left: 14.8cqw;
+  width: 70.4cqw;
+  height: 10.4cqw;
+}
+
+/* Let a vertical finger gesture begun over the horizontal product rails
+   continue scrolling the page. Horizontal swipes still scroll each rail. */
+.drink-browse-product-track {
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+}
+
+/* The world-tour artwork is content only; no duplicated/baked app navigation
+   is shown at the bottom of any screen. */
+.world-tour-bottom-nav,
+.world-tour-global-nav {
+  display: none !important;
+}
+
+.world-tour-page[data-active-screen="world"] .world-tour-screen--world,
+.world-tour-page[data-active-screen="japan"] [data-world-tour-screen="japan"] {
+  padding-bottom: 0;
+}
+
+/* Native taste-pairing detail from Figma node 8:6500. */
+.pairing-finder-page.is-detail-screen {
+  height: 100dvh;
+  overflow-y: auto;
+  touch-action: pan-y;
+}
+
+.pairing-finder-page.is-detail-screen .pairing-finder-screen {
+  min-height: 100dvh;
+  padding: calc(var(--app-statusbar-height) + var(--top-appbar-height) + 18px) 0 100px;
+  background: #fff;
+}
+
+.pairing-detail-native {
+  width: min(100%, 352px);
+  margin: 0 auto;
+  color: #000;
+}
+
+.pairing-detail-product {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pairing-candidate {
+  display: inline-flex;
+  min-width: 83px;
+  height: 25px;
+  padding: 0 15px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  color: rgba(67, 67, 67, .8);
+  background: #e5f3ff;
+  font-size: 12px;
+}
+
+.pairing-detail-food {
+  display: block;
+  width: 260px;
+  height: 236px;
+  margin-top: 15px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 9px rgba(0, 0, 0, .16));
+}
+
+.pairing-detail-product h2 {
+  margin: 12px 0 14px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -.75px;
+  text-align: center;
+}
+
+.pairing-detail-tags {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.pairing-detail-tags span {
+  display: inline-flex;
+  min-width: 72px;
+  height: 31px;
+  padding: 0 14px;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #c2185b;
+  border-radius: 30px;
+  color: #c2185b;
+  font-size: 14px;
+}
+
+.pairing-detail-poll {
+  margin-top: 40px;
+}
+
+.pairing-detail-poll h3 {
+  margin: 0 0 9px;
+  color: #c2185b;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -.55px;
+}
+
+.pairing-detail-poll h3 strong { font-weight: 800; }
+.pairing-detail-poll > p { margin: 0 0 11px; color: #6a6a6a; font-size: 12px; }
+.pairing-detail-poll > p strong { font-weight: 800; }
+
+.pairing-detail-native .pairing-vote-controls {
+  position: static;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+
+.pairing-detail-native .pairing-vote-controls button {
+  display: flex;
+  height: 74px;
+  padding: 10px 3px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+  border: 1px solid #cbcbcb;
+  border-radius: 9px;
+  color: #afafaf;
+  background: #fff;
+  cursor: pointer;
+}
+
+.pairing-detail-native .pairing-vote-controls button b {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.pairing-detail-native .pairing-vote-controls button span {
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.35;
+  opacity: 1;
+}
+
+.pairing-detail-native .pairing-vote-controls button[aria-pressed="true"] {
+  border-color: #c2185b;
+  color: #c2185b;
+  background: #fff0f5;
+  box-shadow: inset 0 0 0 1px rgba(194, 24, 91, .12);
+}
+
+.pairing-detail-comments {
+  display: grid;
+  margin-top: 28px;
+  padding: 0 28px 24px;
+  gap: 28px;
+}
+
+.pairing-detail-comments article {
+  display: grid;
+  grid-template-columns: max-content max-content 1fr;
+  grid-template-areas: "best name name" "date date date" "copy copy copy" "like dislike .";
+  align-items: center;
+  column-gap: 9px;
+}
+
+.pairing-detail-comments article > em {
+  grid-area: best;
+  color: #c2185b;
+  font-size: 9px;
+  font-style: normal;
+}
+
+.pairing-detail-comments article > strong { grid-area: name; font-size: 16px; font-weight: 500; }
+.pairing-detail-comments article:not(.is-best) > strong { grid-column: 1 / -1; }
+.pairing-detail-comments article > time { grid-area: date; margin-top: 1px; color: rgba(0, 0, 0, .4); font-size: 9px; }
+.pairing-detail-comments article > p { grid-area: copy; margin: 5px 0 4px; font-size: 15px; font-weight: 300; line-height: 1.45; }
+.pairing-detail-comments article > span { display: inline-flex; align-items: center; gap: 4px; color: #a5a5a5; font-size: 12px; }
+.pairing-detail-comments article > span:first-of-type { grid-area: like; }
+.pairing-detail-comments article > span:last-of-type { grid-area: dislike; }
+.pairing-detail-comments article > span img { width: 13px; height: 13px; object-fit: contain; }
+
+@media (max-width: 360px) {
+  .pairing-detail-native { width: calc(100% - 28px); }
+  .pairing-detail-product h2 { font-size: 21px; }
+  .pairing-detail-native .pairing-vote-controls button span { font-size: 12px; }
+}

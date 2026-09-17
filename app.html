@@ -412,7 +412,6 @@
             </button>
             <img class="world-tour-recommendation-card" src="./assets/world-tour/card-mexico.png" alt="멕시코 데킬라 여행" />
           </div>
-          <div class="world-tour-bottom-nav" aria-hidden="true"></div>
         </article>
 
         <article class="world-tour-screen" data-world-tour-screen="japan" data-world-tour-title="세계 주류 여행" hidden>
@@ -497,7 +496,6 @@
           <img src="./assets/world-tour/modetour-detail.png" alt="사케의 고장 니가타에 취하다 모두투어 여행 상품 상세" />
           <button class="world-tour-hotspot world-modetour-menu" type="button" data-world-tour-back="home" aria-label="와인25 플러스 메인으로 돌아가기"></button>
         </article>
-        <div class="world-tour-global-nav" aria-hidden="true"></div>
         <div class="world-tour-product-purchase" aria-hidden="true"></div>
       </section>
 
@@ -720,11 +718,30 @@
           <div class="pairing-finder-art"><img src="./assets/pairing-finder/list.png" alt="맛잘알 조합찾기 이벤트와 대상상품 8개" /><button class="pairing-chicken-open" type="button" data-pairing-finder-go="detail" aria-label="고기반찬 닭볶음탕 자세히보기"></button></div>
         </article>
         <article class="pairing-finder-screen" data-pairing-finder-screen="detail" hidden>
-          <div class="pairing-finder-art pairing-finder-art--detail"><img src="./assets/revisions-169/pairing-detail.png" alt="고기반찬 닭볶음탕과 수수마니엘로 와인의 맛잘알 조합 상세" /></div>
-          <div class="pairing-vote-controls" aria-label="조합 평가">
-            <button type="button" aria-pressed="false">😍<span>최고의 조합</span></button>
-            <button type="button" aria-pressed="false">🤔<span>논란의 여지 있음</span></button>
-            <button type="button" aria-pressed="false">🥝<span>최악의 조합</span></button>
+          <div class="pairing-detail-native">
+            <section class="pairing-detail-product" aria-labelledby="pairing-detail-title">
+              <span class="pairing-candidate">후보 No.1</span>
+              <img class="pairing-detail-food" src="./assets/pairing-finder/food-chicken-8-6500.png" alt="고기반찬 닭볶음탕 180G" />
+              <h2 id="pairing-detail-title">고기반찬)닭볶음탕180G</h2>
+              <div class="pairing-detail-tags" aria-label="맛 태그"><span>짭짤한</span><span>매콤한</span><span>든든한</span></div>
+            </section>
+
+            <section class="pairing-detail-poll" aria-labelledby="pairing-poll-title">
+              <h3 id="pairing-poll-title"><strong>수수마니엘로</strong> 와인과 잘 어울릴까요?</h3>
+              <p><strong>84명</strong>이 최고의 조합에 투표했어요!</p>
+              <div class="pairing-vote-controls" aria-label="조합 평가">
+                <button type="button" aria-pressed="false"><b>😍</b><span>최고의 조합</span></button>
+                <button type="button" aria-pressed="false"><b>🤔</b><span>논란의 여지 있음</span></button>
+                <button type="button" aria-pressed="false"><b>🤢</b><span>최악의 조합</span></button>
+              </div>
+            </section>
+
+            <section class="pairing-detail-comments" aria-label="댓글 목록">
+              <article class="is-best"><em>Best</em><strong>김**</strong><time datetime="2026-08-23">2026.08.23</time><p>감이랑 게 다음으로 같이 먹으면 안되는 음식<br />절대먹지마</p><span><img src="./assets/pairing-finder/like-8-6500.svg" alt="좋아요" /> 28</span><span><img src="./assets/pairing-finder/dislike-8-6500.svg" alt="싫어요" /> 12</span></article>
+              <article><strong>박**</strong><time datetime="2026-08-23">2026.08.23</time><p>윗댓 그정도 아님 오바야<br />나는 ㄱㅊ았음</p><span><img src="./assets/pairing-finder/like-8-6500.svg" alt="좋아요" /> 13</span><span><img src="./assets/pairing-finder/dislike-8-6500.svg" alt="싫어요" /> 3</span></article>
+              <article><strong>최**</strong><time datetime="2026-08-23">2026.08.23</time><p>궁금하다 나도 먹어봐야지</p><span><img src="./assets/pairing-finder/like-8-6500.svg" alt="좋아요" /> 2</span><span><img src="./assets/pairing-finder/dislike-8-6500.svg" alt="싫어요" /> 0</span></article>
+              <article><strong>이**</strong><time datetime="2026-08-23">2026.08.23</time><p>이건 그냥 먹어도 맛있을듯</p><span><img src="./assets/pairing-finder/like-8-6500.svg" alt="좋아요" /> 2</span><span><img src="./assets/pairing-finder/dislike-8-6500.svg" alt="싫어요" /> 1</span></article>
+            </section>
           </div>
           <button class="pairing-comment-composer" type="button">댓글 올리기...</button>
         </article>
@@ -829,7 +846,7 @@
               <button type="button" role="tab" aria-selected="false" data-cellar-category="wine">와인</button>
               <button type="button" role="tab" aria-selected="false" data-cellar-category="other">기타주류</button>
             </div>
-            <button class="cellar-sort" type="button" data-action="cellar-sort">직접 설정순⌄</button>
+            <button class="cellar-sort" type="button" data-action="cellar-sort"><span>직접 설정순</span></button>
           </div>
 
           <div class="cellar-shelf-viewport" tabindex="0" aria-label="내 술장 보관함">

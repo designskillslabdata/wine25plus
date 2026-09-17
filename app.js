@@ -45,7 +45,7 @@ const catalogData = {
       { name: '브랜드 앤 버터 피노누아', price: '29,300원', pickup: '08/05 부터 수령', image: './assets/catalog/wine-raw-04.png' },
       { name: '앙시앙땅 (카베쉬라)', price: '37,900원', pickup: '08/05 부터 수령', image: './assets/catalog/wine-raw-06.png', imageClass: 'product-image--wine-crop' },
       { name: '알타감마 까베르네소비뇽', price: '37,900원', pickup: '08/05 부터 수령', image: './assets/catalog/wine-raw-03.png' },
-      { name: '디코이 소비뇽 블랑', price: '42,000원', pickup: '08/05 부터 수령', image: './assets/account/mascot-cellar.png' },
+      { name: '디코이 소비뇽 블랑', price: '42,000원', pickup: '08/05 부터 수령', image: './assets/account/mascot-cellar.png', imageClass: 'product-image--bottle' },
       { name: '나파 밸리 와인 셀렉션', price: '63,000원', pickup: '08/05 부터 수령', image: './assets/account/bottle-01.png' },
     ],
   },
@@ -3289,7 +3289,7 @@ document.addEventListener('keydown', (event) => {
 document.querySelectorAll('[data-sort-value]').forEach((button) => button.addEventListener('click', () => {
   document.querySelectorAll('.cellar-sort').forEach((sort) => sort.setAttribute('data-current-sort', button.dataset.sortValue));
   const legacy = document.querySelector('.cellar-sort');
-  if (legacy) legacy.textContent = `${button.dataset.sortValue}⌄`;
+  if (legacy) legacy.querySelector('span').textContent = button.dataset.sortValue;
   closeCellarModal();
   showToast(`${button.dataset.sortValue}으로 정렬했어요.`);
 }));
