@@ -9036,3 +9036,336 @@ img.world-tour-recommendation-card {
 .w25-real-mobile :is(.world-tour-modetour-loading,.world-tour-modetour-detail) > img {
   margin-top:-14.93cqw;
 }
+
+/* 니술내술+ 유형 둘러보기 — Figma 캡처를 쓰지 않는 실제 스크롤 화면 */
+.phone-shell.is-drink-view.is-drink-browse .drink-id-page > .standalone-chrome {
+  display: none !important;
+}
+
+.drink-browse-native {
+  height: calc(100dvh - 60px);
+  min-height: 0;
+  padding: 18px 0 34px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #fff;
+  color: #010a43;
+  scrollbar-width: none;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.drink-browse-native::-webkit-scrollbar,
+.drink-browse-product-track::-webkit-scrollbar {
+  display: none;
+}
+
+.drink-browse-type {
+  position: relative;
+  height: 161px;
+  margin: 0 16px;
+  padding: 15px 12px;
+  overflow: hidden;
+  border-radius: 15px;
+  color: #fff;
+  background: linear-gradient(140deg, #003fd3 8%, #2668ff 58%);
+}
+
+.drink-browse-type::after {
+  position: absolute;
+  right: -22px;
+  bottom: -96px;
+  width: 190px;
+  height: 190px;
+  border-radius: 34px;
+  background: linear-gradient(145deg, rgba(255,255,255,.42), rgba(255,255,255,.05));
+  transform: rotate(-19deg);
+  content: "";
+}
+
+.drink-browse-type > p {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: 12px;
+}
+
+.drink-browse-type time {
+  margin-left: 6px;
+  color: rgba(255,255,255,.45);
+  font-size: 10px;
+}
+
+.drink-browse-type .summary-shape {
+  position: absolute;
+  z-index: 1;
+  right: -7px;
+  bottom: -78px;
+  width: 180px;
+  height: 180px;
+  filter: brightness(0) invert(1);
+  opacity: .2;
+  transform: rotate(17deg);
+}
+
+.drink-browse-type h1 {
+  position: relative;
+  z-index: 2;
+  margin: 15px 0 2px;
+  font-size: 28px;
+  line-height: 1.35;
+}
+
+.drink-browse-type > span {
+  position: relative;
+  z-index: 2;
+  color: rgba(255,255,255,.86);
+  font-size: 15px;
+}
+
+.drink-browse-products {
+  padding: 22px 0 0 16px;
+}
+
+.drink-browse-products > h2,
+.drink-browse-community > h2 {
+  margin: 0 0 9px;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.drink-browse-product-track {
+  display: flex;
+  width: 100%;
+  padding: 0 16px 5px 0;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+.drink-browse-product {
+  position: relative;
+  display: flex;
+  width: 134px;
+  height: 210px;
+  padding: 8px 6px 10px;
+  flex: 0 0 134px;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  scroll-snap-align: start;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  color: #010a43;
+  background: #fff;
+  cursor: pointer;
+}
+
+.drink-browse-product:active {
+  border-color: #2668ff;
+  transform: scale(.985);
+}
+
+.drink-browse-product > i {
+  position: absolute;
+  z-index: 3;
+  top: 8px;
+  left: 8px;
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #cbcbcb;
+  font-size: 12px;
+  font-style: normal;
+}
+
+.drink-browse-product:first-child > i {
+  background: #2668ff;
+}
+
+.browse-product-art {
+  position: relative;
+  display: block;
+  width: 86px;
+  height: 145px;
+  flex: 0 0 145px;
+  overflow: hidden;
+}
+
+.browse-product-art > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.browse-product-art--trio > img {
+  position: absolute;
+  top: 0;
+  width: 198px;
+  max-width: none;
+  height: 145px;
+  object-fit: contain;
+}
+
+.browse-product-art--trio,
+.browse-product-art--panel {
+  width: 38px;
+  margin-right: 24px;
+  margin-left: 24px;
+}
+
+.browse-product-art--trio-one > img { left: -29px; }
+.browse-product-art--trio-two > img { left: -70px; }
+.browse-product-art--trio-three > img { left: -116px; }
+
+.browse-product-art--panel > img {
+  position: absolute;
+  top: -7px;
+  left: -109px;
+  width: 160px;
+  max-width: none;
+  height: 160px;
+  object-fit: contain;
+}
+
+.browse-product-art--panel-far > img { left: -122px; }
+
+.drink-browse-product > strong {
+  width: 100%;
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drink-browse-product > small {
+  width: 100%;
+  margin-top: 4px;
+  overflow: hidden;
+  color: rgba(1,10,67,.6);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drink-browse-community {
+  padding: 24px 16px 0;
+}
+
+.browse-community-tabs {
+  display: flex;
+  margin: 0 -2px 9px;
+  gap: 5px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.browse-community-tabs button {
+  height: 22px;
+  padding: 0 10px;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 12px;
+  color: #929292;
+  background: #efefef;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.browse-community-tabs button.is-active {
+  color: #fff;
+  background: #2668ff;
+}
+
+.browse-community-list {
+  display: grid;
+  gap: 8px;
+}
+
+.browse-community-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 122px;
+  padding: 10px 12px;
+  border: 1px solid #dedede;
+  border-radius: 15px;
+  color: rgba(0,0,0,.86);
+  background: #f7f7f7;
+  text-align: left;
+  cursor: pointer;
+}
+
+.browse-community-card[hidden] { display: none; }
+
+.browse-community-card > img {
+  float: left;
+  width: 31px;
+  height: 31px;
+  margin-right: 7px;
+}
+
+.browse-community-card > span {
+  display: flex;
+  padding-top: 1px;
+  flex-direction: column;
+}
+
+.browse-community-card > span small {
+  color: #888;
+  font-size: 8px;
+}
+
+.browse-community-card > span strong { font-size: 13px; }
+
+.browse-community-card > em {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 3px 9px;
+  border-radius: 12px;
+  color: #929292;
+  background: #efefef;
+  font-size: 9px;
+  font-style: normal;
+}
+
+.browse-community-card h3 {
+  clear: both;
+  margin: 8px 0 3px;
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.browse-community-card > p {
+  margin: 0;
+  overflow: hidden;
+  color: #888;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.browse-community-card footer {
+  display: flex;
+  margin-top: 8px;
+  align-items: center;
+  justify-content: space-between;
+  color: #888;
+  font-size: 8px;
+}
+
+.w25-real-mobile .drink-browse-native {
+  height: 100dvh;
+}
