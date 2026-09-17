@@ -9580,11 +9580,63 @@ button.cellar-slot:focus-visible {
 /* pickup-popup.png is cover-cropped inside the shorter app viewport. Match
    the live hit target to the rendered button, not to the uncropped bitmap. */
 .party-modal[data-party-modal="pickup"] .party-pickup-auth {
-  top: 110cqw;
+  top: calc(50% + 15.3cqw);
   left: 14.8cqw;
   width: 70.4cqw;
   height: 10.4cqw;
 }
+
+/* Figma 187:14758 — native lower-carousel banner. Keeping the text and
+   exported shapes separate preserves the live carousel action and scaling. */
+.story-drink-id-banner {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: inherit;
+  color: #fff;
+  background: linear-gradient(105.37deg, #0c0c3e .54%, #000 99.46%);
+  pointer-events: none;
+}
+
+.story-drink-id-banner strong,
+.story-drink-id-banner small {
+  position: absolute;
+  z-index: 2;
+  left: 16px;
+  display: block;
+  font-style: normal;
+}
+
+.story-drink-id-banner strong {
+  top: 19px;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 48px;
+  letter-spacing: -1.2px;
+}
+
+.story-drink-id-banner small {
+  bottom: 17px;
+  font-size: 14.7px;
+  font-weight: 300;
+  line-height: 1.3;
+}
+
+.story-drink-id-banner .story-drink-shape {
+  position: absolute;
+  display: block;
+  max-width: none;
+  object-fit: contain;
+}
+
+.story-drink-id-banner .story-drink-shape--9 { display: none; }
+.story-drink-id-banner .story-drink-shape--5 { top: 46.5px; left: 285.2px; width: 83.1px; height: 78.9px; transform: rotate(-41.94deg); }
+.story-drink-id-banner .story-drink-shape--4 { top: 152.5px; left: 189.5px; width: 72.3px; height: 68.7px; transform: rotate(-54.83deg); }
+.story-drink-id-banner .story-drink-shape--6 { top: 104.2px; left: 238.7px; width: 61.9px; height: 58.8px; transform: rotate(-127.96deg); }
+.story-drink-id-banner .story-drink-shape--10 { top: -9.8px; left: 271.1px; width: 66.3px; height: 62.9px; transform: rotate(-79.33deg); }
+.story-drink-id-banner .story-drink-shape--12 { top: 35.9px; left: 222.5px; width: 65.9px; height: 62.5px; transform: rotate(-66.04deg); }
+.story-drink-id-banner .story-drink-shape--3 { top: 3.9px; left: 333.1px; width: 56.7px; height: 55.2px; transform: rotate(-24.47deg); }
 
 /* Let a vertical finger gesture begun over the horizontal product rails
    continue scrolling the page. Horizontal swipes still scroll each rail. */
