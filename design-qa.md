@@ -1,3 +1,28 @@
+# Design QA — 플로우 연결선·유형 둘러보기 실제 UI (2026-09-17)
+
+## Comparison Target
+
+- Flow source visual truth: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-1da817da-efd7-4ded-83a4-20d1c055f6b8.png`.
+- Type browse source: Figma node `185:14512` in `bVhVO5l53OOGkMUv0yaYXe`.
+- Rendered implementation: in-app Browser captures of the desktop flow and `#drink-id/browse` at a 390 px app width.
+
+## Findings And Comparison History
+
+- Pass 1 — P1: story-entry connectors used the iframe's transformed document geometry, so the dotted line could start in the recommendation section below the highlighted story card.
+- Fix: anchored all story-entry connectors to the story carousel's stable right-center coordinate and kept the post-load redraw for responsive board sizing.
+- Post-fix evidence: the dotted line starts at the highlighted orange story card's right-center and reaches the selected idea card without a detached lower segment.
+- Pass 1 — P1: `유형 둘러보기` was one exported screenshot split into vertical and horizontal slices; the content itself was not interactive.
+- Fix: replaced every screenshot slice with native type, product, tab, and community components. The two product collections independently scroll horizontally, the page scrolls vertically, and community tabs filter visible posts.
+- Post-fix evidence: the first product row was scrolled from ranks 1–3 to ranks 3–5, the page was scrolled to the community section, and the `다른 유형` tab reduced the list to the matching two posts.
+
+## Required Fidelity Surfaces
+
+- Typography/copy and hierarchy follow the Figma node; exported bottle assets are stored locally and sized inside native cards.
+- The Figma status bar and GNB are not present in the browse content; only the shared app shell supplies platform chrome.
+- Product and community cards expose real button semantics and visible pressed/selected feedback.
+
+final result: passed
+
 # Design QA — 니술내술+ 추천 탐색 재배치 (2026-09-17)
 
 ## Comparison Target

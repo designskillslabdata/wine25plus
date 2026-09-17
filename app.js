@@ -335,7 +335,6 @@ const aiChatQuestion = document.querySelector('[data-ai-chat-question]');
 const aiChatMessages = document.querySelector('.ai-chat-messages');
 const sharedCartView = document.querySelector('.shared-cart-page');
 const sharedCartChrome = createStandaloneChrome(sharedCartView, 'shared-cart');
-const drinkBrowseChrome = createStandaloneChrome(drinkIdView, 'drink-browse');
 const sharedCartScreens = Array.from(document.querySelectorAll('[data-shared-cart-screen]'));
 const sharedCartForm = document.querySelector('[data-shared-cart-form]');
 const meetingInput = sharedCartForm?.elements.meeting;
@@ -1430,9 +1429,8 @@ function renderDrinkScreen(screen) {
   drinkIdView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view');
   phoneShell.classList.add('is-drink-view');
-  phoneShell.classList.toggle('is-drink-figma-screenshot', ['analyzing', 'browse', 'friend-product'].includes(screen));
+  phoneShell.classList.toggle('is-drink-figma-screenshot', ['analyzing', 'friend-product'].includes(screen));
   phoneShell.classList.toggle('is-drink-browse', screen === 'browse');
-  if (screen === 'browse') updateStandaloneChrome(drinkBrowseChrome, ['유형 둘러보기', 'result', false], 'drink-id');
   closePairingModal();
 
   drinkScreens.forEach((element) => { element.hidden = element.dataset.drinkScreen !== screen; });
@@ -2246,6 +2244,28 @@ document.querySelectorAll('[data-drink-retake]').forEach((button) => button.addE
 document.querySelectorAll('[data-drink-back]').forEach((button) => {
   button.addEventListener('click', () => {
     window.location.hash = button.dataset.drinkBack === 'home' ? '#top' : `#drink-id/${button.dataset.drinkBack}`;
+  });
+});
+
+document.querySelectorAll('[data-browse-product]').forEach((button) => {
+  button.addEventListener('click', () => {
+    showToast(`${button.dataset.browseProduct} 상품을 선택했어요.`);
+  });
+});
+
+const browseCommunityTabs = Array.from(document.querySelectorAll('[data-browse-community-tab]'));
+const browseCommunityCards = Array.from(document.querySelectorAll('[data-community-type]'));
+browseCommunityTabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const filter = tab.dataset.browseCommunityTab;
+    browseCommunityTabs.forEach((item) => {
+      const selected = item === tab;
+      item.classList.toggle('is-active', selected);
+      item.setAttribute('aria-selected', String(selected));
+    });
+    browseCommunityCards.forEach((card) => {
+      card.hidden = filter !== 'all' && card.dataset.communityType !== filter;
+    });
   });
 });
 

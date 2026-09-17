@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f4f5fb" />
     <title>와인25 플러스 App</title>
-    <link rel="stylesheet" href="./styles.css?v=20260917n" />
+    <link rel="stylesheet" href="./styles.css?v=20260917o" />
   </head>
   <body>
     <main class="phone-shell" aria-label="와인25 플러스 모바일 홈">
@@ -926,11 +926,52 @@
           <section class="friend-activity"><h2>최근 활동</h2><article><span class="mini-type-shape"><img src="./assets/drink-id/type-green.svg" alt="" /></span><p><strong>수빈님이 새로운 상품을 찜했어요</strong><small>2시간전</small></p><img src="./assets/drink-id/friend-product.png" alt="베어풋 버블리 핑크 모스카토" /><div><strong>베어풋 버블리 핑크 모스카토</strong><span>스파클링 와인(미국)</span><small>★ 4.3(238)</small><button type="button" data-drink-go="friend-product">상품 페이지로 가기</button></div></article><article><span class="mini-type-shape"><img src="./assets/drink-id/type-yellow.svg" alt="" /></span><p><strong>보연님이 별점 4.5점을 남겼어요</strong><small>1일전</small></p><img src="./assets/catalog/wine-raw-06.png" alt="레이다 피노누아" /><div><strong>레이다 피노누아</strong><span>피노누아 와인(칠레)</span><small>★ 4.3(238)</small><button type="button" data-drink-go="friend-product">상품 페이지로 가기</button></div></article></section>
         </div>
 
-        <div class="drink-screen drink-browse drink-browse-figma" data-drink-screen="browse" hidden>
-          <div class="drink-browse-slice drink-browse-head"><img src="./assets/revisions-169/drink-browse.png" alt="유형 둘러보기와 호기심 입문형" /></div>
-          <div class="drink-browse-row" tabindex="0" aria-label="내 유형 인기 주류 TOP 5 가로 스크롤"><span><img src="./assets/revisions-169/drink-browse.png" alt="내 유형 인기 주류 TOP 5" /></span></div>
-          <div class="drink-browse-row drink-browse-row--weekly" tabindex="0" aria-label="주간 전체 픽 BEST 가로 스크롤"><span><img src="./assets/revisions-169/drink-browse.png" alt="주간 전체 픽 BEST" /></span></div>
-          <div class="drink-browse-slice drink-browse-community"><img src="./assets/revisions-169/drink-browse.png" alt="유형별 커뮤니티" /></div>
+        <div class="drink-screen drink-browse drink-browse-native" data-drink-screen="browse" hidden>
+          <article class="drink-browse-type" aria-label="나의 주류 유형 호기심 입문형">
+            <p>나의 주류 유형 <time>2026.08.18</time></p>
+            <img class="summary-shape" src="./assets/drink-id/type-blue.svg" alt="" />
+            <h1 class="summary-title">호기심 입문형</h1>
+            <span class="summary-tagline">취향을 찾아가는 탐험가</span>
+          </article>
+
+          <section class="drink-browse-products" aria-labelledby="type-picks-title">
+            <h2 id="type-picks-title">내 유형 인기 픽 TOP 5</h2>
+            <div class="drink-browse-product-track" tabindex="0" aria-label="내 유형 인기 픽 TOP 5 가로 스크롤">
+              <button class="drink-browse-product" type="button" data-browse-product="디아만테 모스카토 다스티"><i>1</i><span class="browse-product-art"><img src="./assets/drink-id/browse/raw-01.png" alt="디아만테 모스카토 다스티" /></span><strong>디아만테 모스카토 다스티</strong><small>1,231명이 주문했어요</small></button>
+              <button class="drink-browse-product" type="button" data-browse-product="또스띠 핑크 모스까또"><i>2</i><span class="browse-product-art browse-product-art--trio browse-product-art--trio-one"><img src="./assets/drink-id/browse/raw-09.png" alt="또스띠 핑크 모스까또" /></span><strong>또스띠 핑크 모스까또</strong><small>1,021명이 주문했어요</small></button>
+              <button class="drink-browse-product" type="button" data-browse-product="발레벨보 베르미글리오"><i>3</i><span class="browse-product-art browse-product-art--trio browse-product-art--trio-two"><img src="./assets/drink-id/browse/raw-09.png" alt="발레벨보 베르미글리오" /></span><strong>발레벨보 베르미글리오</strong><small>955명이 주문했어요</small></button>
+              <button class="drink-browse-product" type="button" data-browse-product="크레스만 그랑 리저브 쏘떼른"><i>4</i><span class="browse-product-art browse-product-art--trio browse-product-art--trio-three"><img src="./assets/drink-id/browse/raw-09.png" alt="크레스만 그랑 리저브 쏘떼른" /></span><strong>크레스만 그랑 리저브 쏘떼른</strong><small>801명이 주문했어요</small></button>
+              <button class="drink-browse-product" type="button" data-browse-product="JP슈네 스파클링 드미섹"><i>5</i><span class="browse-product-art"><img src="./assets/drink-id/browse/raw-08.png" alt="JP슈네 스파클링 드미섹" /></span><strong>JP슈네 스파클링 드미섹</strong><small>603명이 주문했어요</small></button>
+            </div>
+          </section>
+
+          <section class="drink-browse-products" aria-labelledby="weekly-picks-title">
+            <h2 id="weekly-picks-title">주간 전체 픽 BEST</h2>
+            <div class="drink-browse-product-track" tabindex="0" aria-label="주간 전체 픽 BEST 가로 스크롤">
+              <button class="drink-browse-product" type="button" data-browse-product="후베 깜프스"><i>1</i><span class="browse-product-art browse-product-art--panel"><img src="./assets/drink-id/browse/raw-02.png" alt="후베 깜프스" /></span><strong>후베 깜프스</strong><small>7,238명이 주문했어요</small></button>
+              <button class="drink-browse-product" type="button" data-browse-product="디 스테파니"><i>2</i><span class="browse-product-art browse-product-art--panel"><img src="./assets/drink-id/browse/raw-03.png" alt="디 스테파니" /></span><strong>디 스테파니</strong><small>5,230명이 주문했어요</small></button>
+              <button class="drink-browse-product" type="button" data-browse-product="레이디 피노누아"><i>3</i><span class="browse-product-art browse-product-art--panel"><img src="./assets/drink-id/browse/raw-14.png" alt="레이디 피노누아" /></span><strong>레이디 피노누아</strong><small>2,945명이 주문했어요</small></button>
+              <button class="drink-browse-product" type="button" data-browse-product="토브렉 쉬라"><i>4</i><span class="browse-product-art browse-product-art--panel"><img src="./assets/drink-id/browse/raw-05.png" alt="토브렉 쉬라" /></span><strong>토브렉 쉬라</strong><small>1,831명이 주문했어요</small></button>
+              <button class="drink-browse-product" type="button" data-browse-product="실레니 쇼비뇽블랑"><i>5</i><span class="browse-product-art browse-product-art--panel browse-product-art--panel-far"><img src="./assets/drink-id/browse/raw-04.png" alt="실레니 쇼비뇽블랑" /></span><strong>실레니 쇼비뇽블랑</strong><small>1,203명이 주문했어요</small></button>
+            </div>
+          </section>
+
+          <section class="drink-browse-community" aria-labelledby="browse-community-title">
+            <h2 id="browse-community-title">커뮤니티</h2>
+            <div class="browse-community-tabs" role="tablist" aria-label="커뮤니티 유형 필터">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-browse-community-tab="all">전체</button>
+              <button type="button" role="tab" aria-selected="false" data-browse-community-tab="mine">나와 같은 유형</button>
+              <button type="button" role="tab" aria-selected="false" data-browse-community-tab="other">다른 유형</button>
+              <button type="button" role="tab" aria-selected="false" data-browse-community-tab="qna">Q&amp;A</button>
+            </div>
+            <div class="browse-community-list">
+              <button class="browse-community-card" type="button" data-community-type="mine"><img src="./assets/drink-id/type-blue.svg" alt="" /><span><small>호기심 입문형</small><strong>술찾아저멀리</strong></span><em>나와 같은 유형</em><h3>편의점 야메 레시피 공유해요</h3><p>투명한 컵에 얼음을 담고 눈대중으로 소주...</p><footer><span>전체 글 보기</span><span>♡ 12　▢ 8</span></footer></button>
+              <button class="browse-community-card" type="button" data-community-type="other"><img src="./assets/drink-id/type-red.svg" alt="" /><span><small>주류 고인물</small><strong>빨랑빨랑</strong></span><h3>내가 지금까지 먹으면서 나쁘지 않았던 와인</h3><p>일단 도수 엄청 높고 드라이한 와인 위주로 정리...</p><footer><span>전체 글 보기</span><span>♡ 12　▢ 8</span></footer></button>
+              <button class="browse-community-card" type="button" data-community-type="qna"><img src="./assets/drink-id/type-green.svg" alt="" /><span><small>알딸딸형</small><strong>선지</strong></span><h3>분위기 좋은 와인바</h3><p>한잔씩 마시면서 취하고 싶은 사람 모여라</p><footer><span>전체 글 보기</span><span>♡ 12　▢ 8</span></footer></button>
+              <button class="browse-community-card" type="button" data-community-type="other"><img src="./assets/drink-id/type-green.svg" alt="" /><span><small>모든걸 먹고파</small><strong>하이볼좋아</strong></span><h3>같이 섞어마시면 좋은 조합</h3><p>추천해주세요</p><footer><span>전체 글 보기</span><span>♡ 12　▢ 8</span></footer></button>
+              <button class="browse-community-card" type="button" data-community-type="qna"><img src="./assets/drink-id/type-blue.svg" alt="" /><span><small>편안한 찻잔형</small><strong>유진</strong></span><h3>드라이 와인 추천</h3><p>입문자가 가볍게 마시기 좋은 드라이 와인 추천해주세요</p><footer><span>전체 글 보기</span><span>♡ 12　▢ 8</span></footer></button>
+            </div>
+          </section>
         </div>
 
         <div class="drink-screen drink-friend-product" data-drink-screen="friend-product" hidden>
@@ -1351,6 +1392,6 @@
 
       <div class="toast" role="status" aria-live="polite"></div>
     </main>
-    <script src="./app.js?v=20260917d"></script>
+    <script src="./app.js?v=20260917e"></script>
   </body>
 </html>
