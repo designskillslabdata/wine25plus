@@ -6935,7 +6935,7 @@ img.world-tour-recommendation-card {
 .cellar-renewal-sort { top:38cqw; right:4%; width:27%; height:12cqw; }
 .cellar-renewal-item { width:22%; height:29cqw; }
 .cellar-renewal-item--normal { top:49cqw; left:6%; }
-.cellar-renewal-item--favorite { top:49cqw; left:29%; }
+.cellar-renewal-item--favorite { top:82cqw; left:39%; }
 
 .cellar-figma-page[hidden], .cellar-overlay[hidden] { display:none !important; }
 .cellar-figma-page { position:relative; width:100%; height:calc(100dvh - var(--app-statusbar-height)); overflow-x:hidden; overflow-y:auto; background:#fff; scrollbar-width:none; container-type:inline-size; }
