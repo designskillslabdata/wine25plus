@@ -9516,8 +9516,8 @@ button.cellar-slot:focus-visible {
 }
 
 .party-complete-screen .party-exact-book {
-  top: 26.8cqw;
-  right: 21.8cqw;
+  top: 35cqw;
+  right: 19.2cqw;
   width: 13cqw;
   height: 13cqw;
 }
@@ -9589,6 +9589,15 @@ button.cellar-slot:focus-visible {
    the live hit target to the rendered button, not to the uncropped bitmap. */
 .party-modal[data-party-modal="pickup"] .party-pickup-auth {
   top: calc(50% + 15.3cqw);
+  left: 14.8cqw;
+  width: 70.4cqw;
+  height: 10.4cqw;
+}
+
+/* quest-popup.png uses the same 393x852 centered cover canvas. Anchor the
+   live control to the artwork button instead of a viewport-height percent. */
+.party-modal[data-party-modal="capture"] .party-capture-complete {
+  top: calc(50% + 37.9cqw);
   left: 14.8cqw;
   width: 70.4cqw;
   height: 10.4cqw;
