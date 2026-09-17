@@ -1779,7 +1779,7 @@ document.querySelectorAll('[data-cellarmate-save]').forEach((button) => button.a
 
 document.querySelectorAll('[data-cellarmate-friend]').forEach((button) => {
   button.addEventListener('click', () => {
-    document.querySelector('[data-cellarmate-friend-image]').src = './assets/cellarmate-sent/friend-selected.png';
+    document.querySelector('[data-cellarmate-friend-image]').src = './assets/cellarmate-sent/content/friend-selected.png';
     document.querySelector('[data-cellarmate-next-friend]').disabled = false;
   });
 });
@@ -1795,7 +1795,7 @@ document.querySelector('.cellarmate-friend-stage')?.addEventListener('click', (e
 });
 
 document.querySelector('[data-cellarmate-product]')?.addEventListener('click', () => {
-  document.querySelector('[data-cellarmate-product-image]').src = './assets/cellarmate-sent/product-selected.png';
+  document.querySelector('[data-cellarmate-product-image]').src = './assets/cellarmate-sent/content/product-selected.png';
   document.querySelector('.cellarmate-product-stage')?.classList.add('is-selected');
   document.querySelector('.cellarmate-product-next').disabled = false;
   document.querySelectorAll('[data-cellarmate-product-send]').forEach((button) => { button.disabled = false; });
