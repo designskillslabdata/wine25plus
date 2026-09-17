@@ -172,6 +172,7 @@ const cellarItemImage = document.querySelector('[data-cellar-item-image]');
 const cellarItemTitle = document.querySelector('[data-cellar-item-title]');
 const cellarItemEyebrow = document.querySelector('[data-cellar-item-eyebrow]');
 const cellarItemBadge = document.querySelector('[data-cellar-item-badge]');
+const cellarPairings = document.querySelector('[data-cellar-pairings]');
 const cellarPurchase = document.querySelector('[data-cellar-purchase]');
 const cellarmateView = document.querySelector('.cellarmate-page');
 const cellarmateScreens = Array.from(document.querySelectorAll('[data-cellarmate-screen]'));
@@ -463,7 +464,7 @@ const cellarBottles = [
   { image: './assets/account/bottle-02.png', category: 'liquor', label: '잭다니엘 허니', productCategory: 'liquor', productIndex: 4 },
   { image: './assets/account/bottle-03.png', category: 'beer', label: '켈리 앰버 라거', productCategory: 'beer', productIndex: 4 },
   { image: './assets/account/bottle-04.png', category: 'beer', label: '테라 라거', productCategory: 'beer', productIndex: 5 },
-  { image: './assets/account/bottle-05.png', category: 'wine', label: '디코이 소비뇽 블랑', productCategory: 'wine', productIndex: 4, favorite: true },
+  { image: './assets/account/bottle-05.png', category: 'wine', label: '디코이 소비뇽 블랑', productCategory: 'wine', productIndex: 4, favorite: true, pairings: [4, 2] },
   { image: './assets/account/bottle-01.png', category: 'wine', label: '나파 밸리 와인 셀렉션', productCategory: 'wine', productIndex: 5 },
 ];
 
@@ -1328,6 +1329,14 @@ function renderCellarSlots(category = 'all') {
       image.src = bottle.image;
       image.alt = bottle.label;
       slot.append(image);
+      if (bottle.favorite) {
+        slot.classList.add('is-favorite');
+        const favorite = document.createElement('span');
+        favorite.className = 'cellar-slot-favorite';
+        favorite.setAttribute('aria-label', '찜술');
+        favorite.textContent = '♥';
+        slot.append(favorite);
+      }
       slot.addEventListener('click', () => openCellarModal(bottle.favorite ? 'favorite' : 'item', bottle));
     } else {
       slot.classList.add('cellar-slot--empty');
@@ -3244,6 +3253,16 @@ function openCellarModal(kind, bottle = cellarBottles[0]) {
     cellarItemEyebrow.textContent = detailProfiles[bottle.productCategory]?.eyebrow?.replace('와인25 플러스 ', '') || 'MY DRINK';
     cellarItemBadge.textContent = kind === 'favorite' ? '찜술' : '내 술';
     cellarModal.classList.toggle('is-favorite', kind === 'favorite');
+    const pairingOrder = bottle.pairings || [4, 1, 3];
+    if (cellarPairings) {
+      cellarPairings.replaceChildren(...pairingOrder.map((assetIndex) => {
+        const image = document.createElement('img');
+        image.src = `./assets/catalog/pairing-popup-0${assetIndex}.svg`;
+        image.alt = '추천 페어링 안주';
+        image.dataset.pairing = String(assetIndex);
+        return image;
+      }));
+    }
   }
 
   cellarModal.hidden = false;

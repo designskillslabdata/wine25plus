@@ -9431,6 +9431,70 @@ button.cellar-slot:focus-visible {
   box-shadow: inset 0 0 0 4px #087ff5;
 }
 
+.cellar-slot-favorite {
+  position: absolute;
+  z-index: 2;
+  top: 6px;
+  right: 6px;
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border-radius: 50%;
+  color: #1680f4;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .16);
+  font-size: 15px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* The diagonal status label belongs inside the card; it must never extend
+   beyond the modal or shift the interactive content below it. */
+.cellar-overlay-card {
+  isolation: isolate;
+}
+
+.cellar-item-detail {
+  overflow: hidden;
+}
+
+.cellar-item-badge {
+  box-sizing: border-box;
+  width: 96px;
+  min-width: 0;
+  height: 60px;
+  padding: 14px 13px;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 58% 100%, 0 100%);
+}
+
+.cellar-overlay.is-favorite .cellar-item-detail {
+  background: linear-gradient(145deg, #1687ff 0%, #08bfda 100%);
+}
+
+.cellar-overlay.is-favorite .cellar-item-badge {
+  color: #087ff5;
+}
+
+.cellar-overlay.is-favorite .cellar-flavor-bars dd {
+  background: rgba(255, 255, 255, .14);
+}
+
+.cellar-overlay.is-favorite .cellar-item-copy > small {
+  color: rgba(255, 255, 255, .9);
+}
+
+.cellar-pairings img {
+  box-sizing: border-box;
+  object-fit: contain;
+}
+
+.cellar-pairings img[data-pairing="1"] { background: #ffb23d; }
+.cellar-pairings img[data-pairing="2"] { background: #74483d; }
+.cellar-pairings img[data-pairing="3"] { background: #74483d; }
+.cellar-pairings img[data-pairing="4"] { background: #ef3943; }
+
 .cellar-bottom-actions {
   padding-bottom: max(18px, env(safe-area-inset-bottom));
 }
@@ -9441,11 +9505,25 @@ button.cellar-slot:focus-visible {
 
 /* Party Quest artwork keeps its illustration, while every action uses the
    same responsive coordinate system as that artwork. */
-.party-exact-cart { top:175cqw; left:31cqw; width:38cqw; height:14cqw; }
+.party-exact-cart { top:179.5cqw; left:31.8cqw; width:36.4cqw; height:10cqw; }
 .party-cart-plus { top:25cqw; left:16cqw; width:68cqw; height:96cqw; }
 .party-pickup-auth { top:123.4cqw; left:14.8cqw; width:70.4cqw; height:10.7cqw; }
 .party-camera-shutter { top:160cqw; left:34cqw; width:32cqw; height:18.5cqw; }
 .party-capture-complete { top:66.9%; left:8%; width:84%; height:7.2%; }
+
+.party-complete-screen .party-exact-movie {
+  top: 53.5cqw;
+  left: 13.5cqw;
+  width: 13cqw;
+  height: 13cqw;
+}
+
+.party-complete-screen .party-exact-book {
+  top: 26.8cqw;
+  right: 21.8cqw;
+  width: 13cqw;
+  height: 13cqw;
+}
 
 .party-exact-hotspot:focus-visible {
   outline: 3px solid rgba(255,255,255,.92);
