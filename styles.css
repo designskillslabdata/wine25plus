@@ -7971,7 +7971,8 @@ img.world-tour-recommendation-card {
 .party-cart-plus { top:200px; left:20%; width:60%; height:280px; }
 .party-pickup-auth { top:480px; left:14%; width:72%; height:58px; }
 .party-camera-shutter { top:750px; left:38%; width:24%; height:90px; border-radius:50%; }
-.party-camera-video { position:absolute; z-index:2; top:47.8cqw; left:1cqw; width:98cqw; height:135.8cqw; border-radius:20px; background:#111; object-fit:cover; }
+.party-camera-screen > img { position:relative; z-index:2; pointer-events:none; }
+.party-camera-video { position:absolute; z-index:1; top:18.15cqw; left:1cqw; width:98cqw; height:135.8cqw; border-radius:5cqw; background:#111; object-fit:cover; }
 .party-exact-modal { z-index:100; display:block; background:rgba(8,9,12,.68); }
 .party-exact-modal-screen { position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:pointer; }
 .party-exact-modal img, .party-exact-modal-screen img { display:block; width:100%; height:100%; object-fit:cover; }
@@ -8862,8 +8863,8 @@ img.world-tour-recommendation-card {
 
 .party-exact-cart { top:175cqw; left:31%; width:38%; height:14cqw; }
 .party-cart-plus { top:13.5%; left:16%; width:68%; height:38%; }
-.party-pickup-auth { top:65.1%; left:9%; width:82%; height:9%; }
-.party-camera-shutter { top:84.7%; left:34%; width:32%; height:12%; }
+.party-pickup-auth { top:482px; left:14.8%; width:70.4%; height:40px; }
+.party-camera-shutter { top:625px; left:34%; width:32%; height:72px; }
 .party-capture-complete { top:65%; left:8%; width:84%; height:10%; }
 
 .w25-real-mobile .world-tour-page[data-active-screen="modetour-loading"] > .standalone-chrome,
@@ -9000,8 +9001,8 @@ img.world-tour-recommendation-card {
 }
 
 .w25-real-mobile .party-cart-plus { top:9%; }
-.w25-real-mobile .party-camera-video { top:18.45cqw; }
-.w25-real-mobile .party-camera-shutter { top:71%; }
+.w25-real-mobile .party-camera-video { top:18.15cqw; }
+.w25-real-mobile .party-camera-shutter { top:625px; }
 
 .pairing-tiles > span:nth-child(1), .pairing-dialog-icons img:nth-child(1) { background:#d99a42 !important; }
 .pairing-tiles > span:nth-child(2), .pairing-dialog-icons img:nth-child(2) { background:#c2673d !important; }

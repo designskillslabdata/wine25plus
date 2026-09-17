@@ -1,3 +1,34 @@
+# Design QA — 픽업 인증·촬영 영상 실제 대치 (2026-09-17)
+
+## Comparison Target
+
+- Source visual truth: `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-b923e18a-8eca-4edd-a752-5f4e36b0ad9f.png` and `/var/folders/w_/3vv3ts0x77x7j5c628ltrvy00000gn/T/codex-clipboard-dfce32d3-7b51-4a2d-a3b1-2a3ad10b210a.png`.
+- Rendered implementation: in-app Browser captures of `#party-quest/pickup` and `#party-quest/camera` at an 884 × 888 browser viewport, 390 × 844 app content, device scale 1.
+- States: pickup-complete popup, visible CTA press, live pickup-auth video, and shutter press.
+
+## Findings And Comparison History
+
+- Pass 1 — P0: the pickup CTA hotspot used viewport-height percentages and landed below the visible pink button.
+- Fix: rebased the hotspot to the fixed 390 px artwork coordinate (`top: 482px`, `height: 40px`).
+- Post-fix evidence: a physical click at the center of the visible pink button routes to `#party-quest/camera`.
+- Pass 1 — P1: the live video began around 48cqw while the source photo region begins around 18cqw, exposing the baked still above the video and creating two stacked faces.
+- Fix: removed the baked photo region from a new transparent `camera-shell.png`; the live video now occupies the cleared region behind the shell at the source image's exact bounds. The shutter hotspot is likewise tied to the artwork's 625 px coordinate.
+- Post-fix evidence: the camera screen shows one continuous live video, one header, and one shutter. Clicking the visible shutter routes to `#party-quest/shot`.
+
+## Required Fidelity Surfaces
+
+- Typography, colors, copy: source artwork preserved unchanged.
+- Spacing/layout: popup CTA, video aperture, and shutter share the 390 px artwork coordinate system.
+- Image quality/assets: the still photo is physically absent from the camera shell; the video replaces rather than covers it.
+- Focused comparison was required for the popup CTA and the video aperture because both issues were coordinate-specific.
+
+## Verification
+
+- Tested visible pickup CTA by point, camera route, single-video rendering, and visible shutter by point.
+- JavaScript syntax and repository diff checks passed with no actionable P0/P1/P2 issue remaining.
+
+Final result: passed.
+
 # Design QA — 보낸 셀러·파티플러스 터치 좌표 (2026-09-17)
 
 ## Comparison Target
