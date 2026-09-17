@@ -47,6 +47,21 @@ const catalogData = {
       { name: '알타감마 까베르네소비뇽', price: '37,900원', pickup: '08/05 부터 수령', image: './assets/catalog/wine-raw-03.png' },
       { name: '디코이 소비뇽 블랑', price: '42,000원', pickup: '08/05 부터 수령', image: './assets/account/mascot-cellar.png', imageClass: 'product-image--bottle' },
       { name: '나파 밸리 와인 셀렉션', price: '63,000원', pickup: '08/05 부터 수령', image: './assets/account/bottle-01.png' },
+      {
+        name: '베어풋 버블리 핑크 모스카토',
+        price: '19,900원',
+        oldPrice: '25,500원',
+        discount: '22%',
+        pickup: '09/21(월) 부터 수령',
+        image: './assets/drink-id/friend-product-bottle.png',
+        imageClass: 'product-image--barefoot',
+        eyebrow: 'BAREFOOT, BUBBLY PINK MOSCATO',
+        metrics: [
+          { label: '당도', value: 76 },
+          { label: '바디감', value: 48 },
+          { label: '산도', value: 62 },
+        ],
+      },
     ],
   },
   beer: {
@@ -1222,16 +1237,16 @@ function renderProductDetail(category, index) {
   if (product.imageClass) detailImage.classList.add(product.imageClass);
   detailImage.src = product.image;
   detailImage.alt = product.name;
-  detailEyebrow.textContent = profile.eyebrow;
+  detailEyebrow.textContent = product.eyebrow || profile.eyebrow;
   detailName.textContent = product.name;
   detailPrice.innerHTML = `${product.price.replace('원', '')}<small>원</small>`;
-  detailDiscount.querySelector('strong').textContent = '12%';
-  detailDiscount.querySelector('del').textContent = formatOldPrice(product.price);
+  detailDiscount.querySelector('strong').textContent = product.discount || '12%';
+  detailDiscount.querySelector('del').textContent = product.oldPrice || formatOldPrice(product.price);
   detailPickup.textContent = product.pickup.replace(' 부터 수령', '부터');
   detailView.setAttribute('aria-label', `${product.name} 상품 상세`);
 
   detailGauges.replaceChildren();
-  profile.metrics.forEach((metric) => {
+  (product.metrics || profile.metrics).forEach((metric) => {
     const item = document.createElement('span');
     item.className = 'detail-gauge';
     item.textContent = metric.label;
@@ -1452,7 +1467,7 @@ function renderDrinkScreen(screen) {
   drinkIdView.hidden = false;
   phoneShell.classList.remove('is-detail-view', 'is-account-view', 'is-cellar-view');
   phoneShell.classList.add('is-drink-view');
-  phoneShell.classList.toggle('is-drink-figma-screenshot', ['analyzing', 'friend-product'].includes(screen));
+  phoneShell.classList.toggle('is-drink-figma-screenshot', screen === 'analyzing');
   phoneShell.classList.toggle('is-drink-browse', screen === 'browse');
   updateStandaloneChrome(drinkBrowseChrome, ['유형 둘러보기', 'result', false], 'drink-id');
   closePairingModal();
@@ -1752,7 +1767,7 @@ function syncViewFromHash() {
     renderSharedCartScreen(sharedCartMatch[1]);
     return;
   }
-  const drinkMatch = window.location.hash.match(/^#drink-id\/(start|survey|analyzing|issued|result|friends|friend-product|browse|ai|ai-chat)$/);
+  const drinkMatch = window.location.hash.match(/^#drink-id\/(start|survey|analyzing|issued|result|friends|browse|ai|ai-chat)$/);
   if (drinkMatch) {
     renderDrinkScreen(drinkMatch[1]);
     return;
@@ -2244,6 +2259,12 @@ document.querySelectorAll('[data-drink-go]').forEach((button) => {
       surveyAnswers = [];
     }
     window.location.hash = `#drink-id/${destination}`;
+  });
+});
+
+document.querySelectorAll('[data-product-route]').forEach((button) => {
+  button.addEventListener('click', () => {
+    window.location.hash = `#product/${button.dataset.productRoute}`;
   });
 });
 

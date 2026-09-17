@@ -8055,9 +8055,6 @@ img.world-tour-recommendation-card {
 .drink-browse-row--weekly img { top:-576px; }
 .drink-browse-community { height:724px; }
 .drink-browse-community img { top:-840px; }
-.drink-friend-product { position:relative; height:100dvh; overflow:hidden; background:#f4f5fb; }
-.drink-friend-product > img { display:block; width:100%; height:100%; object-fit:cover; }
-.drink-friend-product > button { position:absolute; top:72px; left:4px; width:46px; height:46px; border:0; background:transparent; }
 .friend-activity article > div button { margin-top:7px; padding:5px 10px; border:1px solid #cfd2d8; border-radius:13px; background:#fff; font-size:10px; }
 
 .pairing-finder-page.is-detail-screen { height:100dvh; }
@@ -9571,6 +9568,17 @@ button.cellar-slot:focus-visible {
   left: 50%;
   width: 118px;
   height: 312px;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: multiply;
+  transform: translateX(-50%);
+}
+
+.detail-product-image.product-image--barefoot {
+  top: 0;
+  left: 50%;
+  width: 142px;
+  height: 322px;
   object-fit: contain;
   object-position: center;
   mix-blend-mode: multiply;
